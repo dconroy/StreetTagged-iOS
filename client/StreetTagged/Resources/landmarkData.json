@@ -1,0 +1,182 @@
+[
+    {
+        "name": "Turtle Rock",
+        "category": "Mural",
+        "city": "Twentynine Palms",
+        "state": "California",
+        "id": 1001,
+        "isFeatured": true,
+        "isFavorite": true,
+        "park": "Unknown Artist",
+        "coordinates": {
+            "longitude": -116.166868,
+            "latitude": 34.011286
+        },
+        "imageName": "turtlerock"
+    },
+    {
+        "name": "This Just In",
+        "category": "Stencil",
+        "city": "Port Alsworth",
+        "state": "Alaska",
+        "id": 1002,
+        "isFeatured": false,
+        "isFavorite": false,
+        "park": "Unknown Artist",
+        "coordinates": {
+            "longitude": -152.665167,
+            "latitude": 59.980167
+        },
+        "imageName": "silversalmoncreek"
+    },
+    {
+        "name": "Chilkoot",
+        "category": "Paste Up",
+        "city": "Skagway",
+        "state": "Alaska",
+        "id": 1003,
+        "isFeatured": false,
+        "isFavorite": true,
+        "park": "Unknown Artist",
+        "coordinates": {
+            "longitude": -135.334571,
+            "latitude": 59.560551
+        },
+        "imageName": "chilkoottrail"
+    },
+    {
+        "name": "St. Mary",
+        "category": "Stencil",
+        "city": "Browning",
+        "state": "Montana",
+        "id": 1004,
+        "isFeatured": true,
+        "isFavorite": true,
+        "park": "Unknown Artist",
+        "coordinates": {
+            "longitude": -113.536248,
+            "latitude": 48.69423
+        },
+        "imageName": "stmarylake"
+    },
+    {
+        "name": "Twins",
+        "category": "Stencil",
+        "city": "Twins",
+        "state": "Alaska",
+        "id": 1005,
+        "isFeatured": false,
+        "isFavorite": false,
+        "park": "Unknown Artist",
+        "coordinates": {
+            "longitude": -153.849883,
+            "latitude": 60.641684
+        },
+        "imageName": "twinlake"
+    },
+    {
+        "name": "McDonald",
+        "category": "Paste Up",
+        "city": "West Glacier",
+        "state": "Montana",
+        "id": 1006,
+        "isFeatured": false,
+        "isFavorite": false,
+        "park": "Unknown Artist",
+        "coordinates": {
+            "longitude": -113.934831,
+            "latitude": 48.56002
+        },
+        "imageName": "lakemcdonald"
+    },
+    {
+        "name": "Charley Rivers",
+        "category": "Mural",
+        "city": "Eaking",
+        "state": "Alaska",
+        "id": 1007,
+        "isFeatured": true,
+        "isFavorite": false,
+        "park": "Unknown Artist",
+        "coordinates": {
+            "longitude": -143.122586,
+            "latitude": 65.350021
+        },
+        "imageName": "charleyrivers",
+    },
+    {
+        "name": "Icy Bay",
+        "category": "Paste Up",
+        "city": "Sheung Wan",
+        "state": "Hong Kong",
+        "id": 1008,
+        "isFeatured": false,
+        "isFavorite": false,
+        "park": "Unknown Artist",
+        "coordinates": {
+            "longitude": -141.518167,
+            "latitude": 60.089917
+        },
+        "imageName": "icybay"
+    },
+    {
+        "name": "Rainbow Lake",
+        "category": "Stencil",
+        "city": "Willow",
+        "state": "Alaska",
+        "id": 1009,
+        "isFeatured": false,
+        "isFavorite": false,
+        "park": "Unknown Artist",
+        "coordinates": {
+            "longitude": -150.086103,
+            "latitude": 61.694334
+        },
+        "imageName": "rainbowlake"
+    },
+    {
+        "name": "Hidden Lake",
+        "category": "Stencil",
+        "city": "Newhalem",
+        "state": "Washington",
+        "id": 1010,
+        "isFeatured": false,
+        "isFavorite": false,
+        "park": "Unknown Artist",
+        "coordinates": {
+            "longitude": -121.17799,
+            "latitude": 48.495442
+        },
+        "imageName": "hiddenlake"
+    },
+    {
+        "name": "Chance",
+        "category": "Mural",
+        "city": "Chincoteague",
+        "state": "Virginia",
+        "id": 1011,
+        "isFeatured": false,
+        "isFavorite": false,
+        "park": "Unknown Artist",
+        "coordinates": {
+            "longitude": -75.383212,
+            "latitude": 37.91531
+        },
+        "imageName": "chincoteague"
+    },
+    {
+        "name": "Lake Umbagog",
+        "category": "Stencil",
+        "city": "Errol",
+        "state": "New Hampshire",
+        "id": 1012,
+        "isFeatured": true,
+        "isFavorite": false,
+        "park": "Unknown Artist",
+        "coordinates": {
+            "longitude": -71.056816,
+            "latitude": 44.747408
+        },
+        "imageName": "umbagog"
+    }
+]
