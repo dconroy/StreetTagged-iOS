@@ -12,7 +12,7 @@ import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    static let geoCoder = CLGeocoder()
+    
     let center = UNUserNotificationCenter.current()
     let locationManager = CLLocationManager()
 

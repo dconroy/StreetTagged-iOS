@@ -39,7 +39,6 @@
 		B7D587B0229F73C1006E8DCF /* BadgeSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D587AF229F73C1006E8DCF /* BadgeSymbol.swift */; };
 		B7D587B2229F7406006E8DCF /* RotatedBadgeSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D587B1229F7406006E8DCF /* RotatedBadgeSymbol.swift */; };
 		B7D587BA229F8288006E8DCF /* Hike.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D587B9229F8288006E8DCF /* Hike.swift */; };
-		B7D587C0229F830B006E8DCF /* hikeData.json in Resources */ = {isa = PBXBuildFile; fileRef = B7D587BF229F830B006E8DCF /* hikeData.json */; };
 		B7D587D222A0892C006E8DCF /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D587D122A0892C006E8DCF /* Home.swift */; };
 		B7D587D422A08965006E8DCF /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D587D322A08965006E8DCF /* CategoryRow.swift */; };
 		B7D587D622A08C97006E8DCF /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D587D522A08C97006E8DCF /* Profile.swift */; };
@@ -89,7 +88,6 @@
 		B7D587AF229F73C1006E8DCF /* BadgeSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeSymbol.swift; sourceTree = "<group>"; };
 		B7D587B1229F7406006E8DCF /* RotatedBadgeSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatedBadgeSymbol.swift; sourceTree = "<group>"; };
 		B7D587B9229F8288006E8DCF /* Hike.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hike.swift; sourceTree = "<group>"; };
-		B7D587BF229F830B006E8DCF /* hikeData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hikeData.json; sourceTree = "<group>"; };
 		B7D587D122A0892C006E8DCF /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		B7D587D322A08965006E8DCF /* CategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
 		B7D587D522A08C97006E8DCF /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -197,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				B739488E229F292E00C47603 /* landmarkData.json */,
-				B7D587BF229F830B006E8DCF /* hikeData.json */,
 				B7394890229F292F00C47603 /* chilkoottrail.jpg */,
 				B739488F229F292F00C47603 /* chincoteague.jpg */,
 				B739488A229F292E00C47603 /* hiddenlake.jpg */,
@@ -259,7 +256,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B739485D229F194000C47603 /* Build configuration list for PBXProject "Street Tagged" */;
+			buildConfigurationList = B739485D229F194000C47603 /* Build configuration list for PBXProject "StreetTagged" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -284,7 +281,6 @@
 			files = (
 				B739489A229F292F00C47603 /* silversalmoncreek.jpg in Resources */,
 				B7394894229F292F00C47603 /* lakemcdonald.jpg in Resources */,
-				B7D587C0229F830B006E8DCF /* hikeData.json in Resources */,
 				B7394872229F194200C47603 /* LaunchScreen.storyboard in Resources */,
 				B73948A3229F3E2200C47603 /* charleyrivers.jpg in Resources */,
 				B7394891229F292F00C47603 /* rainbowlake.jpg in Resources */,
@@ -513,7 +509,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B739485D229F194000C47603 /* Build configuration list for PBXProject "Street Tagged" */ = {
+		B739485D229F194000C47603 /* Build configuration list for PBXProject "StreetTagged" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B7394874229F194200C47603 /* Debug */,
