@@ -1,0 +1,72 @@
+PODS:
+  - Alamofire (4.9.0)
+  - AWSAuthCore (2.11.0):
+    - AWSCore (= 2.11.0)
+  - AWSAuthUI (2.11.0):
+    - AWSAuthCore (= 2.11.0)
+    - AWSCore (= 2.11.0)
+  - AWSCognitoIdentityProvider (2.11.0):
+    - AWSCognitoIdentityProviderASF (= 1.0.1)
+    - AWSCore (= 2.11.0)
+  - AWSCognitoIdentityProviderASF (1.0.1)
+  - AWSCore (2.11.0)
+  - AWSMobileClient (2.11.0):
+    - AWSAuthCore (= 2.11.0)
+    - AWSCognitoIdentityProvider (= 2.11.0)
+  - AWSUserPoolsSignIn (2.11.0):
+    - AWSAuthCore (= 2.11.0)
+    - AWSCognitoIdentityProvider (= 2.11.0)
+  - ESTabBarController-swift (2.7)
+  - lottie-ios (3.1.2)
+  - Mapbox-iOS-SDK (5.3.0)
+  - Realm (3.17.3):
+    - Realm/Headers (= 3.17.3)
+  - Realm/Headers (3.17.3)
+  - RealmSwift (3.17.3):
+    - Realm (= 3.17.3)
+
+DEPENDENCIES:
+  - Alamofire
+  - AWSAuthUI
+  - AWSCore (~> 2.11.0)
+  - AWSMobileClient
+  - AWSUserPoolsSignIn
+  - ESTabBarController-swift
+  - lottie-ios
+  - Mapbox-iOS-SDK (~> 5.3)
+  - RealmSwift
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AWSAuthCore
+    - AWSAuthUI
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
+    - AWSCore
+    - AWSMobileClient
+    - AWSUserPoolsSignIn
+    - ESTabBarController-swift
+    - lottie-ios
+    - Mapbox-iOS-SDK
+    - Realm
+    - RealmSwift
+
+SPEC CHECKSUMS:
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  AWSAuthCore: a1e02ce0f4400f49cb5611fd4ce588f8ca8d3598
+  AWSAuthUI: 4daf59697f160881c4af378027feabf1157e2bbc
+  AWSCognitoIdentityProvider: 1df180f85e314365dfded2c46c460bc7afb08b4b
+  AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
+  AWSCore: 63f0b3569679a497081c915985fbd549e6be64c1
+  AWSMobileClient: d3c127e910243c9084aa9f9966e8325268a0436b
+  AWSUserPoolsSignIn: 2e8099b896faea58a330dabd239fae7f889ef3aa
+  ESTabBarController-swift: 4fb52ad03d94d0717ef97bc9eb09a5abfdded0a2
+  lottie-ios: 49cd85b1f24f61a7708ad7ec76a523ab2d0e3100
+  Mapbox-iOS-SDK: 0ac8ea3c3ec70545d70f83afa1f1358bc4a0b148
+  Realm: 5a1d9d47bfc101dd597668b1a8af4288a2557f6d
+  RealmSwift: b7fdc2d18616621c31df5c7a398a45a2163f8eb0
+
+PODFILE CHECKSUM: 93bff9f709285f4bd12c39ef616e924848833b42
+
+COCOAPODS: 1.5.3
