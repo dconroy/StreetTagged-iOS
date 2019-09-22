@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		21DD5D98D1C6F88BAE2F7582 /* Pods_StreetTagged.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C95258509BEDBE81D7E3F57 /* Pods_StreetTagged.framework */; };
+		2B106A5592ECAA15B3018C9F /* Pods_StreetTaggedTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 966706ECBDEC1D6152A7EBD0 /* Pods_StreetTaggedTests.framework */; };
 		451F7DD5232C3D9C00DFEBFA /* NearByController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7DD4232C3D9C00DFEBFA /* NearByController.swift */; };
 		451F7DD7232C3EEC00DFEBFA /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7DD6232C3EEC00DFEBFA /* FeedController.swift */; };
 		451F7DD9232C404400DFEBFA /* FavorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7DD8232C404400DFEBFA /* FavorController.swift */; };
