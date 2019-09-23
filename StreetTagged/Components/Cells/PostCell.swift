@@ -134,7 +134,7 @@ class PostCell: BaseCollectionViewCell {
         addSubview(imageView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: imageView)
         imageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
-        imageView.topAnchor.constraint(equalTo: userProfile.bottomAnchor, constant: 6).isActive = true
+        //imageView.topAnchor.constraint(equalTo: userProfile.bottomAnchor, constant: 6).isActive = true
     }
     
     fileprivate func setupHeader() {
@@ -175,17 +175,18 @@ class PostCell: BaseCollectionViewCell {
     
     override func setup() {
         backgroundColor = .white
-        setupProfile()
+        //setupProfile()
         setupPostImage()
-        setupHeader()
+        //setupHeader()
         setupPageControll()
         setupButtons()
         setupPostText()
     }
     
     fileprivate func loadCell(_ post: Post) {
-        userProfile.loadImage(post.profile)
+        //userProfile.loadImage(post.profile)
         additionalImages = []
+        //self.backgroundColor = UIColor.red
         post.additionalImages.forEach { (_, val) in
             additionalImages.append(val)
         }
@@ -204,7 +205,7 @@ class PostCell: BaseCollectionViewCell {
         usernameLabel.text = post.username
         let postAttributedText = NSMutableAttributedString(string: post.username + " ", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
         postAttributedText.append(NSAttributedString(string: post.post , attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]))
-        postAttributedText.append(NSAttributedString(string: "\n\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 4)]))
+        //postAttributedText.append(NSAttributedString(string: "\n\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 4)]))
         postAttributedText.append(NSAttributedString(string: getTimeElapsed(post.created), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
         postText.attributedText = postAttributedText
         if  post.likes[currentUser] != nil {
@@ -218,10 +219,10 @@ class PostCell: BaseCollectionViewCell {
         }
         
         if  post.bookmarks[currentUser] != nil {
-            bookMarkButton.setImage(#imageLiteral(resourceName: "ribbon-selected").withRenderingMode(.alwaysOriginal), for: .normal)
+            bookMarkButton.setImage(#imageLiteral(resourceName: "more").withRenderingMode(.alwaysOriginal), for: .normal)
             isPostBookmarked = true
         } else {
-            bookMarkButton.setImage(#imageLiteral(resourceName: "ribbon").withRenderingMode(.alwaysOriginal), for: .normal)
+            bookMarkButton.setImage(#imageLiteral(resourceName: "more").withRenderingMode(.alwaysOriginal), for: .normal)
             isPostBookmarked = false
         }
     }
