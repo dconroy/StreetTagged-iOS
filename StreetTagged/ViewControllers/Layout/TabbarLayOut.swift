@@ -26,10 +26,10 @@ enum TabbarLayOut {
                 tabBarController.title = "Feed"
             }
             if index == 1 {
-                tabBarController.title = "Near By"
+                tabBarController.title = "Nearby"
             }
             if index == 3 {
-                tabBarController.title = "Favor"
+                tabBarController.title = "Favorites"
             }
             if index == 4 {
                 tabBarController.title = "Me"
@@ -62,9 +62,9 @@ enum TabbarLayOut {
         let v5 = FavorController()
         
         v1.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Feed", image: UIImage(named: "home"), selectedImage: UIImage(named: "home_1"))
-        v2.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Near By", image: UIImage(named: "find"), selectedImage: UIImage(named: "find_1"))
+        v2.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Nearby", image: UIImage(named: "find"), selectedImage: UIImage(named: "find_1"))
         v3.tabBarItem = ESTabBarItem.init(TabContentView(), title: nil, image: UIImage(named: "photo_verybig"), selectedImage: UIImage(named: "photo_verybig"))
-        v4.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Favor", image: UIImage(named: "favor"), selectedImage: UIImage(named: "favor_1"))
+        v4.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Favorites", image: UIImage(named: "favor"), selectedImage: UIImage(named: "favor_1"))
         v5.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Me", image: UIImage(named: "me"), selectedImage: UIImage(named: "me_1"))
         
         tabBarController.viewControllers = [v1, v2, v3, v4, v5]
