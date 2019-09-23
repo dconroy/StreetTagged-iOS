@@ -7,6 +7,10 @@
 //
 
 import Foundation
+import UIKit
 
 let GLOBAL_POSTS_REFRESHED = "GLOBAL_POSTS_REFRESHED"
 let GLOBAL_TOKEN_GET_ERROR = "GLOBAL_TOKEN_GET_ERROR"
+
+let searchURL = UIApplication.appAPIURL! + "/items/search"
+

@@ -46,5 +46,7 @@
 </string>
 	<key>MGLMapboxAccessToken</key>
 	<string>pk.eyJ1IjoiY29ucm95ZGF2ZSIsImEiOiJjankwbnM1dmYwNTJzM2JsanV3aHh5bnl0In0.j40QFssfW0xUwIq09TqWdw</string>
+	<key>AppAPIBaseURL</key>
+	<string>https://api-dev.streettagged.com</string>
 </dict>
 </plist>

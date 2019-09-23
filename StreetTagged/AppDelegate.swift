@@ -11,11 +11,19 @@ import CoreData
 import ESTabBarController_swift
 import AWSMobileClient
 
+extension UIApplication {
+    static var appVersion: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    }
+    static var appAPIURL: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "AppAPIBaseURL") as? String
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

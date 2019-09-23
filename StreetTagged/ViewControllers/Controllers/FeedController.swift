@@ -105,7 +105,7 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
             if posts[indexPath.item].additionalImages.count > 0 {
                 height += 10
             }
-            return CGSize(width: view.frame.width, height: height)
+            return CGSize(width: view.frame.width, height: height - 70)
         }
     }
 }
