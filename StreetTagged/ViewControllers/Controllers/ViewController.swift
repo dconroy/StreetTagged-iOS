@@ -26,7 +26,7 @@ struct Location: Decodable {
 }
 
 struct ArtWorks: Decodable {
-    let artWorks: [Art]
+    let items: [Art]
 }
 
 struct ArtWorkReview: Decodable {
@@ -126,7 +126,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction func signOut(_ sender: UIButton, forEvent event: UIEvent){
-        //AWSMobileClient.default().signOut()
         self.present(TabbarLayOut.tabbar(delegate: self), animated: true, completion: nil)
     }
     
@@ -164,7 +163,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         let decoder = JSONDecoder()
                         let artWorks = try decoder.decode(ArtWorks.self, from: response.data!)
                         print(artWorks)
-                        for art in artWorks.artWorks {
+                        for art in artWorks.items {
                             print("========================================================")
                             print(art.artId)
                             print(art.username)
@@ -173,7 +172,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             print(art.location)
                             print(art.picture)
                         }
-                        self.items = artWorks.artWorks
+                        self.items = artWorks.items
                         self.tableView.reloadData()
                     } catch let error {
                         print(error.localizedDescription)

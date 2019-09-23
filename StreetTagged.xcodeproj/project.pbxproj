@@ -37,6 +37,8 @@
 		459293E1232ADE38008B8B86 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 459293E0232ADE38008B8B86 /* awsconfiguration.json */; };
 		459293E6232C1838008B8B86 /* BasicNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293E5232C1838008B8B86 /* BasicNavigationController.swift */; };
 		459293F8232C19FB008B8B86 /* TabbarLayOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293F7232C19FB008B8B86 /* TabbarLayOut.swift */; };
+		45E0B3C223383DFE0061C98C /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E0B3C123383DFE0061C98C /* Globals.swift */; };
+		45E0B3C523383E720061C98C /* UserManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E0B3C423383E720061C98C /* UserManagement.swift */; };
 		8629758307A1A5B7C009AE39 /* Pods_StreetTaggedUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6104BBA9D02644068C1C952 /* Pods_StreetTaggedUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +97,8 @@
 		459293E5232C1838008B8B86 /* BasicNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicNavigationController.swift; sourceTree = "<group>"; };
 		459293F7232C19FB008B8B86 /* TabbarLayOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarLayOut.swift; sourceTree = "<group>"; };
 		45929401232C1DFC008B8B86 /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = ../ESTabBarController/ESTabBarControllerExample/ESTabBarControllerExample/Lottie/Lottie.framework; sourceTree = "<group>"; };
+		45E0B3C123383DFE0061C98C /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		45E0B3C423383E720061C98C /* UserManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagement.swift; sourceTree = "<group>"; };
 		5894EE83A98F276B5EEA7516 /* Pods-StreetTagged.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreetTagged.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreetTagged/Pods-StreetTagged.release.xcconfig"; sourceTree = "<group>"; };
 		6721CD85C734C2DA46F53C34 /* Pods-StreetTagged.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreetTagged.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StreetTagged/Pods-StreetTagged.debug.xcconfig"; sourceTree = "<group>"; };
 		966706ECBDEC1D6152A7EBD0 /* Pods_StreetTaggedTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StreetTaggedTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,6 +234,8 @@
 			isa = PBXGroup;
 			children = (
 				459293AF232AC515008B8B86 /* AppDelegate.swift */,
+				45E0B3C123383DFE0061C98C /* Globals.swift */,
+				45E0B3C323383E4B0061C98C /* AWS */,
 				451F7E1A232ED41900DFEBFA /* Helpers */,
 				451F7E13232ED37300DFEBFA /* DataModel */,
 				459293E2232C157B008B8B86 /* ViewControllers */,
@@ -268,6 +274,14 @@
 				451F7E1D232ED4E700DFEBFA /* Controllers */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		45E0B3C323383E4B0061C98C /* AWS */ = {
+			isa = PBXGroup;
+			children = (
+				45E0B3C423383E720061C98C /* UserManagement.swift */,
+			);
+			path = AWS;
 			sourceTree = "<group>";
 		};
 		5006A4C4127AFA849662B5E6 /* Pods */ = {
@@ -564,7 +578,9 @@
 				459293B0232AC515008B8B86 /* AppDelegate.swift in Sources */,
 				451F7DD5232C3D9C00DFEBFA /* NearByController.swift in Sources */,
 				451F7E2F232EE92900DFEBFA /* BaseTableViewCell.swift in Sources */,
+				45E0B3C223383DFE0061C98C /* Globals.swift in Sources */,
 				451F7E12232ED20A00DFEBFA /* StoreManager.swift in Sources */,
+				45E0B3C523383E720061C98C /* UserManagement.swift in Sources */,
 				451F7DDB232C428500DFEBFA /* ProfileController.swift in Sources */,
 				451F7E24232ED65B00DFEBFA /* TabBasicContentView.swift in Sources */,
 				451F7E17232ED3B200DFEBFA /* Comment.swift in Sources */,
