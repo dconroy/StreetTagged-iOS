@@ -13,6 +13,8 @@ PODS:
   - AWSMobileClient (2.11.0):
     - AWSAuthCore (= 2.11.0)
     - AWSCognitoIdentityProvider (= 2.11.0)
+  - AWSS3 (2.11.0):
+    - AWSCore (= 2.11.0)
   - AWSUserPoolsSignIn (2.11.0):
     - AWSAuthCore (= 2.11.0)
     - AWSCognitoIdentityProvider (= 2.11.0)
@@ -30,6 +32,7 @@ DEPENDENCIES:
   - AWSAuthUI
   - AWSCore (~> 2.11.0)
   - AWSMobileClient
+  - AWSS3 (~> 2.11.0)
   - AWSUserPoolsSignIn
   - ESTabBarController-swift
   - lottie-ios
@@ -45,6 +48,7 @@ SPEC REPOS:
     - AWSCognitoIdentityProviderASF
     - AWSCore
     - AWSMobileClient
+    - AWSS3
     - AWSUserPoolsSignIn
     - ESTabBarController-swift
     - lottie-ios
@@ -60,6 +64,7 @@ SPEC CHECKSUMS:
   AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
   AWSCore: 63f0b3569679a497081c915985fbd549e6be64c1
   AWSMobileClient: d3c127e910243c9084aa9f9966e8325268a0436b
+  AWSS3: 6838ee0a5e76e62297c5ee36effceaff5f8d53bb
   AWSUserPoolsSignIn: 2e8099b896faea58a330dabd239fae7f889ef3aa
   ESTabBarController-swift: 4fb52ad03d94d0717ef97bc9eb09a5abfdded0a2
   lottie-ios: 49cd85b1f24f61a7708ad7ec76a523ab2d0e3100
@@ -67,6 +72,6 @@ SPEC CHECKSUMS:
   Realm: 5a1d9d47bfc101dd597668b1a8af4288a2557f6d
   RealmSwift: b7fdc2d18616621c31df5c7a398a45a2163f8eb0
 
-PODFILE CHECKSUM: 93bff9f709285f4bd12c39ef616e924848833b42
+PODFILE CHECKSUM: 27e3165b041525c145eb1140af39cee1d80a5b07
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.5.3

@@ -9,6 +9,7 @@
 import UIKit
 import AWSMobileClient
 import Alamofire
+import AWSCore
 
 struct Art: Decodable {
     let artId: String
@@ -50,6 +51,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         initializeAWSMobileClient()
         tableView.delegate = self
         tableView.dataSource = self
+        
     }
     
     @IBOutlet var tableView: UITableView!
