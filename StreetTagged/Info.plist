@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AppAPIBaseURL</key>
+	<string>https://api-dev.streettagged.com</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -20,6 +22,11 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoiY29ucm95ZGF2ZSIsImEiOiJjankwbnM1dmYwNTJzM2JsanV3aHh5bnl0In0.j40QFssfW0xUwIq09TqWdw</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Shows your location on the map and helps improve OpenStreetMap.
+</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -41,12 +48,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Shows your location on the map and helps improve OpenStreetMap.
-</string>
-	<key>MGLMapboxAccessToken</key>
-	<string>pk.eyJ1IjoiY29ucm95ZGF2ZSIsImEiOiJjankwbnM1dmYwNTJzM2JsanV3aHh5bnl0In0.j40QFssfW0xUwIq09TqWdw</string>
-	<key>AppAPIBaseURL</key>
-	<string>https://api-dev.streettagged.com</string>
 </dict>
 </plist>
