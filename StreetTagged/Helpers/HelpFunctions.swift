@@ -28,6 +28,10 @@ public func getTimeElapsed(_ time: TimeInterval) -> String{
     return String.init(format: "%.0f years ago", diff/3.154e+7)
 }
 
+func getCurrentMillis()->Int64 {
+    return Int64(Date().timeIntervalSince1970 * 1000)
+}
+
 func heightForView(post: Post, width: CGFloat) -> CGFloat{
     let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
     label.numberOfLines = 0

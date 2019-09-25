@@ -34,13 +34,17 @@ extension String {
 public func refreshPosts() {
     if (!isRefreshingPosts) {
         isRefreshingPosts = true
-        AWSMobileClient.default().getTokens { (tokens, error) in
+        print("refreshPosts 1")
+        //AWSMobileClient.default().getTokens { (tokens, error) in
             
-            //let parameters = ["token": tokens.accessToken!.tokenString!]
+            let parameters = ["pageNumber": 1, "pageLimit": 100]
+            print("refreshPosts 2")
             
-            Alamofire.request(searchURL, method: .post, encoding: JSONEncoding.default).responseJSON { response in
+            Alamofire.request(searchURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
                 
                 do {
+                    posts.removeAll()
+                    
                     let decoder = JSONDecoder()
                     decoder.dateDecodingStrategy = .iso8601
                     let artWorks = try decoder.decode(ArtWorks.self, from: response.data!)
@@ -65,7 +69,7 @@ public func refreshPosts() {
                 }
             }
             
-        }
+        //}
     }
 }
 

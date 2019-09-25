@@ -40,6 +40,8 @@
 		459293F8232C19FB008B8B86 /* TabbarLayOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293F7232C19FB008B8B86 /* TabbarLayOut.swift */; };
 		45E0B3C223383DFE0061C98C /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E0B3C123383DFE0061C98C /* Globals.swift */; };
 		45E0B3C523383E720061C98C /* UserManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E0B3C423383E720061C98C /* UserManagement.swift */; };
+		45FB709C233AEA55008C4477 /* ImageManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FB709B233AEA55008C4477 /* ImageManagement.swift */; };
+		45FB709E233BD0F3008C4477 /* UploadArtController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FB709D233BD0F3008C4477 /* UploadArtController.swift */; };
 		DDA0C835E3AEC4139CBAD641 /* Pods_StreetTaggedUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E654C5B3A7ED1A2AAA6311D3 /* Pods_StreetTaggedUITests.framework */; };
 		F3D5AF83BF69DCC0FE7F5166 /* Pods_StreetTaggedTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C989B5E3A2DDD31352224A /* Pods_StreetTaggedTests.framework */; };
 		F8DAED13C9E74A79D3C095E8 /* Pods_StreetTagged.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E6E0CA0760198412BCBD0C3 /* Pods_StreetTagged.framework */; };
@@ -106,6 +108,8 @@
 		45929401232C1DFC008B8B86 /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = ../ESTabBarController/ESTabBarControllerExample/ESTabBarControllerExample/Lottie/Lottie.framework; sourceTree = "<group>"; };
 		45E0B3C123383DFE0061C98C /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		45E0B3C423383E720061C98C /* UserManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagement.swift; sourceTree = "<group>"; };
+		45FB709B233AEA55008C4477 /* ImageManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagement.swift; sourceTree = "<group>"; };
+		45FB709D233BD0F3008C4477 /* UploadArtController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadArtController.swift; sourceTree = "<group>"; };
 		7E6E0CA0760198412BCBD0C3 /* Pods_StreetTagged.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StreetTagged.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4A24DA72CE6711076D3AF78 /* Pods-StreetTaggedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreetTaggedTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreetTaggedTests/Pods-StreetTaggedTests.release.xcconfig"; sourceTree = "<group>"; };
 		B33F20A7421067625CB1CCD8 /* Pods-StreetTaggedUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreetTaggedUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StreetTaggedUITests/Pods-StreetTaggedUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 				451F7DD4232C3D9C00DFEBFA /* NearByController.swift */,
 				459293B1232AC515008B8B86 /* ViewController.swift */,
 				455FDD102335C81C0075509A /* ReviewArtWork.swift */,
+				45FB709D233BD0F3008C4477 /* UploadArtController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				45E0B3C423383E720061C98C /* UserManagement.swift */,
+				45FB709B233AEA55008C4477 /* ImageManagement.swift */,
 			);
 			path = AWS;
 			sourceTree = "<group>";
@@ -604,6 +610,8 @@
 				451F7E12232ED20A00DFEBFA /* StoreManager.swift in Sources */,
 				45E0B3C523383E720061C98C /* UserManagement.swift in Sources */,
 				451F7DDB232C428500DFEBFA /* ProfileController.swift in Sources */,
+				45FB709C233AEA55008C4477 /* ImageManagement.swift in Sources */,
+				45FB709E233BD0F3008C4477 /* UploadArtController.swift in Sources */,
 				451F7E24232ED65B00DFEBFA /* TabBasicContentView.swift in Sources */,
 				451F7E17232ED3B200DFEBFA /* Comment.swift in Sources */,
 				451F7E29232EE62900DFEBFA /* PostCell.swift in Sources */,

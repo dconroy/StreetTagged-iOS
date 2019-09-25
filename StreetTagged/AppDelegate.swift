@@ -12,99 +12,27 @@ import ESTabBarController_swift
 import AWSMobileClient
 import AWSS3
 
-extension UIApplication {
-    static var appVersion: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-    }
-    static var appAPIURL: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "AppAPIBaseURL") as? String
-    }
-}
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
-    
-    func uploadData() {
-
-      //let data: Data = Data() // Data to be uploaded
-      let data: Data! = "hsjdfkhfdskjhfsjkfdhkfjdshdkjh".data(using: .utf8) // non-nil
-
-
-      let expression = AWSS3TransferUtilityUploadExpression()
-         expression.progressBlock = {(task, progress) in
-            DispatchQueue.main.async(execute: {
-              // Do something e.g. Update a progress bar.
-                print(progress)
-           })
-      }
-
-      var completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
-      completionHandler = { (task, error) -> Void in
-         DispatchQueue.main.async(execute: {
-            // Do something e.g. Alert a user for transfer completion.
-            // On failed uploads, `error` contains the error object.
-            print("Completed")
-         })
-      }
-        
-      let transferUtility = AWSS3TransferUtility.default()
-        
-      transferUtility.uploadData(data,
-           bucket: "street-art-uploads",
-           key: "ssss.txt",
-           contentType: "text/plain",
-           expression: expression,
-           completionHandler: completionHandler).continueWith {
-              (task) -> AnyObject? in
-                  if let error = task.error {
-                     print("Error: \(error.localizedDescription)")
-                  }
-
-                  if let _ = task.result {
-                     // Do something with uploadTask.
-                    print(task.result)
-                  }
-                  return nil;
-          }
-    }
     
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        /*let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: "us-east-1_FJaKcw4bh")
-        let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: credentialsProvider)
-
-          AWSServiceManager.default().defaultServiceConfiguration = configuration*/
         
-        AWSDDLog.sharedInstance.logLevel = .verbose
-
-        
-        AWSMobileClient.default().initialize({ (userState, info) in
-            switch (userState) {
-                case .guest:
-                    print("user is in guest mode.")
-                case .signedOut:
-                    print("user signed out")
-                case .signedIn:
-                    print("user is signed in.")
-                case .signedOutUserPoolsTokenInvalid:
-                    print("need to login again.")
-                case .signedOutFederatedTokensInvalid:
-                    print("user logged in via federation, but currently needs new tokens")
-                default:
-                    print("unsupported")
-            }
-        })
-        
-        //provide the completionHandler to the TransferUtility to support background transfers.
+        userStateInitialize(enabledLogs: true, responder: self)
+                
+        let storyboard: UIStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+    
+        let profile = storyboard.instantiateViewController(withIdentifier: "Profile") as! ProfileController
         
         let flow = UICollectionViewFlowLayout()
         let v1 = FeedController(collectionViewLayout: flow)
         let v2 = NearByController()
         let v3 = FavorController()
         let v4 = FavorController()
-        let v5 = FavorController()
+        let v5 = profile
+        
+        
         
         let tabBarController = ESTabBarController()
         tabBarController.delegate = self
@@ -136,27 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                    [weak tabBarController] tabbarController, viewController, index in
                    
                    if index == 2 {
-                       /*DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                           let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
-                           let takePhotoAction = UIAlertAction(title: "Take a photo", style: .default, handler: nil)
-                           alertController.addAction(takePhotoAction)
-                           let selectFromAlbumAction = UIAlertAction(title: "Select from album", style: .default, handler: nil)
-                           alertController.addAction(selectFromAlbumAction)
-                           let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                           alertController.addAction(cancelAction)
-                           tabBarController?.present(alertController, animated: true, completion: nil)
-                       }*/
-                    do {
-                        print("Upload Image")
-                        self.uploadData()
-                        /*AWSMobileClient.default().showSignIn(navigationController: v1.navigationController!,{ (userState, error) in
-                            
-                        })*/
-                       
-                    } catch {
-                        
-                    }
-                       
+                    let vc = storyboard.instantiateViewController(withIdentifier: "UploadArt") as! UploadArtController
+                    tabBarController?.viewControllers![0].present(vc, animated: true, completion: nil)
                    }
         }
                

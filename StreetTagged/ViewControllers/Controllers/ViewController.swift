@@ -7,9 +7,13 @@
 //
 
 import UIKit
-import AWSMobileClient
 import Alamofire
 import AWSCore
+import AWSMobileClient
+import AWSS3
+
+import CoreLocation
+import UserNotifications
 
 struct Art: Decodable {
     let artId: String
@@ -43,25 +47,62 @@ struct Headline {
     
 }
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
 
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var progressBar: UIProgressView!
+       
+    let textCellIdentifier = "TextCell"
+    var items: [Art] = []
+    let imageCache = NSCache<NSString, UIImage>()
+    
+    var imageLink = ""
+    let center = UNUserNotificationCenter.current()
+    let locationManager = CLLocationManager()
+    var latitude: CLLocationDegrees?
+    var longitude: CLLocationDegrees?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        initializeAWSMobileClient()
         tableView.delegate = self
         tableView.dataSource = self
         
+        locationManager.delegate = self
     }
     
-    @IBOutlet var tableView: UITableView!
+    @IBAction func selectImageFromGallery(_ sender: UIButton) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
     
-    let textCellIdentifier = "TextCell"
-    
-    var items: [Art] = []
-    
-    let imageCache = NSCache<NSString, UIImage>()
-
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        imageView.image = image
+        
+        if (userGlobalState == .userSignedIn) {
+            uploadUIImageToAWSS3(image: image, progressHandler: { (progress) in
+                print("uploadUIImageToAWSS3-Process: \(progress)")
+                self.progressBar.progress = Float(progress.fractionCompleted)
+            }, statusHandler: { (task, key) in
+                if (key?.isEmpty == false) {
+                    let imageURL: String = imageURLFromS3Key(key: key!)
+                    self.imageLink = imageURL
+                    print(imageURL)
+                }
+                if let _ = task.result {
+                    
+                }
+            })
+        } else {
+            print("Please sign in to upload an image")
+        }
+        dismiss(animated: true, completion: nil)
+    }
     
     // MARK:  UITextFieldDelegate Methods
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -98,48 +139,96 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         print(items[row].artId)
     }
     
-
-    func initializeAWSMobileClient() {
-        print("initializeAWSMobileClient")
-        AWSMobileClient.default().initialize { (userState, error) in
-            if let userState = userState {
-            switch(userState) {
-                case .signedIn:
-                    print(AWSMobileClient.default().identityId ?? "")
-                default:
-                    AWSMobileClient.default().signOut()
-            }
-            } else if let error = error {
-                print(error.localizedDescription)
-            }
-        }
+    
+    // MARK: ViewController
+    @IBAction func showSignIn(_ sender: UIButton, forEvent event: UIEvent){
+        //userSignInWithCreds(username: "", password: "")
+        userSignIn(navController: self.navigationController!)
     }
     
-    @IBAction func showSignIn(_ sender: UIButton, forEvent event: UIEvent){
-        AWSMobileClient.default().showSignIn(navigationController: self.navigationController!,{ (userState, error) in
-            
-        })
+    @IBAction func signOut(_ sender: UIButton, forEvent event: UIEvent){
+        userSignOut()
     }
     
     @IBAction func reviewArt(_ sender: UIButton, forEvent event: UIEvent){
-        print("Review Art")
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ReviewView") as! ReviewArtWork
         self.present(vc, animated: true, completion: nil)
     }
     
-    @IBAction func signOut(_ sender: UIButton, forEvent event: UIEvent){
-        self.present(TabbarLayOut.tabbar(delegate: self), animated: true, completion: nil)
+    @IBAction func getUser(_ sender: UIButton, forEvent event: UIEvent){
+        getUserAWSAccessToken (completionHandler: { (token) in
+            print(token)
+        })
     }
     
-    @IBAction func getUser(_ sender: UIButton, forEvent event: UIEvent){
-        AWSMobileClient.default().getTokens { (tokens, error) in
-            if let error = error {
-                print("Error getting token \(error.localizedDescription)")
-            } else if let tokens = tokens {
-                print(tokens.accessToken!.tokenString!)
-            }
+    @IBAction func getGPS(_ sender: UIButton, forEvent event: UIEvent){
+        print("getGPS")
+        locationManager.requestWhenInUseAuthorization()
+        //locationManager.requestAlwaysAuthorization()
+        locationManager.requestLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("location manager authorization status changed")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        // might be that user didn't enable location service on the device
+        // or there might be no GPS signal inside a building
+      
+        // might be a good idea to show an alert to user to ask them to walk to a place with GPS signal
+        
+        print(error)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // .requestLocation will only pass one location to the locations array
+        // hence we can access it by taking the first element of the array
+        if let location = locations.first {
+            print(location.coordinate.latitude)
+            print(location.coordinate.longitude)
+            self.latitude = location.coordinate.latitude
+            self.longitude = location.coordinate.longitude
         }
     }
+    
+    @IBAction func postArt(_ sender: UIButton, forEvent event: UIEvent){
+        print("postArt")
+        if (userGlobalState == .userSignedIn) {
+            getUserAWSAccessToken (completionHandler: { (token) in
+                let parameters: [String : Any] = [
+                    "coordinates": [
+                        "latitude": self.latitude!,
+                        "longitude": self.longitude!
+                    ],
+                    "picture": self.imageLink,
+                    "token": token!
+                ]
+                
+                print(parameters)
+                
+                Alamofire.request("https://api-dev.streettagged.com/items", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+                    
+                    do {
+                        print(response)
+                    } catch let error {
+                        print(error)
+                    }
+                    
+                }
+            })
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     @IBAction func getArtWork(_ sender: UIButton, forEvent event: UIEvent){
         print("getArtWork")
@@ -159,7 +248,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 
                 print(parameters)
                 
-                Alamofire.request("https://api-dev.streettagged.com/search/art", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+                Alamofire.request("https://api-dev.streettagged.com/items/search", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
                     
                     do {
                         let decoder = JSONDecoder()
@@ -177,7 +266,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         self.items = artWorks.items
                         self.tableView.reloadData()
                     } catch let error {
-                        print(error.localizedDescription)
+                        print(error)
                     }
                     
                 }

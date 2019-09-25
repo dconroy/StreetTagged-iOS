@@ -17,10 +17,11 @@ class FeedController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
+        print("FeedController")
+        refreshPosts()
         NotificationCenter.default.addObserver(self, selector: #selector(postedNotification), name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
         
-        refreshPosts()
+        
     }
     
     lazy var refresh: UIRefreshControl = {
