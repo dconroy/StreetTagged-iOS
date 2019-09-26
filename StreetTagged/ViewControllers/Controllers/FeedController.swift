@@ -14,14 +14,15 @@ import Alamofire
 class FeedController: UICollectionViewController {
     let cellIDEmpty = "EmptyPostCell"
     let cellID = "postCell"
+    
+    var isRefreshingPosts: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         print("FeedController")
         refreshPosts()
         NotificationCenter.default.addObserver(self, selector: #selector(postedNotification), name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
-        
-        
     }
     
     lazy var refresh: UIRefreshControl = {
@@ -49,12 +50,6 @@ class FeedController: UICollectionViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "showCamera").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(showCamera))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "send2").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(shareButtonPressed))
         collectionView.refreshControl = refresh
-        /*loadPosts {[unowned self] in
-         posts.sort(by: { (p1, p2) -> Bool in
-         return p1.created > p2.created
-         })
-         self.collectionView.reloadData()
-         }*/
     }
     
     @objc fileprivate func showCamera() {
@@ -77,20 +72,35 @@ class FeedController: UICollectionViewController {
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+         print(posts.count)
+         print(indexPath.row)
+         if (indexPath.row == posts.count - 1) {
+            print("reloadData")
+            if (!isRefreshingPosts) {
+                isRefreshingPosts = true
+                pageGetMorePosts()
+            }
+         }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2.0
     }
     
     @objc fileprivate func refreshAction() {
-        //self.collectionView.reloadData()
+        pageGetMorePosts()
     }
     
     @objc func shareButtonPressed() {
-        refreshPosts()
+
     }
     
     @objc func postedNotification() {
+        print("postedNotification")
+        self.refresh.endRefreshing()
         self.collectionView.reloadData()
+        isRefreshingPosts = false
     }
 }
 

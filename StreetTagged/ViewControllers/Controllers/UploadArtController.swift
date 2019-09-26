@@ -26,6 +26,9 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     var latitude: CLLocationDegrees?
     var longitude: CLLocationDegrees?
     
+    var hasImage: Bool = false
+    var hasGPS: Bool = false
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -51,6 +54,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                 if (key?.isEmpty == false) {
                     let imageURL: String = imageURLFromS3Key(key: key!)
                     self.imageLink = imageURL
+                    self.hasImage = true
                     print(imageURL)
                 }
                 if let _ = task.result {
@@ -77,6 +81,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
             print(location.coordinate.longitude)
             self.latitude = location.coordinate.latitude
             self.longitude = location.coordinate.longitude
+            self.hasGPS = true
         }
     }
     
@@ -89,31 +94,38 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @IBAction func postArt(_ sender: UIButton, forEvent event: UIEvent){
-        print("postArt")
-        if (userGlobalState == .userSignedIn) {
-            getUserAWSAccessToken (completionHandler: { (token) in
-                let parameters: [String : Any] = [
-                    "coordinates": [
-                        "latitude": self.latitude!,
-                        "longitude": self.longitude!
-                    ],
-                    "picture": self.imageLink,
-                    "token": token!
-                ]
-                
-                print(parameters)
-                
-                Alamofire.request("https://api-dev.streettagged.com/items", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+        if (hasImage && hasGPS) {
+            if (userGlobalState == .userSignedIn) {
+                getUserAWSAccessToken (completionHandler: { (token) in
+                    let parameters: [String : Any] = [
+                        "coordinates": [
+                            "latitude": self.latitude!,
+                            "longitude": self.longitude!
+                        ],
+                        "picture": self.imageLink,
+                        "token": token!
+                    ]
                     
-                    do {
-                        print(response)
-                        self.dismiss(animated: true, completion: nil)
-                    } catch let error {
-                        print(error)
+                    print(parameters)
+                    
+                    Alamofire.request("https://api-dev.streettagged.com/items", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+                        
+                        do {
+                            print(response)
+                            self.dismiss(animated: true, completion: nil)
+                        } catch let error {
+                            print(error)
+                        }
+                        
                     }
-                    
-                }
-            })
+                })
+            }
+        } else {
+            let alert = UIAlertController(title: "Could not submit", message: "", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
+                                       
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
