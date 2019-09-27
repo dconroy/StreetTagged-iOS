@@ -234,43 +234,47 @@ class PostCell: BaseCollectionViewCell {
     }
     
     @objc func likePost() {
-        if let post = post {
-            if isPostLiked {
-                likeButton.setImage(#imageLiteral(resourceName: "like_unselected").withRenderingMode(.alwaysTemplate), for: .normal)
-                likeButton.tintColor = .black
-                post.likes[currentUser] = nil
-            } else {
-                likeButton.setImage(#imageLiteral(resourceName: "like_selected").withRenderingMode(.alwaysTemplate), for: .normal)
-                likeButton.tintColor = .red
-                post.likes[currentUser] = 1
+        if (userGlobalState == .userSignedIn) {
+            if let post = post {
+                if isPostLiked {
+                    likeButton.setImage(#imageLiteral(resourceName: "like_unselected").withRenderingMode(.alwaysTemplate), for: .normal)
+                    likeButton.tintColor = .black
+                    post.likes[currentUser] = nil
+                } else {
+                    likeButton.setImage(#imageLiteral(resourceName: "like_selected").withRenderingMode(.alwaysTemplate), for: .normal)
+                    likeButton.tintColor = .red
+                    post.likes[currentUser] = 1
+                }
+                isPostLiked = !isPostLiked
             }
-            isPostLiked = !isPostLiked
+        } else {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_NEED_SIGN_UP), object: nil)
         }
     }
     
     @objc func likeGesture() {
-        if !isPostLiked {
-            likePost()
-            let heartIcon: UIImageView = {
-                let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-                image.image = #imageLiteral(resourceName: "red-heart").withRenderingMode(.alwaysOriginal)
-                image.contentMode = .scaleAspectFit
-                return image
-            }()
-            heartIcon.center = imageView.center
-            addSubview(heartIcon)
-            heartIcon.layer.transform = CATransform3DMakeScale(0, 0, 0)
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                heartIcon.layer.transform = CATransform3DMakeScale(1, 1, 1)
-            }) { (_) in
-                UIView.animate(withDuration: 0.5, delay: 0.75, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                    heartIcon.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
-                    heartIcon.alpha = 0
-                }, completion: { (_) in
-                    heartIcon.removeFromSuperview()
-                })
-            }
-        }
+                if !isPostLiked {
+                    likePost()
+                    let heartIcon: UIImageView = {
+                        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+                        image.image = #imageLiteral(resourceName: "red-heart").withRenderingMode(.alwaysOriginal)
+                        image.contentMode = .scaleAspectFit
+                        return image
+                    }()
+                    heartIcon.center = imageView.center
+                    addSubview(heartIcon)
+                    heartIcon.layer.transform = CATransform3DMakeScale(0, 0, 0)
+                    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                        heartIcon.layer.transform = CATransform3DMakeScale(1, 1, 1)
+                    }) { (_) in
+                        UIView.animate(withDuration: 0.5, delay: 0.75, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                            heartIcon.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
+                            heartIcon.alpha = 0
+                        }, completion: { (_) in
+                            heartIcon.removeFromSuperview()
+                        })
+                    }
+                }
     }
     
     @objc func sharePost() {

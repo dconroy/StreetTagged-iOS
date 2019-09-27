@@ -23,6 +23,7 @@ class FeedController: UICollectionViewController {
         print("FeedController")
         refreshPosts()
         NotificationCenter.default.addObserver(self, selector: #selector(postedNotification), name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(signUpNotification), name: NSNotification.Name(rawValue: GLOBAL_NEED_SIGN_UP), object: nil)
     }
     
     lazy var refresh: UIRefreshControl = {
@@ -50,11 +51,6 @@ class FeedController: UICollectionViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "showCamera").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(showCamera))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "send2").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(shareButtonPressed))
         collectionView.refreshControl = refresh
-    }
-    
-    @objc fileprivate func showCamera() {
-        //let controller = UINavigationController(rootViewController: Camera())
-        //present(controller, animated: true, completion: nil)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -103,6 +99,18 @@ class FeedController: UICollectionViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
             self.isRefreshingPosts = false
         }
+    }
+    
+    @objc func signUpNotification() {
+        print("signUpNotification")
+        let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to favorite street art as well as submit art.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in
+            userSignIn(navController: self.navigationController!)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
+            
+        }))
+        self.navigationController!.present(alert, animated: true, completion: nil)
     }
 }
 
