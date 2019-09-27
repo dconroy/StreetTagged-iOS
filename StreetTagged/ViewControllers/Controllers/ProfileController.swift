@@ -7,6 +7,7 @@
 //
 import UIKit
 import Foundation
+import Alamofire
 
 public class ProfileController: UIViewController {
     
@@ -20,4 +21,22 @@ public class ProfileController: UIViewController {
         super.viewDidLayoutSubviews()
     }
     
+    @IBAction func reviewArt(_ sender: UIButton, forEvent event: UIEvent){
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ReviewView") as! ReviewArtWork
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    @IBAction func refresh(_ sender: UIButton, forEvent event: UIEvent){
+        refreshPosts()
+    }
+    
+    @IBAction func showSignIn(_ sender: UIButton, forEvent event: UIEvent){
+        print("showSignIn")
+        userSignIn(navController: self.navigationController!)
+        //userSignInWithCreds(username: "", password: "")
+    }
+    
+    @IBAction func signOut(_ sender: UIButton, forEvent event: UIEvent){
+        userSignOut()
+    }
 }

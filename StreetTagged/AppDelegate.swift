@@ -10,41 +10,32 @@ import UIKit
 import CoreData
 import ESTabBarController_swift
 import AWSMobileClient
-
-extension UIApplication {
-    static var appVersion: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-    }
-    static var appAPIURL: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "AppAPIBaseURL") as? String
-    }
-}
+import AWSS3
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
-
+    
     var window: UIWindow?
+    
+    var currentViewController: UIViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
-        AWSMobileClient.default().addUserStateListener(self) { (userState, info) in
-            switch (userState) {
-                case .guest:
-                    print("user is in guest mode.")
-                case .signedOut:
-                    print("user signed out")
-                case .signedIn:
-                    print("user is signed in.")
-                case .signedOutUserPoolsTokenInvalid:
-                    print("need to login again.")
-                case .signedOutFederatedTokensInvalid:
-                    print("user logged in via federation, but currently needs new tokens")
-                default:
-                    print("unsupported")
-            }
-        }
+        userStateInitialize(enabledLogs: true, responder: self)
+                
+        let storyboard: UIStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+    
+        let profile = storyboard.instantiateViewController(withIdentifier: "Profile") as! ProfileController
         
+        let flow = UICollectionViewFlowLayout()
+        let v1 = FeedController(collectionViewLayout: flow)
+        let v2 = NearByController()
+        let v3 = FavorController()
+        let v4 = FavorController()
+        let v5 = profile
+        
+        currentViewController = v1
+                
         let tabBarController = ESTabBarController()
         tabBarController.delegate = self
         tabBarController.title = "Irregularity"
@@ -52,48 +43,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         tabBarController.tabBar.backgroundImage = UIImage(named: "background")
         tabBarController.shouldHijackHandler = {
         tabbarController, viewController, index in
-                   if index == 2 {
-                       return true
-                   }
-                   
-                   if index == 0 {
-                       tabBarController.title = "Feed"
-                   }
-                   if index == 1 {
-                       tabBarController.title = "Nearby"
-                   }
-                   if index == 3 {
-                       tabBarController.title = "Favorites"
-                   }
-                   if index == 4 {
-                       tabBarController.title = "Me"
-                   }
-                   
-                   return false
+                if index == 2 {
+                    return true
+                }
+                self.currentViewController = viewController
+
+                if index == 0 {
+                    tabBarController.title = "Feed"
+                }
+                if index == 1 {
+                    tabBarController.title = "Nearby"
+                }
+                if index == 3 {
+                    tabBarController.title = "Favorites"
+                }
+                if index == 4 {
+                    tabBarController.title = "Me"
+                }
+                return false
         }
-        tabBarController.didHijackHandler = {
-                   [weak tabBarController] tabbarController, viewController, index in
-                   
-                   if index == 2 {
-                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                           let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
-                           let takePhotoAction = UIAlertAction(title: "Take a photo", style: .default, handler: nil)
-                           alertController.addAction(takePhotoAction)
-                           let selectFromAlbumAction = UIAlertAction(title: "Select from album", style: .default, handler: nil)
-                           alertController.addAction(selectFromAlbumAction)
-                           let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                           alertController.addAction(cancelAction)
-                           tabBarController?.present(alertController, animated: true, completion: nil)
-                       }
-                   }
+        tabBarController.didHijackHandler = { tabbarController, viewController, index in
+                if index == 2 {
+                    if (userGlobalState == .userSignedIn) {
+                        let vc = storyboard.instantiateViewController(withIdentifier: "UploadArt") as! UploadArtController
+                        self.currentViewController!.present(vc, animated: true, completion: nil)
+                    } else {
+                        let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to save you favorite street art as well as submit art.", preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in
+                            userSignIn(navController: self.currentViewController!.navigationController!)
+                        }))
+                        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
+                            
+                        }))
+                        self.currentViewController!.present(alert, animated: true, completion: nil)
+                    }
+                }
         }
                
-        let flow = UICollectionViewFlowLayout()
-        let v1 = FeedController(collectionViewLayout: flow)
-        let v2 = NearByController()
-        let v3 = FavorController()
-        let v4 = FavorController()
-        let v5 = FavorController()
                
         v1.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Feed", image: UIImage(named: "home"), selectedImage: UIImage(named: "home_1"))
         v2.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Nearby", image: UIImage(named: "find"), selectedImage: UIImage(named: "find_1"))
@@ -108,6 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
+        
         return true
     }
 

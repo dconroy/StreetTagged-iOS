@@ -26,5 +26,7 @@ target 'StreetTagged' do
   pod 'lottie-ios'
   pod 'Mapbox-iOS-SDK', '~> 5.3'
   pod 'RealmSwift'
+  pod 'AWSS3', '~> 2.11.0'
+  pod 'AppleWelcomeScreen'
 
 end

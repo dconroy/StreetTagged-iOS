@@ -10,17 +10,55 @@ import UIKit
 import Foundation
 import AWSMobileClient
 import Alamofire
+import AppleWelcomeScreen
 
 class FeedController: UICollectionViewController {
     let cellIDEmpty = "EmptyPostCell"
     let cellID = "postCell"
+    
+    var isRefreshingPosts: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(postedNotification), name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
-        
+        print("FeedController")
         refreshPosts()
+        NotificationCenter.default.addObserver(self, selector: #selector(postedNotification), name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(signUpNotification), name: NSNotification.Name(rawValue: GLOBAL_NEED_SIGN_UP), object: nil)
+                
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        var configuration = AWSConfigOptions()
+               
+        configuration.appName = "StreetTagged"
+        configuration.appDescription = "Great new tools for notes synced to your iCloud account."
+        configuration.tintColor = UIColor.gray
+                     
+        var item1 = AWSItem()
+        item1.image = UIImage(named: "send2")
+        item1.title = "Add almost anything"
+        item1.description = "Capture documents, photos, maps, and more for a richer Notes experience."
+                     
+        var item2 = AWSItem()
+        item2.image = UIImage(named: "send2")
+        item2.title = "Note to self, or with anyone"
+        item2.description = "Invite others to view or make changes to a note."
+                     
+        var item3 = AWSItem()
+        item3.image = UIImage(named: "send2")
+        item3.title = "Sketch your thoughts"
+        item3.description = "Draw using just your finger."
+                     
+        configuration.items = [item1, item2, item3]
+                     
+        configuration.continueButtonAction = {
+            self.dismiss(animated: true)
+        }
+               
+        let vc = AWSViewController()
+        vc.configuration = configuration
+        self.present(vc, animated: true)
     }
     
     lazy var refresh: UIRefreshControl = {
@@ -45,20 +83,8 @@ class FeedController: UICollectionViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: cellID)
         navigationItem.titleView = titleView
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "showCamera").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(showCamera))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "send2").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(shareButtonPressed))
         collectionView.refreshControl = refresh
-        /*loadPosts {[unowned self] in
-         posts.sort(by: { (p1, p2) -> Bool in
-         return p1.created > p2.created
-         })
-         self.collectionView.reloadData()
-         }*/
-    }
-    
-    @objc fileprivate func showCamera() {
-        //let controller = UINavigationController(rootViewController: Camera())
-        //present(controller, animated: true, completion: nil)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -76,20 +102,49 @@ class FeedController: UICollectionViewController {
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+         print(posts.count)
+         print(indexPath.row)
+         if (indexPath.row == posts.count - 1) {
+            print("reloadData")
+            if (!isRefreshingPosts) {
+                isRefreshingPosts = true
+                pageGetMorePosts()
+            }
+         }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2.0
     }
     
     @objc fileprivate func refreshAction() {
-        //self.collectionView.reloadData()
+        topRefreshPost()
     }
     
     @objc func shareButtonPressed() {
-        refreshPosts()
+
     }
     
     @objc func postedNotification() {
+        print("postedNotification")
+        self.refresh.endRefreshing()
         self.collectionView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+            self.isRefreshingPosts = false
+        }
+    }
+    
+    @objc func signUpNotification() {
+        print("signUpNotification")
+        let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to favorite street art as well as submit art.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in
+            userSignIn(navController: self.navigationController!)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
+            
+        }))
+        self.navigationController!.present(alert, animated: true, completion: nil)
     }
 }
 

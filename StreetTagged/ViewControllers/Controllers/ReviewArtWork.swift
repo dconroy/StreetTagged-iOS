@@ -58,7 +58,7 @@ public class ReviewArtWork: UIViewController {
         print(art)
         
         let parameters: [String:Any] = [
-            "artId": art.artId,
+            "itemId": art.artId,
             "isValid": true
         ]
         
@@ -66,8 +66,7 @@ public class ReviewArtWork: UIViewController {
         
         Alamofire.request("https://api-dev.streettagged.com/images/review", method: .put, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
             
-            let code:Int = response.response!.statusCode
-            print(code)
+            print(response.response)
             self.imageView.isHidden = true
             
         }
@@ -79,7 +78,7 @@ public class ReviewArtWork: UIViewController {
         print(art)
         
         let parameters: [String:Any] = [
-                   "artId": art.artId,
+                   "itemId": art.artId,
                    "isValid": false
                ]
                
@@ -87,11 +86,14 @@ public class ReviewArtWork: UIViewController {
                
                Alamofire.request("https://api-dev.streettagged.com/images/review", method: .put, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
                    
-                   let code:Int = response.response!.statusCode
-                   print(code)
+                   print(response.response)
                    self.imageView.isHidden = true
                    
                }
+    }
+    
+    @IBAction func dissmiss(_ sender: UIButton, forEvent event: UIEvent){
+        self.dismiss(animated: true, completion: nil)
     }
     
 }
