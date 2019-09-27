@@ -14,29 +14,36 @@ import Alamofire
 
 let cache = NSCache<AnyObject, UIImage>()
 var posts: [Post] = []
+
+var postAlls: [Post] = []
+
 var isRefreshingPosts = false
 
 let pageLimit = 5
 var pageNumber = 1
 
 extension String {
-
   func epoch(dateFormat: String = "d MMMM yyyy", timeZone: String? = nil) -> TimeInterval? {
     // building the formatter
     let formatter = DateFormatter()
     formatter.dateFormat = dateFormat
     if let timeZone = timeZone { formatter.timeZone = TimeZone(identifier: timeZone) }
-
     // extracting the epoch
     let date = formatter.date(from: self)
     return date?.timeIntervalSince1970
   }
+}
 
+public func topRefreshPost() {
+    pageNumber = 1
+    posts.removeAll()
+    postAlls.removeAll()
+    refreshPosts()
 }
 
 public func refreshPosts() {
     if (!isRefreshingPosts) {
-        print("Alamofire.request")
+        print("Alamofire.request - refreshPosts")
         isRefreshingPosts = true
         if (userGlobalState == .userSignedIn) {
             getUserAWSAccessToken (completionHandler: { (token) in
@@ -50,15 +57,17 @@ public func refreshPosts() {
                         let decoder = JSONDecoder()
                         decoder.dateDecodingStrategy = .iso8601
                         let artWorks = try decoder.decode(ArtWorks.self, from: response.data!)
-
+                                            
                         for art in artWorks.items {
                             let formatter = ISO8601DateFormatter()
                             formatter.formatOptions =  [.withInternetDateTime, .withFractionalSeconds]
                             let date = formatter.date(from: art.createdAt)
                             
                             let post: Post = Post.init(uid: "", id: art.artId, coordinates: art.location.coordinates ,dictionary: ["username":art.username, "image":art.picture, "created": date!.timeIntervalSince1970, "profile": "", "post":""]);
-                            posts.append(post)
+                            
+                            postAlls.append(post)
                         }
+                        posts = postAlls.sorted(by: { $0.created > $1.created })
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
                         isRefreshingPosts = false
                     } catch let error {
@@ -67,26 +76,28 @@ public func refreshPosts() {
                     }
                 }
             })
-            print("Done")
         } else {
             let parameters = [
                 "pageNumber": pageNumber,
                 "pageLimit": pageLimit
             ]
+            print(parameters)
             Alamofire.request(searchURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
                 do {
                     let decoder = JSONDecoder()
                     decoder.dateDecodingStrategy = .iso8601
                     let artWorks = try decoder.decode(ArtWorks.self, from: response.data!)
-
+                                        
                     for art in artWorks.items {
                         let formatter = ISO8601DateFormatter()
                         formatter.formatOptions =  [.withInternetDateTime, .withFractionalSeconds]
                         let date = formatter.date(from: art.createdAt)
                         
                         let post: Post = Post.init(uid: "", id: art.artId, coordinates: art.location.coordinates ,dictionary: ["username":art.username, "image":art.picture, "created": date!.timeIntervalSince1970, "profile": "", "post":""]);
-                        posts.append(post)
+                        
+                        postAlls.append(post)
                     }
+                    posts = postAlls.sorted(by: { $0.created > $1.created })
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
                     isRefreshingPosts = false
                 } catch let error {
@@ -94,7 +105,6 @@ public func refreshPosts() {
                     isRefreshingPosts = false
                 }
             }
-            print("Done")
         }
     }
 }

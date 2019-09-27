@@ -33,6 +33,7 @@ public class ProfileController: UIViewController {
     @IBAction func showSignIn(_ sender: UIButton, forEvent event: UIEvent){
         print("showSignIn")
         userSignIn(navController: self.navigationController!)
+        //userSignInWithCreds(username: "", password: "")
     }
     
     @IBAction func signOut(_ sender: UIButton, forEvent event: UIEvent){

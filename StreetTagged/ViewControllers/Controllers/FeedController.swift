@@ -89,7 +89,7 @@ class FeedController: UICollectionViewController {
     }
     
     @objc fileprivate func refreshAction() {
-        pageGetMorePosts()
+        topRefreshPost()
     }
     
     @objc func shareButtonPressed() {
@@ -100,7 +100,9 @@ class FeedController: UICollectionViewController {
         print("postedNotification")
         self.refresh.endRefreshing()
         self.collectionView.reloadData()
-        isRefreshingPosts = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+            self.isRefreshingPosts = false
+        }
     }
 }
 
