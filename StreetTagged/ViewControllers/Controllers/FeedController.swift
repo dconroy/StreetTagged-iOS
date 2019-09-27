@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import AWSMobileClient
 import Alamofire
+import AppleWelcomeScreen
 
 class FeedController: UICollectionViewController {
     let cellIDEmpty = "EmptyPostCell"
@@ -24,6 +25,40 @@ class FeedController: UICollectionViewController {
         refreshPosts()
         NotificationCenter.default.addObserver(self, selector: #selector(postedNotification), name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(signUpNotification), name: NSNotification.Name(rawValue: GLOBAL_NEED_SIGN_UP), object: nil)
+                
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        var configuration = AWSConfigOptions()
+               
+        configuration.appName = "StreetTagged"
+        configuration.appDescription = "Great new tools for notes synced to your iCloud account."
+        configuration.tintColor = UIColor.gray
+                     
+        var item1 = AWSItem()
+        item1.image = UIImage(named: "send2")
+        item1.title = "Add almost anything"
+        item1.description = "Capture documents, photos, maps, and more for a richer Notes experience."
+                     
+        var item2 = AWSItem()
+        item2.image = UIImage(named: "send2")
+        item2.title = "Note to self, or with anyone"
+        item2.description = "Invite others to view or make changes to a note."
+                     
+        var item3 = AWSItem()
+        item3.image = UIImage(named: "send2")
+        item3.title = "Sketch your thoughts"
+        item3.description = "Draw using just your finger."
+                     
+        configuration.items = [item1, item2, item3]
+                     
+        configuration.continueButtonAction = {
+            self.dismiss(animated: true)
+        }
+               
+        let vc = AWSViewController()
+        vc.configuration = configuration
+        self.present(vc, animated: true)
     }
     
     lazy var refresh: UIRefreshControl = {
@@ -48,7 +83,6 @@ class FeedController: UICollectionViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: cellID)
         navigationItem.titleView = titleView
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "showCamera").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(showCamera))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "send2").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(shareButtonPressed))
         collectionView.refreshControl = refresh
     }
