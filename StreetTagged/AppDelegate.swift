@@ -11,20 +11,21 @@ import CoreData
 import ESTabBarController_swift
 import AWSMobileClient
 import AWSS3
+import Photos
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var window: UIWindow?
     
     var currentViewController: UIViewController?
+    let storyboard: UIStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         userStateInitialize(enabledLogs: true, responder: self)
-                
-        let storyboard: UIStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
-    
+                    
         let profile = storyboard.instantiateViewController(withIdentifier: "Profile") as! ProfileController
         
         let flow = UICollectionViewFlowLayout()
@@ -65,8 +66,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         tabBarController.didHijackHandler = { tabbarController, viewController, index in
                 if index == 2 {
                     if (userGlobalState == .userSignedIn) {
-                        let vc = storyboard.instantiateViewController(withIdentifier: "UploadArt") as! UploadArtController
-                        self.currentViewController!.present(vc, animated: true, completion: nil)
+                        let imagePicker = UIImagePickerController()
+                        imagePicker.delegate = self
+                        imagePicker.allowsEditing = false
+                        imagePicker.sourceType = .photoLibrary
+                        imagePicker.modalPresentationStyle = .fullScreen
+                        self.currentViewController!.present(imagePicker, animated: true, completion: nil)
                     } else {
                         let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to save you favorite street art as well as submit art.", preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in
@@ -96,6 +101,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         self.window?.makeKeyAndVisible()
         
         return true
+    }
+    
+    @objc func filter() {
+        
+    }
+    
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        
+        let vc = storyboard.instantiateViewController(withIdentifier: "UploadArt") as! UploadArtController
+        vc.image = image
+        
+        let coordinate = (info[UIImagePickerController.InfoKey.phAsset] as? PHAsset)?.location?.coordinate
+        /*print(coordinate?.latitude ?? "No latitude found")
+        print(coordinate?.longitude ?? "No longitude found")*/
+        
+        print(coordinate)
+        
+        let navigationController = UINavigationController(rootViewController: vc)
+
+        self.currentViewController!.dismiss(animated: true, completion: nil)
+        self.currentViewController!.present(navigationController, animated: true, completion: nil)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

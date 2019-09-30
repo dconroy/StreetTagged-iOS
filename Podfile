@@ -28,5 +28,6 @@ target 'StreetTagged' do
   pod 'RealmSwift'
   pod 'AWSS3', '~> 2.11.0'
   pod 'AppleWelcomeScreen'
+  pod "WSTagsField"
 
 end

@@ -12,6 +12,7 @@ import Mapbox
 public class NearByController: UIViewController, CLLocationManagerDelegate {
     
     var mapView = MGLMapView()
+    let locationManager = CLLocationManager()
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,13 +28,23 @@ public class NearByController: UIViewController, CLLocationManagerDelegate {
             mapView.addAnnotation(pin)
         }
         
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        
         //mapView.showsUserLocation = true;
         view.addSubview(mapView)
     }
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        mapView.setCenter(locValue, animated: true)
+        mapView.setZoomLevel(12.0, animated: true)
         print("locations = \(locValue.latitude) \(locValue.longitude)")
+    }
+    
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
     
     public override func viewDidLayoutSubviews() {

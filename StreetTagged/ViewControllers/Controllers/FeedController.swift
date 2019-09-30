@@ -29,7 +29,7 @@ class FeedController: UICollectionViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        var configuration = AWSConfigOptions()
+        /*var configuration = AWSConfigOptions()
                
         configuration.appName = "StreetTagged"
         configuration.appDescription = "Great new tools for notes synced to your iCloud account."
@@ -58,7 +58,8 @@ class FeedController: UICollectionViewController {
                
         let vc = AWSViewController()
         vc.configuration = configuration
-        self.present(vc, animated: true)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)*/
     }
     
     lazy var refresh: UIRefreshControl = {
@@ -83,8 +84,13 @@ class FeedController: UICollectionViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: cellID)
         navigationItem.titleView = titleView
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "send2").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(shareButtonPressed))
         collectionView.refreshControl = refresh
+        let filterItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filter))
+        navigationItem.rightBarButtonItem = filterItem
+    }
+    
+    @objc func filter() {
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -103,10 +109,7 @@ class FeedController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-         print(posts.count)
-         print(indexPath.row)
          if (indexPath.row == posts.count - 1) {
-            print("reloadData")
             if (!isRefreshingPosts) {
                 isRefreshingPosts = true
                 pageGetMorePosts()
@@ -127,7 +130,6 @@ class FeedController: UICollectionViewController {
     }
     
     @objc func postedNotification() {
-        print("postedNotification")
         self.refresh.endRefreshing()
         self.collectionView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
@@ -136,7 +138,6 @@ class FeedController: UICollectionViewController {
     }
     
     @objc func signUpNotification() {
-        print("signUpNotification")
         let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to favorite street art as well as submit art.", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in
             userSignIn(navController: self.navigationController!)
