@@ -184,7 +184,6 @@ class PostCell: BaseCollectionViewCell {
     }
     
     fileprivate func loadCell(_ post: Post) {
-        print(post.id)
         //userProfile.loadImage(post.profile)
         additionalImages = []
         //self.backgroundColor = UIColor.red

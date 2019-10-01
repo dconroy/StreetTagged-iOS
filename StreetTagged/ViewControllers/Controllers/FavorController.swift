@@ -67,11 +67,7 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        print("User tapped on item \(indexPath.row)")
-        
-        let post = self.images[indexPath.row]
-        
-        print("Image url = \(post.id)")
+        //let post = self.images[indexPath.row]
     }
     
     
@@ -88,5 +84,4 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
