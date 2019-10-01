@@ -11,7 +11,7 @@ import UIKit
 
 protocol PostCellDelegate {
     func sharePost(_ image: UIImage)
-    func showComments(_ post: Post)
+    func likePost(_ post: Post)
 }
 
 class PostCell: BaseCollectionViewCell {
@@ -202,14 +202,15 @@ class PostCell: BaseCollectionViewCell {
                 page.currentPage = cell.index ?? 0
             }
         }
+        
         usernameLabel.text = post.username
         let postAttributedText = NSMutableAttributedString(string: post.username + " ", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
         postAttributedText.append(NSAttributedString(string: post.post , attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]))
         //postAttributedText.append(NSAttributedString(string: "\n\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 4)]))
         postAttributedText.append(NSAttributedString(string: getTimeElapsed(post.created), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
         postText.attributedText = postAttributedText
-        if  post.likes[currentUser] != nil {
-            //likeButton.setImage(#imageLiteral(resourceName: "like_selected").withRenderingMode(.alwaysTemplate), for: .normal)
+        if  post.likes {
+            likeButton.setImage(#imageLiteral(resourceName: "like_selected").withRenderingMode(.alwaysTemplate), for: .normal)
             likeButton.tintColor = .red
             isPostLiked = true
         } else {
@@ -217,20 +218,10 @@ class PostCell: BaseCollectionViewCell {
             likeButton.tintColor = .black
             isPostLiked = false
         }
-        
-        if  post.bookmarks[currentUser] != nil {
-            bookMarkButton.setImage(#imageLiteral(resourceName: "more").withRenderingMode(.alwaysOriginal), for: .normal)
-            isPostBookmarked = true
-        } else {
-            bookMarkButton.setImage(#imageLiteral(resourceName: "more").withRenderingMode(.alwaysOriginal), for: .normal)
-            isPostBookmarked = false
-        }
     }
     
     @objc func showComments() {
-        if let post = post {
-            delegate?.showComments(post)
-        }
+        
     }
     
     @objc func likePost() {
@@ -239,21 +230,22 @@ class PostCell: BaseCollectionViewCell {
                 if isPostLiked {
                     likeButton.setImage(#imageLiteral(resourceName: "like_unselected").withRenderingMode(.alwaysTemplate), for: .normal)
                     likeButton.tintColor = .black
-                    post.likes[currentUser] = nil
+                    post.likes = false
                 } else {
                     likeButton.setImage(#imageLiteral(resourceName: "like_selected").withRenderingMode(.alwaysTemplate), for: .normal)
                     likeButton.tintColor = .red
-                    post.likes[currentUser] = 1
+                    post.likes = true
                 }
                 isPostLiked = !isPostLiked
             }
+            delegate?.likePost(post!)
         } else {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_NEED_SIGN_UP), object: nil)
         }
     }
     
     @objc func likeGesture() {
-                if !isPostLiked {
+        if !isPostLiked {
                     likePost()
                     let heartIcon: UIImageView = {
                         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))

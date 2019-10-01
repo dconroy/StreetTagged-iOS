@@ -21,7 +21,6 @@ class FeedController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        print("FeedController")
         refreshPosts()
         NotificationCenter.default.addObserver(self, selector: #selector(postedNotification), name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(signUpNotification), name: NSNotification.Name(rawValue: GLOBAL_NEED_SIGN_UP), object: nil)
@@ -167,8 +166,12 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
 }
 
 extension FeedController: PostCellDelegate {
-    func showComments(_ post: Post) {
-        
+    func likePost(_ post: Post) {
+        if (post.likes) {
+            favoriteStreetPost(artId: post.id)
+        } else {
+            favoriteStreetRemove(artId: post.id)
+        }
     }
     
     func sharePost(_ image: UIImage) {

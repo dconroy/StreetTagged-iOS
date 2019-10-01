@@ -19,6 +19,7 @@ extension UIApplication {
 }
 
 let GLOBAL_POSTS_REFRESHED = "GLOBAL_POSTS_REFRESHED"
+let GLOBAL_FAVS_REFRESHED = "GLOBAL_FAVS_REFRESHED"
 let GLOBAL_TOKEN_GET_ERROR = "GLOBAL_TOKEN_GET_ERROR"
 let GLOBAL_NEED_SIGN_UP = "GLOBAL_NEED_SIGN_UP"
 
@@ -26,6 +27,7 @@ let GLOBAL_AWS_S3_UPLOAD_BUCKET = "s3debugingtesting"
 
 let searchURL = UIApplication.appAPIURL! + "/items/search"
 let postItemURL = UIApplication.appAPIURL! + "/items"
+let urlFavorite = UIApplication.appAPIURL! + "/favorites"
 
 func imageURLFromS3Key(key: String) -> String {
     return "https://" + GLOBAL_AWS_S3_UPLOAD_BUCKET + ".s3.amazonaws.com/" + key

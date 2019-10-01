@@ -14,8 +14,10 @@ import Alamofire
 
 let cache = NSCache<AnyObject, UIImage>()
 var posts: [Post] = []
+var favoritePosts: [Post] = []
 
 var postAlls: [Post] = []
+var favoritePostAlls: [Post] = []
 
 var isRefreshingPosts = false
 
@@ -63,8 +65,8 @@ public func refreshPosts() {
                             formatter.formatOptions =  [.withInternetDateTime, .withFractionalSeconds]
                             let date = formatter.date(from: art.createdAt)
                             
-                            let post: Post = Post.init(uid: "", id: art.artId, coordinates: art.location.coordinates ,dictionary: ["username":art.username, "image":art.picture, "created": date!.timeIntervalSince1970, "profile": "", "post":""]);
-                            
+                            let post: Post = Post.init(uid: "", id: art.artId, coordinates: art.location.coordinates ,dictionary: ["username":art.username, "image":art.picture, "created": date!.timeIntervalSince1970, "profile": "", "post":"", "likes": art.isFavorited!]);
+                                                        
                             postAlls.append(post)
                         }
                         posts = postAlls.sorted(by: { $0.created > $1.created })
@@ -109,9 +111,61 @@ public func refreshPosts() {
     }
 }
 
+public func favoriteStreetList() {
+    getUserAWSAccessToken (completionHandler: { (token) in
+        Alamofire.request(urlFavorite + "?token=" + token!, method: .get, encoding: JSONEncoding.default).responseJSON { response in
+            do {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                let artWorks = try decoder.decode(FavoriteArtWorks.self, from: response.data!)
+                      
+                favoritePostAlls.removeAll()
+                
+                for art in artWorks.artWorks {
+                    let formatter = ISO8601DateFormatter()
+                    formatter.formatOptions =  [.withInternetDateTime, .withFractionalSeconds]
+                    let date = formatter.date(from: art.createdAt)
+                    
+                    let post: Post = Post.init(uid: "", id: art.artId, coordinates: art.location.coordinates ,dictionary: ["username":art.username, "image":art.picture, "created": date!.timeIntervalSince1970, "profile": "", "post":""]);
+                    
+                    favoritePostAlls.append(post)
+                }
+                favoritePosts.removeAll()
+                favoritePosts = favoritePostAlls.sorted(by: { $0.created > $1.created })
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_FAVS_REFRESHED), object: nil)
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+
+    })
+}
+
+public func favoriteStreetPost(artId: String) {
+    getUserAWSAccessToken (completionHandler: { (token) in
+        let parameters: [String : Any] = [
+            "itemId": artId,
+            "token": token!
+        ]
+        Alamofire.request(urlFavorite, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+            print(response.response ?? "No Status")
+        }
+    })
+}
+
+public func favoriteStreetRemove(artId: String) {
+    getUserAWSAccessToken (completionHandler: { (token) in
+        let parameters: [String : Any] = [
+            "itemId": artId,
+            "token": token!
+        ]
+        Alamofire.request(urlFavorite, method: .delete, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+            print(response.response ?? "No Status")
+        }
+    })
+}
+
 public func pageGetMorePosts() {
     pageNumber = pageNumber + 1
     refreshPosts()
 }
-
-
