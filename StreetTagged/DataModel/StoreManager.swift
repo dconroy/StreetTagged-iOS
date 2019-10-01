@@ -118,7 +118,9 @@ public func favoriteStreetList() {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
                 let artWorks = try decoder.decode(FavoriteArtWorks.self, from: response.data!)
-                                    
+                      
+                favoritePostAlls.removeAll()
+                
                 for art in artWorks.artWorks {
                     let formatter = ISO8601DateFormatter()
                     formatter.formatOptions =  [.withInternetDateTime, .withFractionalSeconds]
@@ -128,6 +130,7 @@ public func favoriteStreetList() {
                     
                     favoritePostAlls.append(post)
                 }
+                favoritePosts.removeAll()
                 favoritePosts = favoritePostAlls.sorted(by: { $0.created > $1.created })
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_FAVS_REFRESHED), object: nil)
             } catch let error {
