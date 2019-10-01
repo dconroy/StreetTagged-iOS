@@ -26,6 +26,7 @@
 		454FFFED2339A2B90090ABCE /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 454FFFEA2339A2B90090ABCE /* 3.jpg */; };
 		454FFFEE2339A2B90090ABCE /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 454FFFEB2339A2B90090ABCE /* 1.jpg */; };
 		454FFFEF2339A2B90090ABCE /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 454FFFEC2339A2B90090ABCE /* 2.jpg */; };
+		45529FD5233EB15B002AA8DE /* ExampleSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45529FD4233EB15B002AA8DE /* ExampleSwiftUIView.swift */; };
 		455FDD112335C81C0075509A /* ReviewArtWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455FDD102335C81C0075509A /* ReviewArtWork.swift */; };
 		459293B0232AC515008B8B86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293AF232AC515008B8B86 /* AppDelegate.swift */; };
 		459293B2232AC515008B8B86 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293B1232AC515008B8B86 /* ViewController.swift */; };
@@ -87,6 +88,7 @@
 		454FFFEA2339A2B90090ABCE /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 3.jpg; path = ../../StreetTaggedServer/resources/3.jpg; sourceTree = "<group>"; };
 		454FFFEB2339A2B90090ABCE /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 1.jpg; path = ../../StreetTaggedServer/resources/1.jpg; sourceTree = "<group>"; };
 		454FFFEC2339A2B90090ABCE /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 2.jpg; path = ../../StreetTaggedServer/resources/2.jpg; sourceTree = "<group>"; };
+		45529FD4233EB15B002AA8DE /* ExampleSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleSwiftUIView.swift; sourceTree = "<group>"; };
 		455FDD102335C81C0075509A /* ReviewArtWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewArtWork.swift; sourceTree = "<group>"; };
 		459293AC232AC515008B8B86 /* StreetTagged.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetTagged.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		459293AF232AC515008B8B86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 		459293A3232AC515008B8B86 = {
 			isa = PBXGroup;
 			children = (
+				45529FD4233EB15B002AA8DE /* ExampleSwiftUIView.swift */,
 				459293E0232ADE38008B8B86 /* awsconfiguration.json */,
 				454FFFE92339A26F0090ABCE /* TestImages */,
 				459293AE232AC515008B8B86 /* StreetTagged */,
@@ -535,6 +538,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/WSTagsField/WSTagsField.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -557,6 +561,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WSTagsField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -595,6 +600,7 @@
 			files = (
 				451F7E1C232ED46100DFEBFA /* HelpFunctions.swift in Sources */,
 				451F7DD9232C404400DFEBFA /* FavorController.swift in Sources */,
+				45529FD5233EB15B002AA8DE /* ExampleSwiftUIView.swift in Sources */,
 				451F7E20232ED5DD00DFEBFA /* BasicContentView.swift in Sources */,
 				451F7E2D232EE8E600DFEBFA /* BaseCollectionViewCell.swift in Sources */,
 				451F7E15232ED39100DFEBFA /* Post.swift in Sources */,
@@ -797,6 +803,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 69UBQ6HF54;
 				INFOPLIST_FILE = StreetTagged/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -816,6 +823,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H8J2PZ9WM8;
 				INFOPLIST_FILE = StreetTagged/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
