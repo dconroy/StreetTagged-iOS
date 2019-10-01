@@ -167,8 +167,12 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
 }
 
 extension FeedController: PostCellDelegate {
-    func showComments(_ post: Post) {
-        
+    func likePost(_ post: Post) {
+        if (post.likes) {
+            favoriteStreetPost(artId: post.id)
+        } else {
+            favoriteStreetRemove(artId: post.id)
+        }
     }
     
     func sharePost(_ image: UIImage) {

@@ -25,7 +25,7 @@ class Post: NSObject {
     var id: String
     var uid: String
     var comments: [String: Any]
-    var likes: [String: Any]
+    var likes: Bool
     var bookmarks: [String: Any]
     var additionalImages: [String: String]
     var coordinates: [Float]
@@ -37,7 +37,7 @@ class Post: NSObject {
         self.username = dictionary["username"] as! String
         self.profile = dictionary["profile"] as! String
         self.comments = dictionary["comments"] as? [String: Any] ?? [:]
-        self.likes = dictionary["likes"] as? [String: Any] ?? [:]
+        self.likes = dictionary["likes"] as? Bool ?? false
         self.bookmarks = dictionary["bookmarks"] as? [String: Any] ?? [:]
         self.additionalImages =  dictionary["additionalImages"] as? [String: String] ?? [:]
         self.id = id

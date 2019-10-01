@@ -34,6 +34,10 @@ struct ArtWorks: Decodable {
     let items: [Art]
 }
 
+struct FavoriteArtWorks: Decodable {
+    let artWorks: [Art]
+}
+
 struct ArtWorkReview: Decodable {
     let item: [Art]
 }
