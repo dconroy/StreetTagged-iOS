@@ -24,41 +24,14 @@ class FeedController: UICollectionViewController {
         refreshPosts()
         NotificationCenter.default.addObserver(self, selector: #selector(postedNotification), name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(signUpNotification), name: NSNotification.Name(rawValue: GLOBAL_NEED_SIGN_UP), object: nil)
-                
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.isFirstLaunch()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        var configuration = AWSConfigOptions()
-               
-        configuration.appName = "Street Tagged"
-        configuration.appDescription = "Street Tagged is the easiest and most enjoyable way to find and share your favorite street art."
-        configuration.tintColor = UIColor.gray
-                     
-        var item1 = AWSItem()
-        item1.image = UIImage(named: "photo_1")
-        item1.title = "Capture local street art"
-        item1.description = "Post murals, post ups, and grafitti to share with the world."
-                     
-        var item2 = AWSItem()
-        item2.image = UIImage(named: "find_1")
-        item2.title = "Discover new favorites"
-        item2.description = "Get push notifications when you are near popular art at home or while on the road."
-                     
-        var item3 = AWSItem()
-        item3.image = UIImage(named: "me_1")
-        item3.title = "Subscribe to your favorite artists."
-        item3.description = "Get information and updates direct from the street artists."
-                     
-        configuration.items = [item1, item2, item3]
-                     
-        configuration.continueButtonAction = {
-            self.dismiss(animated: true)
-        }
-               
-        let vc = AWSViewController()
-        vc.configuration = configuration
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+        
     }
     
     lazy var refresh: UIRefreshControl = {
@@ -145,6 +118,42 @@ class FeedController: UICollectionViewController {
             
         }))
         self.navigationController!.present(alert, animated: true, completion: nil)
+    }
+    
+    func isFirstLaunch() {
+        if (UserDefaults.isFirstLaunch()) {
+            var configuration = AWSConfigOptions()
+
+            configuration.appName = "Street Tagged"
+            configuration.appDescription = "Street Tagged is the easiest and most enjoyable way to find and share your favorite street art."
+            configuration.tintColor = UIColor.gray
+
+            var item1 = AWSItem()
+            item1.image = UIImage(named: "photo_1")
+            item1.title = "Capture local street art"
+            item1.description = "Post murals, post ups, and grafitti to share with the world."
+
+            var item2 = AWSItem()
+            item2.image = UIImage(named: "find_1")
+            item2.title = "Discover new favorites"
+            item2.description = "Get push notifications when you are near popular art at home or while on the road."
+
+            var item3 = AWSItem()
+            item3.image = UIImage(named: "me_1")
+            item3.title = "Subscribe to your favorite artists."
+            item3.description = "Get information and updates direct from the street artists."
+
+            configuration.items = [item1, item2, item3]
+
+            configuration.continueButtonAction = {
+                self.dismiss(animated: true)
+            }
+
+            let vc = AWSViewController()
+            vc.configuration = configuration
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
+        }
     }
 }
 
