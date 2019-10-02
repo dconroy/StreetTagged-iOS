@@ -27,7 +27,7 @@ target 'StreetTagged' do
   pod 'Mapbox-iOS-SDK', '~> 5.3'
   pod 'RealmSwift'
   pod 'AWSS3', '~> 2.11.0'
-  pod 'AppleWelcomeScreen'
+  pod 'AppleWelcomeScreen', '~> 1.0.2'
   pod "WSTagsField"
 
 end
