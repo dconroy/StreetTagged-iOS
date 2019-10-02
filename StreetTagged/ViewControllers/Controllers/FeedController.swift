@@ -35,12 +35,12 @@ class FeedController: UICollectionViewController {
         configuration.tintColor = UIColor.gray
                      
         var item1 = AWSItem()
-        item1.image = UIImage(named: "send2")
+        item1.image = UIImage(named: "photo_1")
         item1.title = "Capture local street art"
         item1.description = "Post murals, post ups, and grafitti to share with the world."
                      
         var item2 = AWSItem()
-        item2.image = UIImage(named: "photo_1")
+        item2.image = UIImage(named: "find_1")
         item2.title = "Discover new favorites"
         item2.description = "Get push notifications when you are near popular art at home or while on the road."
                      
