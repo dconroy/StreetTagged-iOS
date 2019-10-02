@@ -18,6 +18,18 @@ extension UIApplication {
     }
 }
 
+extension UserDefaults {
+    static func isFirstLaunch() -> Bool {
+        let launchedBeforeFlag = "launchedBeforeFlag"
+        let isFirstLaunch = !UserDefaults.standard.bool(forKey: launchedBeforeFlag)
+        if (isFirstLaunch) {
+            UserDefaults.standard.set(true, forKey: launchedBeforeFlag)
+            UserDefaults.standard.synchronize()
+        }
+        return isFirstLaunch
+    }
+}
+
 let GLOBAL_POSTS_REFRESHED = "GLOBAL_POSTS_REFRESHED"
 let GLOBAL_FAVS_REFRESHED = "GLOBAL_FAVS_REFRESHED"
 let GLOBAL_TOKEN_GET_ERROR = "GLOBAL_TOKEN_GET_ERROR"
