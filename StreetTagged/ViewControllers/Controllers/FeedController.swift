@@ -28,26 +28,26 @@ class FeedController: UICollectionViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        /*var configuration = AWSConfigOptions()
+        var configuration = AWSConfigOptions()
                
-        configuration.appName = "StreetTagged"
-        configuration.appDescription = "Great new tools for notes synced to your iCloud account."
+        configuration.appName = "Street Tagged"
+        configuration.appDescription = "Street Tagged is the easiest and most enjoyable way to find and share your favorite street art."
         configuration.tintColor = UIColor.gray
                      
         var item1 = AWSItem()
         item1.image = UIImage(named: "send2")
-        item1.title = "Add almost anything"
-        item1.description = "Capture documents, photos, maps, and more for a richer Notes experience."
+        item1.title = "Capture local street art"
+        item1.description = "Post murals, post ups, and grafitti to share with the world."
                      
         var item2 = AWSItem()
-        item2.image = UIImage(named: "send2")
-        item2.title = "Note to self, or with anyone"
-        item2.description = "Invite others to view or make changes to a note."
+        item2.image = UIImage(named: "photo_1")
+        item2.title = "Discover new favorites"
+        item2.description = "Get push notifications when you are near popular art at home or while on the road."
                      
         var item3 = AWSItem()
-        item3.image = UIImage(named: "send2")
-        item3.title = "Sketch your thoughts"
-        item3.description = "Draw using just your finger."
+        item3.image = UIImage(named: "me_1")
+        item3.title = "Subscribe to your favorite artists."
+        item3.description = "Get information about updates direct from the street artist."
                      
         configuration.items = [item1, item2, item3]
                      
@@ -58,7 +58,7 @@ class FeedController: UICollectionViewController {
         let vc = AWSViewController()
         vc.configuration = configuration
         vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)*/
+        self.present(vc, animated: true)
     }
     
     lazy var refresh: UIRefreshControl = {
