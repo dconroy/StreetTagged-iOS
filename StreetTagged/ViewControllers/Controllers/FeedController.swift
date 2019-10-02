@@ -47,7 +47,7 @@ class FeedController: UICollectionViewController {
         var item3 = AWSItem()
         item3.image = UIImage(named: "me_1")
         item3.title = "Subscribe to your favorite artists."
-        item3.description = "Get information about updates direct from the street artist."
+        item3.description = "Get information and updates direct from the street artists."
                      
         configuration.items = [item1, item2, item3]
                      
