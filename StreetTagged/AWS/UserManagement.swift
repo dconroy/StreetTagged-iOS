@@ -23,7 +23,7 @@ enum UserAuthState {
 
 // Globals for the iOS App
 var userGlobalState: UserAuthState = .userGuest
-var isLogs = false
+var isLogs = true
 
 typealias GetTokenCompletionHandler = (_ token:Optional<String>) -> Void
 typealias GetSubCompletionHandler = (_ sub:Optional<String>) -> Void
