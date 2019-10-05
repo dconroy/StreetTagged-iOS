@@ -89,15 +89,8 @@ class PostCell: BaseCollectionViewCell {
     lazy var shareButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "send2").withRenderingMode(.alwaysOriginal), for: .normal)
-        button.addTarget(self, action: #selector(sharePost), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var bookMarkButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "ribbon").withRenderingMode(.alwaysOriginal), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(bookmarkPost), for: .touchUpInside)
+        button.addTarget(self, action: #selector(sharePost), for: .touchUpInside)
         return button
     }()
     
@@ -155,11 +148,11 @@ class PostCell: BaseCollectionViewCell {
         buttonsStack.heightAnchor.constraint(equalToConstant: 50).isActive = true
         buttonsStack.topAnchor.constraint(equalTo: stack.bottomAnchor).isActive = true
         //Add Bookmark
-        //addSubview(bookMarkButton)
-        //bookMarkButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        //bookMarkButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        //bookMarkButton.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        //bookMarkButton.topAnchor.constraint(equalTo: stack.bottomAnchor).isActive = true
+        addSubview(shareButton)
+        shareButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        shareButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        shareButton.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        shareButton.topAnchor.constraint(equalTo: stack.bottomAnchor).isActive = true
     }
     
     fileprivate func setupPostText() {
