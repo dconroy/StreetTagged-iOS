@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.9.0)
-  - AppleWelcomeScreen (1.0.1):
+  - AppleWelcomeScreen (1.0.2):
     - SnapKit
   - AWSAuthCore (2.11.0):
     - AWSCore (= 2.11.0)
@@ -33,7 +33,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - AppleWelcomeScreen
+  - AppleWelcomeScreen (~> 1.0.2)
   - AWSAuthUI
   - AWSCore (~> 2.11.0)
   - AWSMobileClient
@@ -46,9 +46,8 @@ DEPENDENCIES:
   - WSTagsField
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
-    - AppleWelcomeScreen
     - AWSAuthCore
     - AWSAuthUI
     - AWSCognitoIdentityProvider
@@ -62,12 +61,14 @@ SPEC REPOS:
     - Mapbox-iOS-SDK
     - Realm
     - RealmSwift
-    - SnapKit
     - WSTagsField
+  trunk:
+    - AppleWelcomeScreen
+    - SnapKit
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
-  AppleWelcomeScreen: dcf8848bf928e391467b2ea2ff1e40bcaf5a46b3
+  AppleWelcomeScreen: 92fb44fc457df8fdc2af00e29546ef280571611f
   AWSAuthCore: a1e02ce0f4400f49cb5611fd4ce588f8ca8d3598
   AWSAuthUI: 4daf59697f160881c4af378027feabf1157e2bbc
   AWSCognitoIdentityProvider: 1df180f85e314365dfded2c46c460bc7afb08b4b
@@ -84,6 +85,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   WSTagsField: 5963db79f251c2a87ecfcf5dbfa36d05efc3d548
 
-PODFILE CHECKSUM: 7bf54de5e701bb97651b3c130e77fd43c2ad418c
+PODFILE CHECKSUM: 548fc56c3b5424cdc996cdb421adf8d100e51602
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.3
