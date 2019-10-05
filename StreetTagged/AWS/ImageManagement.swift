@@ -19,7 +19,7 @@ typealias AWSS3UploadStatus = (_ task:AnyObject,_ key: Optional<String>) -> Void
 func uploadUIImageToAWSS3(image: UIImage, progressHandler: @escaping AWSS3UploadProgress, statusHandler: @escaping AWSS3UploadStatus) {
     getUserAWSUserSub (completionHandler: { (sub) in
         let rotated_image = fixOrientation(img: image)
-        let data:Data = rotated_image.jpegData(compressionQuality: 0.9)!
+        let data:Data = rotated_image.jpegData(compressionQuality: 0.95)!
         let imageType = "image/jpeg"
         let expression = AWSS3TransferUtilityUploadExpression()
         expression.progressBlock = {(task, progress) in
