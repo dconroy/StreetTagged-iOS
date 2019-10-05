@@ -60,3 +60,4 @@ StreetTagged/ViewControllers/ExampleProvider.swift
 .DS_Store
 *.lock
 Podfile.lock
+

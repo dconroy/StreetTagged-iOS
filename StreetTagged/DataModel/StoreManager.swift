@@ -113,7 +113,7 @@ public func refreshPosts() {
 
 public func favoriteStreetList() {
     getUserAWSAccessToken (completionHandler: { (token) in
-        Alamofire.request(urlFavorite + "?token=" + token!, method: .get, encoding: JSONEncoding.default).responseJSON { response in
+            Alamofire.request(urlFavorite + "?token=" + token!, method: .get, encoding: JSONEncoding.default).responseJSON { response in
             do {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
