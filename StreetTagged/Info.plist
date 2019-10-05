@@ -46,5 +46,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>StreetTagged uses camera to save art</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>StreetTagged uses photo library to save art</string>
 </dict>
 </plist>

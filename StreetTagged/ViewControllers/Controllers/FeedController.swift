@@ -184,7 +184,9 @@ extension FeedController: PostCellDelegate {
     }
     
     func sharePost(_ image: UIImage) {
-        
+        let shareText = "Share Image"
+        let vc = UIActivityViewController(activityItems: [shareText, image], applicationActivities: [])
+        present(vc, animated: true, completion: nil)
     }
 }
 
