@@ -34,7 +34,7 @@ func uploadUIImageToAWSS3(image: UIImage, progressHandler: @escaping AWSS3Upload
         }
         let transferUtility = AWSS3TransferUtility.default()
         let uuid = UUID().uuidString
-        let imageKey = "public/" + sub! + "-" + uuid
+        let imageKey =  sub! + "-" + uuid + ".png"
         transferUtility.uploadData(data, bucket: GLOBAL_AWS_S3_UPLOAD_BUCKET, key: imageKey, contentType: imageType, expression: expression, completionHandler: completionHandler).continueWith { (task) -> AnyObject? in
             if let error = task.error {
                 print("Error: \(error.localizedDescription)")
