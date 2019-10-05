@@ -104,7 +104,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
         
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
+        let filter = "1080x1080"
         self.title = "Upload Street Art"
         
         let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
@@ -127,8 +127,8 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                 self.progressBar.progress = Float(progress.fractionCompleted)
             }, statusHandler: { (task, key) in
                 if let _ = task.result {
-                    if (key?.isEmpty == false) {
-                        let imageURL: String = imageURLFromS3Key(key: key!)
+                    if (key?.isEmpty == false  && filter.isEmpty == false) {
+                        let imageURL: String = imageURLFromS3Key(key: key!,filter: filter)
                         self.imageLink = imageURL
                         self.hasImage = true
                         print(imageURL)

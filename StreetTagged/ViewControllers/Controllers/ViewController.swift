@@ -87,14 +87,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         imageView.image = image
+        let filter = "1080x1080"
         
         if (userGlobalState == .userSignedIn) {
             uploadUIImageToAWSS3(image: image, progressHandler: { (progress) in
                 print("uploadUIImageToAWSS3-Process: \(progress)")
                 self.progressBar.progress = Float(progress.fractionCompleted)
             }, statusHandler: { (task, key) in
-                if (key?.isEmpty == false) {
-                    let imageURL: String = imageURLFromS3Key(key: key!)
+                if (key?.isEmpty == false && filter.isEmpty == false) {
+                    let imageURL: String = imageURLFromS3Key(key: key!, filter: filter)
                     self.imageLink = imageURL
                     print(imageURL)
                 }
