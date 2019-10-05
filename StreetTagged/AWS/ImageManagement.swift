@@ -18,8 +18,8 @@ typealias AWSS3UploadStatus = (_ task:AnyObject,_ key: Optional<String>) -> Void
 
 func uploadUIImageToAWSS3(image: UIImage, progressHandler: @escaping AWSS3UploadProgress, statusHandler: @escaping AWSS3UploadStatus) {
     getUserAWSUserSub (completionHandler: { (sub) in
-        let data:Data = image.pngData()!
-        let imageType = "image/png"
+        let data:Data = image.jpegData(compressionQuality: 0.9)!
+        let imageType = "image/jpeg"
         let expression = AWSS3TransferUtilityUploadExpression()
         expression.progressBlock = {(task, progress) in
             DispatchQueue.main.async(execute: {
@@ -34,7 +34,7 @@ func uploadUIImageToAWSS3(image: UIImage, progressHandler: @escaping AWSS3Upload
         }
         let transferUtility = AWSS3TransferUtility.default()
         let uuid = UUID().uuidString
-        let imageKey =  sub! + "-" + uuid + ".png"
+        let imageKey =  sub! + "-" + uuid + ".jpg"
         transferUtility.uploadData(data, bucket: GLOBAL_AWS_S3_UPLOAD_BUCKET, key: imageKey, contentType: imageType, expression: expression, completionHandler: completionHandler).continueWith { (task) -> AnyObject? in
             if let error = task.error {
                 print("Error: \(error.localizedDescription)")
