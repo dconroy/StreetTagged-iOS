@@ -18,30 +18,28 @@ public class ProfileController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(red: 244.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0)
-        switch userGlobalState {
-        case .userSignedIn:
-            self.mainButton.setTitle("Sign Out", for: UIControl.State.normal)
-            self.usernameLabel.text = AWSMobileClient.default().username
-            self.usernameLabel.isHidden = false
-            break
-        default:
-            self.mainButton.setTitle("Sign In", for: UIControl.State.normal)
-            self.usernameLabel.isHidden = true
-            break
-        }
+   
+        NotificationCenter.default.addObserver(self, selector: #selector(setProfile), name: NSNotification.Name(rawValue: GLOBAL_SIGNIN_REFRESH), object: nil)
+    }
+    
+    @objc func setProfile(){
+         self.usernameLabel.isHidden = false
+         self.usernameLabel.text = AWSMobileClient.default().username
+         self.mainButton.setTitle("Sign Out", for: UIControl.State.normal)
+    }
+    @objc func clearProfile(){
+         self.mainButton.setTitle("Sign In", for: UIControl.State.normal)
+         self.usernameLabel.isHidden = true
     }
     
     public override func viewWillAppear(_ animated: Bool) {
         switch userGlobalState {
         case .userSignedIn:
-            self.mainButton.setTitle("Sign Out", for: UIControl.State.normal)
-            self.usernameLabel.text = AWSMobileClient.default().username
-            self.usernameLabel.isHidden = false
+            setProfile()
             break
         default:
-            self.mainButton.setTitle("Sign In", for: UIControl.State.normal)
-            self.usernameLabel.isHidden = true
-            break
+            clearProfile()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_NEED_SIGN_UP), object: nil)
         }
     }
     
@@ -58,13 +56,11 @@ public class ProfileController: UIViewController {
         switch userGlobalState {
         case .userSignedIn:
             userSignOut()
-            self.mainButton.setTitle("Sign In", for: UIControl.State.normal)
-            self.usernameLabel.isHidden = true
+            clearProfile()
             break
         default:
             userSignIn(navController: self.navigationController!)
-            self.mainButton.setTitle("Sign Out", for: UIControl.State.normal)
-            self.usernameLabel.isHidden = false
+            setProfile()
             break
         }
 
