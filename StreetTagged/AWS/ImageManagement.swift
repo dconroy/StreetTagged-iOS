@@ -18,7 +18,8 @@ typealias AWSS3UploadStatus = (_ task:AnyObject,_ key: Optional<String>) -> Void
 
 func uploadUIImageToAWSS3(image: UIImage, progressHandler: @escaping AWSS3UploadProgress, statusHandler: @escaping AWSS3UploadStatus) {
     getUserAWSUserSub (completionHandler: { (sub) in
-        let data:Data = image.jpegData(compressionQuality: 0.9)!
+        let rotated_image = fixOrientation(img: image)
+        let data:Data = rotated_image.jpegData(compressionQuality: 0.9)!
         let imageType = "image/jpeg"
         let expression = AWSS3TransferUtilityUploadExpression()
         expression.progressBlock = {(task, progress) in
@@ -46,4 +47,20 @@ func uploadUIImageToAWSS3(image: UIImage, progressHandler: @escaping AWSS3Upload
             return nil;
         }
     })
+}
+
+func fixOrientation(img:UIImage) -> UIImage {
+
+  if (img.imageOrientation == UIImage.Orientation.up) {
+      return img;
+  }
+
+  UIGraphicsBeginImageContextWithOptions(img.size, false, img.scale);
+  let rect = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
+    img.draw(in: rect)
+
+  let normalizedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+  UIGraphicsEndImageContext();
+  return normalizedImage;
+
 }

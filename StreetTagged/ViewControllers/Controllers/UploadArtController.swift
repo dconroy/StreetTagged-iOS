@@ -84,7 +84,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @objc func cancel() {
-        let alert = UIAlertController(title: "Are you sure?", message: "If you discard your art work post you cannot recovor it. Are you sure you like to discard it?", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Are you sure?", message: "If you discard your art work post you cannot recover it. Are you sure you'd like to discard it?", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
         }))
         alert.addAction(UIAlertAction(title: "Yes, Discard", style: UIAlertAction.Style.destructive, handler: { (alert: UIAlertAction!) in
