@@ -83,6 +83,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                         self.currentViewController!.present(alert, animated: true, completion: nil)
                     }
                 }
+                if index == 3 {
+                
+                }
         }
                
                

@@ -302,17 +302,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTG-lt-5Z0">
-                                <rect key="frame" x="179" y="299" width="56" height="30"/>
+                                <rect key="frame" x="106" y="160" width="203" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="SignOut"/>
+                                <state key="normal" title="Action"/>
                                 <connections>
-                                    <action selector="signOut:forEvent:" destination="g5k-gH-cHd" eventType="touchUpInside" id="dP3-QU-QcV"/>
+                                    <action selector="action:forEvent:" destination="g5k-gH-cHd" eventType="touchUpInside" id="hZI-XY-1XF"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="XHG-Mv-Fvz"/>
                     </view>
+                    <connections>
+                        <outlet property="mainButton" destination="tTG-lt-5Z0" id="weC-xu-Gow"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dmi-Ig-Q23" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
