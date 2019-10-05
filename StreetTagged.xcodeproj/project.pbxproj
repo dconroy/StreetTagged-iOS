@@ -337,6 +337,7 @@
 				459293A9232AC515008B8B86 /* Frameworks */,
 				459293AA232AC515008B8B86 /* Resources */,
 				D62D7B3382F8C56D7D04049C /* [CP] Embed Pods Frameworks */,
+				F6AF7B9B2348D4A700DC6251 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -517,6 +518,25 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StreetTagged/Pods-StreetTagged-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		F6AF7B9B2348D4A700DC6251 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
+				"~/.mapbox",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Look for a global file named 'mapbox' or '.mapbox' within the home directory\ntoken_file=~/.mapbox\ntoken_file2=~/mapbox\ntoken=\"$(cat $token_file 2>/dev/null || cat $token_file2 2>/dev/null)\"\nif [ \"$token\" ]; then\n  plutil -replace MGLMapboxAccessToken -string $token \"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\nelse\n  echo 'warning: Missing Mapbox access token'\n  open 'https://www.mapbox.com/account/access-tokens/'\n  echo \"warning: Get an access token from <https://www.mapbox.com/account/access-tokens/>, then create a new file at $token_file or $token_file2 that contains the access token.\"\nfi\n";
 		};
 		FF18B48EE9EF7902BC6956E7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -750,13 +770,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 69UBQ6HF54;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = H8J2PZ9WM8;
 				INFOPLIST_FILE = StreetTagged/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.streettagged.iosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -770,6 +792,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = H8J2PZ9WM8;
 				INFOPLIST_FILE = StreetTagged/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -777,6 +800,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.streettagged.iosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

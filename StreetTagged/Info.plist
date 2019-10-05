@@ -17,13 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>MGLMapboxAccessToken</key>
-	<string>pk.eyJ1IjoiY29ucm95ZGF2ZSIsImEiOiJjankwbnM1dmYwNTJzM2JsanV3aHh5bnl0In0.j40QFssfW0xUwIq09TqWdw</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Shows your location on the map and helps improve OpenStreetMap.
 </string>
