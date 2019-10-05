@@ -148,8 +148,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
         tagsField.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         tagsField.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 
-        tagsField.placeholder = "Enter some tags"
-        tagsField.placeholderColor = .black
+        tagsField.placeholder = "Enter Tags"
         tagsField.placeholderAlwaysVisible = true
         tagsField.backgroundColor = .clear
         tagsField.returnKeyType = .continue
