@@ -67,6 +67,7 @@ func userStateInitialize(enabledLogs: Bool, responder: UIResponder) {
         }
         if (isLogs) {
             print("AWSMobileClient-State-Change: ", userGlobalState)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_SIGNIN_REFRESH), object: nil)
         }
     }
 }
