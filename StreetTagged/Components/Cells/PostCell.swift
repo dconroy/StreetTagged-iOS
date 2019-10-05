@@ -102,8 +102,11 @@ class PostCell: BaseCollectionViewCell {
     }()
     
     lazy var buttonsStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [likeButton, commentButton, shareButton])
-        stack.distribution = .fillEqually
+        let stack = UIStackView(arrangedSubviews: [likeButton])
+        stack.distribution = .equalSpacing
+        stack.axis = .vertical
+        stack.alignment = .leading
+        //stack.alignment = .leading
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -152,11 +155,11 @@ class PostCell: BaseCollectionViewCell {
         buttonsStack.heightAnchor.constraint(equalToConstant: 50).isActive = true
         buttonsStack.topAnchor.constraint(equalTo: stack.bottomAnchor).isActive = true
         //Add Bookmark
-        addSubview(bookMarkButton)
-        bookMarkButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        bookMarkButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        bookMarkButton.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        bookMarkButton.topAnchor.constraint(equalTo: stack.bottomAnchor).isActive = true
+        //addSubview(bookMarkButton)
+        //bookMarkButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        //bookMarkButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        //bookMarkButton.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        //bookMarkButton.topAnchor.constraint(equalTo: stack.bottomAnchor).isActive = true
     }
     
     fileprivate func setupPostText() {
