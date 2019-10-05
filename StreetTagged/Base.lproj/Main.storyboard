@@ -269,7 +269,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bnM-i5-DYj">
-                                <rect key="frame" x="0.0" y="263" width="414" height="78"/>
+                                <rect key="frame" x="0.0" y="263" width="414" height="248"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ikr-lG-FR3">
@@ -301,9 +301,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTG-lt-5Z0">
-                                <rect key="frame" x="106" y="160" width="203" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTG-lt-5Z0">
+                                <rect key="frame" x="185" y="433" width="44" height="30"/>
                                 <state key="normal" title="Action"/>
                                 <connections>
                                     <action selector="action:forEvent:" destination="g5k-gH-cHd" eventType="touchUpInside" id="hZI-XY-1XF"/>
@@ -311,6 +310,10 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="tTG-lt-5Z0" firstAttribute="centerX" secondItem="0cj-Od-B30" secondAttribute="centerX" id="EcJ-MI-Oep"/>
+                            <constraint firstItem="tTG-lt-5Z0" firstAttribute="centerY" secondItem="0cj-Od-B30" secondAttribute="centerY" id="dNW-Fo-LO6"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="XHG-Mv-Fvz"/>
                     </view>
                     <connections>
