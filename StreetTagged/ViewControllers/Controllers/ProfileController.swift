@@ -8,10 +8,12 @@
 import UIKit
 import Foundation
 import Alamofire
+import AWSMobileClient
 
 public class ProfileController: UIViewController {
     
     @IBOutlet var mainButton: UIButton!
+    @IBOutlet var usernameLabel: UILabel!
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,9 +21,12 @@ public class ProfileController: UIViewController {
         switch userGlobalState {
         case .userSignedIn:
             self.mainButton.setTitle("Sign Out", for: UIControl.State.normal)
+            self.usernameLabel.text = AWSMobileClient.default().username
+            self.usernameLabel.isHidden = false
             break
         default:
             self.mainButton.setTitle("Sign In", for: UIControl.State.normal)
+            self.usernameLabel.isHidden = true
             break
         }
     }
@@ -30,9 +35,12 @@ public class ProfileController: UIViewController {
         switch userGlobalState {
         case .userSignedIn:
             self.mainButton.setTitle("Sign Out", for: UIControl.State.normal)
+            self.usernameLabel.text = AWSMobileClient.default().username
+            self.usernameLabel.isHidden = false
             break
         default:
             self.mainButton.setTitle("Sign In", for: UIControl.State.normal)
+            self.usernameLabel.isHidden = true
             break
         }
     }
@@ -46,29 +54,17 @@ public class ProfileController: UIViewController {
         self.present(vc, animated: true, completion: nil)
     }
     
-    @IBAction func refresh(_ sender: UIButton, forEvent event: UIEvent){
-        refreshPosts()
-    }
-    
-    @IBAction func showSignIn(_ sender: UIButton, forEvent event: UIEvent){
-        print("showSignIn")
-        userSignIn(navController: self.navigationController!)
-        //userSignInWithCreds(username: "", password: "")
-    }
-    
-    @IBAction func signOut(_ sender: UIButton, forEvent event: UIEvent){
-        userSignOut()
-    }
-    
     @IBAction func action(_ sender: UIButton, forEvent event: UIEvent){
         switch userGlobalState {
         case .userSignedIn:
             userSignOut()
             self.mainButton.setTitle("Sign In", for: UIControl.State.normal)
+            self.usernameLabel.isHidden = true
             break
         default:
             userSignIn(navController: self.navigationController!)
             self.mainButton.setTitle("Sign Out", for: UIControl.State.normal)
+            self.usernameLabel.isHidden = false
             break
         }
 
