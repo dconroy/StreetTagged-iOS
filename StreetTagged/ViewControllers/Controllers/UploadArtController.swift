@@ -84,7 +84,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @objc func cancel() {
-        let alert = UIAlertController(title: "Are you sure?", message: "If you discard your art work post you cannot recovor it. Are you sure you like to discard it?", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Are you sure?", message: "If you discard your art work post you cannot recover it. Are you sure you'd like to discard it?", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
         }))
         alert.addAction(UIAlertAction(title: "Yes, Discard", style: UIAlertAction.Style.destructive, handler: { (alert: UIAlertAction!) in
@@ -104,7 +104,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
         
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
+        let filter = "1080x1080"
         self.title = "Upload Street Art"
         
         let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
@@ -127,8 +127,8 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                 self.progressBar.progress = Float(progress.fractionCompleted)
             }, statusHandler: { (task, key) in
                 if let _ = task.result {
-                    if (key?.isEmpty == false) {
-                        let imageURL: String = imageURLFromS3Key(key: key!)
+                    if (key?.isEmpty == false  && filter.isEmpty == false) {
+                        let imageURL: String = imageURLFromS3Key(key: key!,filter: filter)
                         self.imageLink = imageURL
                         self.hasImage = true
                         print(imageURL)
@@ -148,8 +148,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
         tagsField.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         tagsField.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 
-        tagsField.placeholder = "Enter some tags"
-        tagsField.placeholderColor = .black
+        tagsField.placeholder = "Enter Tags"
         tagsField.placeholderAlwaysVisible = true
         tagsField.backgroundColor = .clear
         tagsField.returnKeyType = .continue

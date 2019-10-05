@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                         imagePicker.modalPresentationStyle = .fullScreen
                         self.currentViewController!.present(imagePicker, animated: true, completion: nil)
                     } else {
-                        let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to save you favorite street art as well as submit art.", preferredStyle: UIAlertController.Style.alert)
+                        let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to submit and favorite street art.", preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in
                             userSignIn(navController: self.currentViewController!.navigationController!)
                         }))
@@ -91,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                     if (userGlobalState == .userSignedIn) {
                     
                     } else {
-                        let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to save you favorite street art as well as submit art.", preferredStyle: UIAlertController.Style.alert)
+                        let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to submit and favorite street art.", preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in
                             userSignIn(navController: self.currentViewController!.navigationController!)
                         }))
