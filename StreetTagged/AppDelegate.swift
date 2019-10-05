@@ -56,7 +56,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                     tabBarController.title = "Nearby"
                 }
                 if index == 3 {
-                    tabBarController.title = "Favorites"
+                    if (userGlobalState == .userSignedIn) {
+                        tabBarController.title = "Favorites"
+                    } else {
+                        return true
+                    }
                 }
                 if index == 4 {
                     tabBarController.title = "Me"
@@ -84,7 +88,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                     }
                 }
                 if index == 3 {
-                
+                    if (userGlobalState == .userSignedIn) {
+                    
+                    } else {
+                        let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to save you favorite street art as well as submit art.", preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in
+                            userSignIn(navController: self.currentViewController!.navigationController!)
+                        }))
+                        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
+                            
+                        }))
+                        self.currentViewController!.present(alert, animated: true, completion: nil)
+                    }
                 }
         }
                
