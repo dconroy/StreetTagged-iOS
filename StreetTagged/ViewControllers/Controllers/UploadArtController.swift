@@ -27,12 +27,8 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     var imageLink = ""
     var tags: [String] = []
     let center = UNUserNotificationCenter.current()
-    let locationManager = CLLocationManager()
-    var latitude: CLLocationDegrees?
-    var longitude: CLLocationDegrees?
     
     var hasImage: Bool = false
-    var hasGPS: Bool = false
     var timer = Timer()
 
     let regionRadius: CLLocationDistance = 1000
@@ -52,13 +48,13 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     
     @objc func post() {
         navigationItem.rightBarButtonItem?.isEnabled = false;
-        if (hasImage && hasGPS) {
+        if (hasImage && hasGlobalGPS) {
             if (userGlobalState == .userSignedIn) {
                 getUserAWSAccessToken (completionHandler: { (token) in
                     let parameters: [String : Any] = [
                         "coordinates": [
-                            "latitude": self.latitude!,
-                            "longitude": self.longitude!
+                            "latitude": globalLatitude!,
+                            "longitude": globalLongitude!
                         ],
                         "picture": self.imageLink,
                         "tags": self.tags,
@@ -94,7 +90,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @objc func timerAction() {
-        if (self.hasImage == true && self.hasGPS == true && self.progressBar.progress == 1.0) {
+        if (self.hasImage == true && hasGlobalGPS == true && self.progressBar.progress == 1.0) {
             navigationItem.rightBarButtonItem?.isEnabled = true;
         }
         if (self.progressBar.progress == 1.0) {
@@ -113,13 +109,9 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
         navigationItem.rightBarButtonItem = postItem
         navigationItem.leftBarButtonItem = cancelItem
         navigationItem.rightBarButtonItem?.isEnabled = false;
-        
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
-        
+      
         timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         
         self.imageView.image = image!
         if (userGlobalState == .userSignedIn) {
@@ -136,7 +128,6 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                 }
             })
         }
-        
         
         tagsField.frame = tagsView.bounds
         tagsView.addSubview(tagsField)
@@ -175,30 +166,13 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
         }
         
         textView.becomeFirstResponder()
-    }
-    
-    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        print("location manager authorization status changed")
-    }
-    
-    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-    }
-    
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            print(location.coordinate.latitude)
-            print(location.coordinate.longitude)
-            self.latitude = location.coordinate.latitude
-            self.longitude = location.coordinate.longitude
-            self.hasGPS = true
-            centerMapOnLocation(location: location)
-        }
+        
+        self.centerMapOnLocation(location: globalLocation! as! CLLocation)
     }
     
     func centerMapOnLocation(location: CLLocation) {
-    let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
-      mapView.setRegion(coordinateRegion, animated: true)
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
+        mapView.setRegion(coordinateRegion, animated: true)
     }
     
     public override func viewDidLayoutSubviews() {
