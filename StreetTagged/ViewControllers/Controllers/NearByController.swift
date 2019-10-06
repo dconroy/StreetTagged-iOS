@@ -9,10 +9,12 @@
 import Foundation
 import Mapbox
 
-public class NearByController: UIViewController, CLLocationManagerDelegate {
+public class NearByController: UIViewController {
     
     var mapView = MGLMapView()
+    var timer = Timer()
     let locationManager = CLLocationManager()
+    var currentAnnotation:[MGLPointAnnotation] = [];
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,30 +27,46 @@ public class NearByController: UIViewController, CLLocationManagerDelegate {
         for post in posts {
             let pin = MGLPointAnnotation()
             pin.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(post.coordinates[1]), longitude: CLLocationDegrees(post.coordinates[0]))
-            mapView.addAnnotation(pin)
+            self.currentAnnotation.append(pin)
+            self.mapView.addAnnotation(pin)
         }
         
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
+        mapView.showsUserLocation = true;
         
-        //mapView.showsUserLocation = true;
+        timer.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        
         view.addSubview(mapView)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(postUpdates), name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
     }
     
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        mapView.setCenter(locValue, animated: true)
-        mapView.setZoomLevel(12.0, animated: true)
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+    @objc func postUpdates() {
+        for annotation in currentAnnotation {
+            self.mapView.removeAnnotation(annotation)
+        }
+        currentAnnotation.removeAll()
+        for post in posts {
+            let pin = MGLPointAnnotation()
+            pin.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(post.coordinates[1]), longitude: CLLocationDegrees(post.coordinates[0]))
+            self.currentAnnotation.append(pin)
+            self.mapView.addAnnotation(pin)
+        }
     }
     
-    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+    @objc func timerAction() {
+        if (hasGlobalGPS) {
+            let locValue: CLLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: globalLatitude!, longitude: globalLongitude!)
+            mapView.setCenter(locValue, animated: true)
+            mapView.setZoomLevel(15.0, animated: true)
+        }
     }
     
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
-
+    
+    deinit {
+        timer.invalidate()
+    }
 }
