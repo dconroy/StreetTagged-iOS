@@ -70,12 +70,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         tabBarController.didHijackHandler = { tabbarController, viewController, index in
                 if index == 2 {
                     if (userGlobalState == .userSignedIn) {
-                        let imagePicker = UIImagePickerController()
-                        imagePicker.delegate = self
-                        imagePicker.allowsEditing = false
-                        imagePicker.sourceType = .photoLibrary
-                        imagePicker.modalPresentationStyle = .fullScreen
-                        self.currentViewController!.present(imagePicker, animated: true, completion: nil)
+                        let alert = UIAlertController(title: "From?", message: "", preferredStyle: .actionSheet)
+                        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action: UIAlertAction) in
+                            self.getImage(fromSourceType: .camera)
+                        }))
+                        alert.addAction(UIAlertAction(title: "Photo Album", style: .default, handler: {(action: UIAlertAction) in
+                            self.getImage(fromSourceType: .photoLibrary)
+                        }))
+                        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+                        self.currentViewController!.present(alert, animated: true, completion: nil)
                     } else {
                         let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to submit and favorite street art.", preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in
@@ -119,6 +122,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         self.window?.makeKeyAndVisible()
         
         return true
+    }
+    
+    func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = sourceType
+            imagePickerController.modalPresentationStyle = .fullScreen
+            imagePickerController.allowsEditing = true
+            self.currentViewController!.present(imagePickerController, animated: true, completion: nil)
+        }
     }
     
     @objc func filter() {
