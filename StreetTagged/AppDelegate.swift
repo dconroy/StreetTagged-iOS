@@ -12,15 +12,43 @@ import ESTabBarController_swift
 import AWSMobileClient
 import AWSS3
 import Photos
+import CoreLocation
+
+var globalLatitude: CLLocationDegrees?
+var globalLongitude: CLLocationDegrees?
+var globalLocation: Any?
+
+var hasGlobalGPS: Bool = false
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
     
     var window: UIWindow?
     
     var currentViewController: UIViewController?
     let storyboard: UIStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+    let locationManager = CLLocationManager()
 
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("location manager authorization status changed")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            globalLatitude = location.coordinate.latitude
+            globalLongitude = location.coordinate.longitude
+            globalLocation = location
+            hasGlobalGPS = true
+        }
+    }
+    
+    @objc func timerGPSFunction() {
+        
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -121,6 +149,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
         
+        self.locationManager.delegate = self
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
+        
         return true
     }
     
@@ -148,9 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let coordinate = (info[UIImagePickerController.InfoKey.phAsset] as? PHAsset)?.location?.coordinate
         /*print(coordinate?.latitude ?? "No latitude found")
         print(coordinate?.longitude ?? "No longitude found")*/
-        
-        print(coordinate)
-        
+                
         let navigationController = UINavigationController(rootViewController: vc)
 
         self.currentViewController!.dismiss(animated: true, completion: nil)
@@ -225,6 +255,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             }
         }
     }
-
 }
 

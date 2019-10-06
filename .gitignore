@@ -61,3 +61,6 @@ StreetTagged/ViewControllers/ExampleProvider.swift
 *.lock
 Podfile.lock
 
+StreetTagged.xcodeproj/xcshareddata/xcschemes/StreetTagged.xcscheme
+StreetTagged.xcodeproj/project.pbxproj
+StreetTagged.xcodeproj/project.pbxproj
