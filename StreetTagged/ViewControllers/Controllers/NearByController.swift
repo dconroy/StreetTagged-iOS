@@ -22,7 +22,7 @@ public class NearByController: UIViewController {
         let url = URL(string: "mapbox://styles/mapbox/light-v10")
         mapView = MGLMapView(frame: view.bounds, styleURL: url)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.setCenter(CLLocationCoordinate2D(latitude: 40.74699, longitude: -73.98742), zoomLevel: 9, animated: false)
+        mapView.setCenter(CLLocationCoordinate2D(latitude: 40.74699, longitude: -73.98742), zoomLevel: 1, animated: false)
         
         for post in posts {
             let pin = MGLPointAnnotation()
