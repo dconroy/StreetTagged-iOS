@@ -16,7 +16,7 @@ import CoreLocation
 
 var globalLatitude: CLLocationDegrees?
 var globalLongitude: CLLocationDegrees?
-var globalLocation: Any?
+var globalLocation: CLLocation = CLLocation.init()
 
 var hasGlobalGPS: Bool = false
 
@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print("location manager authorization status changed")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
