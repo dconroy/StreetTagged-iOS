@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import CoreLocation
+import MapKit
 
 extension UIApplication {
     static var appVersion: String? {
@@ -28,6 +30,21 @@ extension UserDefaults {
         }
         return isFirstLaunch
     }
+}
+
+extension CLLocationDistance {
+    func inMiles() -> CLLocationDistance {
+        return self*0.00062137
+    }
+
+    func inKilometers() -> CLLocationDistance {
+        return self/1000
+    }
+}
+
+func getDistanceFromGlobalLocation(artLocation: CLLocation) -> String {
+    let meters = globalLocation.distance(from: artLocation)
+    return " - " + String(format:"%.1f", meters.inMiles()) + " miles away"
 }
 
 let GLOBAL_SIGNIN_REFRESH = "GLOBAL_SIGNIN_REFRESH"

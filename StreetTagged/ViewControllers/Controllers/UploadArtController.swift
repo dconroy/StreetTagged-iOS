@@ -167,7 +167,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
         
         textView.becomeFirstResponder()
         
-        self.centerMapOnLocation(location: globalLocation! as! CLLocation)
+        self.centerMapOnLocation(location: globalLocation)
     }
     
     func centerMapOnLocation(location: CLLocation) {

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 protocol PostCellDelegate {
     func sharePost(_ image: UIImage)
@@ -31,6 +32,8 @@ class PostCell: BaseCollectionViewCell {
     var isPostLiked = false
     var isPostBookmarked = false
     var stackHeight: NSLayoutConstraint?
+    
+    var artLocation: CLLocation?
     
     lazy var userProfile: UIImageView = {
         let image = UIImageView()
@@ -183,6 +186,9 @@ class PostCell: BaseCollectionViewCell {
         //userProfile.loadImage(post.profile)
         additionalImages = []
         //self.backgroundColor = UIColor.red
+        
+        self.artLocation = CLLocation.init(latitude: CLLocationDegrees.init(post.coordinates[1]), longitude: CLLocationDegrees.init(post.coordinates[0]))
+        
         post.additionalImages.forEach { (_, val) in
             additionalImages.append(val)
         }
@@ -204,6 +210,9 @@ class PostCell: BaseCollectionViewCell {
         postAttributedText.append(NSAttributedString(string: post.post , attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]))
         //postAttributedText.append(NSAttributedString(string: "\n\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 4)]))
         postAttributedText.append(NSAttributedString(string: getTimeElapsed(post.created), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
+        
+        postAttributedText.append(NSAttributedString(string: getDistanceFromGlobalLocation(artLocation: self.artLocation!), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
+        
         postText.attributedText = postAttributedText
         if  post.likes {
             likeButton.setImage(#imageLiteral(resourceName: "like_selected").withRenderingMode(.alwaysTemplate), for: .normal)
