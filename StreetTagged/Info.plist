@@ -24,9 +24,13 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>StreetTagged uses camera to save art</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Shows your location on the map and helps improve OpenStreetMap.
 </string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>StreetTagged uses photo library to save art</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -46,9 +50,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>StreetTagged uses camera to save art</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>StreetTagged uses photo library to save art</string>
 </dict>
 </plist>
