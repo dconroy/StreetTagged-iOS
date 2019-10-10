@@ -20,6 +20,7 @@ struct Art: Decodable {
     let username: String
     let tags: [String]
     let picture: String
+    let about: String
     let isFavorited: Bool?
     let location: Location
     let createdAt: String
