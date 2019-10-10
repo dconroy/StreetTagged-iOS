@@ -20,9 +20,10 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = URL(string: "mapbox://styles/mapbox/light-v10")
-        mapView = MGLMapView(frame: view.bounds, styleURL: url)
+        mapView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapView.styleURL = MGLStyle.streetsStyleURL
+        
         if (hasGlobalGPS) {
             mapView.setCenter(CLLocationCoordinate2D(latitude: globalLatitude!, longitude: globalLongitude!), zoomLevel: 15, animated: false)
         } else {
@@ -36,16 +37,45 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
         mapView.showsUserLocation = true;
         
         
-    
         view.addSubview(mapView)
         // Set the delegate property of our map view to `self` after instantiating it.
         mapView.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(postUpdates), name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
         
+        
+        let styleToggle = UISegmentedControl(items: ["Satellite", "Light", "Streets"])
+        styleToggle.translatesAutoresizingMaskIntoConstraints = false
+        styleToggle.tintColor = UIColor(red: 0.976, green: 0.843, blue: 0.831, alpha: 1)
+        styleToggle.backgroundColor = UIColor(red: 0.973, green: 0.329, blue: 0.294, alpha: 1)
+        styleToggle.layer.cornerRadius = 4
+        styleToggle.clipsToBounds = true
+        styleToggle.selectedSegmentIndex = 1
+        view.insertSubview(styleToggle, aboveSubview: mapView)
+        styleToggle.addTarget(self, action: #selector(changeStyle(sender:)), for: .valueChanged)
+        
+        // Configure autolayout constraints for the UISegmentedControl to align
+        // at the bottom of the map view and above the Mapbox logo and attribution
+        NSLayoutConstraint.activate([NSLayoutConstraint(item: styleToggle, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: mapView, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1.0, constant: 0.0)])
+        NSLayoutConstraint.activate([NSLayoutConstraint(item: styleToggle, attribute: .bottom, relatedBy: .equal, toItem: mapView.logoView, attribute: .top, multiplier: 1, constant: -20)])
+        
+        
         // Create button to allow user to change the tracking mode.
         setupLocationButton()
         postUpdates()
+    }
+    
+    @objc func changeStyle(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            mapView.styleURL = MGLStyle.satelliteStyleURL
+        case 1:
+            mapView.styleURL = MGLStyle.lightStyleURL
+        case 2:
+            mapView.styleURL = MGLStyle.streetsStyleURL
+        default:
+            mapView.styleURL = MGLStyle.streetsStyleURL
+        }
     }
     // Update the user tracking mode when the user toggles through the
     // user tracking mode button.
@@ -80,39 +110,32 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
     
     
     @objc func postUpdates() {
-        for annotation in currentAnnotation {
-            self.mapView.removeAnnotation(annotation)
-        }
-        
-        currentAnnotation.removeAll()
-        
         for post in posts {
-            let pin = MGLPointAnnotation()
-            pin.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(post.coordinates[1]), longitude: CLLocationDegrees(post.coordinates[0]))
-            pin.title = post.username
-            pin.subtitle = post.about
-            self.currentAnnotation.append(pin)
-            self.mapView.addAnnotation(pin)
+            let pin = CLLocationCoordinate2D(latitude: CLLocationDegrees(post.coordinates[1]), longitude: CLLocationDegrees(post.coordinates[0]))
+            let imagePin = CustomAnnotation(coordinate: pin,title: post.about, subtitle: post.username, image: post.image)
+            mapView.addAnnotation(imagePin)
         }
         
-        if (hasGlobalGPS) {
-            let locValue: CLLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: globalLatitude!, longitude: globalLongitude!)
-            mapView.setCenter(locValue, animated: true)
-            mapView.setZoomLevel(15.0, animated: true)
-        }
     }
     
-    // Use the default marker. See also: our view annotation or custom marker examples.// Use the default marker. See also: our view annotation or custom marker examples.
-    public func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-    return nil
+    // Use the default marker. See also: our view annotation or custom marker examples.
+    public  func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        return nil
     }
-     
+    
     // Allow callout view to appear when an annotation is tapped.
-    public func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-    return true
+    public   func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
     }
-    public override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    
+    
+    public   func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView? {
+        if let point = annotation as? CustomAnnotation
+        {
+            let customAnnotation = CustomAnnotation(coordinate: annotation.coordinate, title: point.title ?? "no title", subtitle: point.subtitle ?? "no subtitle", image: point.image!)
+            return CustomCalloutView(annotation: customAnnotation)
+        }
+        return nil
     }
     
     deinit {
