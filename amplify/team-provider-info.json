@@ -1,0 +1,14 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "streettagged-prod-20191010124256-authRole",
+            "UnauthRoleArn": "arn:aws:iam::877945325682:role/streettagged-prod-20191010124256-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::877945325682:role/streettagged-prod-20191010124256-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "streettagged-prod-20191010124256-deployment",
+            "UnauthRoleName": "streettagged-prod-20191010124256-unauthRole",
+            "StackName": "streettagged-prod-20191010124256",
+            "StackId": "arn:aws:cloudformation:us-east-1:877945325682:stack/streettagged-prod-20191010124256/032fbb90-eb7d-11e9-8979-122d883fe268"
+        }
+    }
+}
