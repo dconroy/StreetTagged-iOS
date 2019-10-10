@@ -81,7 +81,6 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
     @objc func postUpdates() {
         for post in posts {
             let pin = CLLocationCoordinate2D(latitude: CLLocationDegrees(post.coordinates[1]), longitude: CLLocationDegrees(post.coordinates[0]))
-            print (post.image)
             let imagePin = CustomAnnotation(coordinate: pin,title: post.about, subtitle: post.username, image: post.image)
             mapView.addAnnotation(imagePin)
         }

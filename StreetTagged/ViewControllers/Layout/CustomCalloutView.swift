@@ -22,6 +22,7 @@ class CustomCalloutView: UIView, MGLCalloutView {
     let subtitleLabel:UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 12.0)
         return label
     }()
 
@@ -39,6 +40,7 @@ class CustomCalloutView: UIView, MGLCalloutView {
 
         self.titleLabel.text = self.representedObject.title ?? ""
         self.subtitleLabel.text = self.representedObject.subtitle ?? ""
+        self.subtitleLabel.text = "Uploaded by:" + self.subtitleLabel.text!
         self.imageView.loadImage(annotation.image!)
         
         setup()
@@ -62,15 +64,15 @@ class CustomCalloutView: UIView, MGLCalloutView {
 
         imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: spacing).isActive = true
         imageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: spacing).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 52.0).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 52.0).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 75).isActive = true
 
-        titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: spacing).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo: self.imageView.rightAnchor, constant: spacing * 2).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: spacing/2).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: self.imageView.rightAnchor, constant: spacing).isActive = true
         titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -spacing).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
 
-        subtitleLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: spacing).isActive = true
+        subtitleLabel.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: spacing).isActive = true
         subtitleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: spacing).isActive = true
         subtitleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -spacing).isActive = true
         subtitleLabel.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
