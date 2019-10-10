@@ -80,19 +80,11 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
     
     
     @objc func postUpdates() {
-        // Declare the marker `hello` and set its coordinates, title, and subtitle.
-        
-        
         for post in posts {
-            let imageUrlString = post.image
             let pin = CLLocationCoordinate2D(latitude: CLLocationDegrees(post.coordinates[1]), longitude: CLLocationDegrees(post.coordinates[0]))
-            let imageUrl = URL(string: imageUrlString)!
-
-            let imageData = try! Data(contentsOf: imageUrl)
-
-            let image = UIImage(data: imageData)
-            
-            let imagePin = CustomAnnotation(coordinate: pin,title: post.about , subtitle: post.username, image: image!)     // Add marker `hello` to the map.
+            let imageView = UIImageView()
+            imageView.loadImage(post.image)
+            let imagePin = CustomAnnotation(coordinate: pin,title: post.about , subtitle: post.username, imageView: imageView)     // Add marker `hello` to the map.
             mapView.addAnnotation(imagePin)
         }
         
@@ -110,10 +102,9 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
     
     
     public   func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView? {
-        
         if let point = annotation as? CustomAnnotation
-        { let image = point.image
-            let customAnnotation = CustomAnnotation(coordinate: annotation.coordinate, title: point.title ?? "no title", subtitle: point.subtitle ?? "no subtitle", image: image)
+        { let imageView = point.imageView
+            let customAnnotation = CustomAnnotation(coordinate: annotation.coordinate, title: point.title ?? "no title", subtitle: point.subtitle ?? "no subtitle", imageView: imageView)
             return CustomCalloutView(annotation: customAnnotation)
         }
         return nil

@@ -14,7 +14,8 @@ class CustomCalloutView: UIView, MGLCalloutView {
     let titleLabel:UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 17.0)
+        label.font = UIFont.boldSystemFont(ofSize: 14.0)
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         return label
     }()
 
@@ -25,7 +26,7 @@ class CustomCalloutView: UIView, MGLCalloutView {
     }()
 
     let imageView:UIImageView = {
-        let imageview = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+        let imageview = UIImageView(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
         imageview.translatesAutoresizingMaskIntoConstraints = false
         imageview.contentMode = .scaleAspectFit
         return imageview
@@ -38,7 +39,7 @@ class CustomCalloutView: UIView, MGLCalloutView {
 
         self.titleLabel.text = self.representedObject.title ?? ""
         self.subtitleLabel.text = self.representedObject.subtitle ?? ""
-        self.imageView.image = annotation.image
+        self.imageView.image = annotation.imageView.image
         setup()
     }
 
