@@ -82,7 +82,9 @@ class CustomCalloutView: UIView, MGLCalloutView {
     func presentCallout(from rect: CGRect, in view: UIView, constrainedTo constrainedRect: CGRect, animated: Bool) {
         //Always, Slightly above center
         self.center = view.center.applying(CGAffineTransform(translationX: 0, y: -self.frame.height))
+        self.layer.cornerRadius = 7;
         view.addSubview(self)
+        
 
     }
 
