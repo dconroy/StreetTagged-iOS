@@ -19,7 +19,7 @@ struct LabelProperties {
 class Post: NSObject {
     var image: String
     var created: TimeInterval
-    var post: String
+    var about: String
     var username: String
     var profile: String
     var id: String
@@ -33,7 +33,7 @@ class Post: NSObject {
     init(uid: String, id: String, coordinates:[Float], dictionary: [String: Any]) {
         self.image = dictionary["image"] as! String
         self.created = dictionary["created"] as! TimeInterval
-        self.post = dictionary["post"] as! String
+        self.about = dictionary["about"] as! String
         self.username = dictionary["username"] as! String
         self.profile = dictionary["profile"] as! String
         self.comments = dictionary["comments"] as? [String: Any] ?? [:]
@@ -47,7 +47,7 @@ class Post: NSObject {
     
     override var description: String {
         get {
-            return self.post
+            return self.about
         }
     }
 }

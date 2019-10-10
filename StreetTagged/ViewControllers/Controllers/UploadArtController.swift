@@ -30,7 +30,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     
     var hasImage: Bool = false
     var timer = Timer()
-
+    
     let regionRadius: CLLocationDistance = 1000
     
     public var image: UIImage?
@@ -50,7 +50,9 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
         navigationItem.rightBarButtonItem?.isEnabled = false;
         if (hasImage && hasGlobalGPS) {
             if (userGlobalState == .userSignedIn) {
+                let about: String = self.textView.text!
                 getUserAWSAccessToken (completionHandler: { (token) in
+                    
                     let parameters: [String : Any] = [
                         "coordinates": [
                             "latitude": globalLatitude!,
@@ -58,7 +60,8 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                         ],
                         "picture": self.imageLink,
                         "tags": self.tags,
-                        "token": token!
+                        "token": token!,
+                        "about": about
                     ]                                    
                     Alamofire.request(postItemURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
                         print(response)
@@ -128,6 +131,8 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                 }
             })
         }
+                
+        //textView.addTarget(self, action: #selector(textFieldDidChange(_:)), forControlEvents: UIControl.Event.EditingChanged)
         
         /*
         tagsField.frame = tagsView.bounds

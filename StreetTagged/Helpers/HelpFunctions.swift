@@ -37,7 +37,7 @@ func heightForView(post: Post, width: CGFloat) -> CGFloat{
     label.numberOfLines = 0
     label.lineBreakMode = NSLineBreakMode.byWordWrapping
     let attributedText = NSMutableAttributedString(string: post.username + " ", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
-    attributedText.append(NSAttributedString(string: post.post , attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]))
+    attributedText.append(NSAttributedString(string: post.about, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]))
     attributedText.append(NSAttributedString(string: "\n\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 4)]))
     attributedText.append(NSAttributedString(string: getTimeElapsed(post.created), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
     label.attributedText = attributedText
