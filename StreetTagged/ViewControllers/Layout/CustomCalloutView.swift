@@ -39,7 +39,8 @@ class CustomCalloutView: UIView, MGLCalloutView {
 
         self.titleLabel.text = self.representedObject.title ?? ""
         self.subtitleLabel.text = self.representedObject.subtitle ?? ""
-        self.imageView.image = annotation.imageView.image
+        self.imageView.loadImage(annotation.image!)
+        
         setup()
     }
 

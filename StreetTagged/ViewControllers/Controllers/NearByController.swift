@@ -36,7 +36,6 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
         mapView.showsUserLocation = true;
         
         
-        
         view.addSubview(mapView)
         // Set the delegate property of our map view to `self` after instantiating it.
         mapView.delegate = self
@@ -82,9 +81,8 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
     @objc func postUpdates() {
         for post in posts {
             let pin = CLLocationCoordinate2D(latitude: CLLocationDegrees(post.coordinates[1]), longitude: CLLocationDegrees(post.coordinates[0]))
-            let imageView = UIImageView()
-            imageView.loadImage(post.image)
-            let imagePin = CustomAnnotation(coordinate: pin,title: post.about , subtitle: post.username, imageView: imageView)     // Add marker `hello` to the map.
+            print (post.image)
+            let imagePin = CustomAnnotation(coordinate: pin,title: post.about, subtitle: post.username, image: post.image)
             mapView.addAnnotation(imagePin)
         }
         
@@ -103,8 +101,8 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
     
     public   func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView? {
         if let point = annotation as? CustomAnnotation
-        { let imageView = point.imageView
-            let customAnnotation = CustomAnnotation(coordinate: annotation.coordinate, title: point.title ?? "no title", subtitle: point.subtitle ?? "no subtitle", imageView: imageView)
+        {
+            let customAnnotation = CustomAnnotation(coordinate: annotation.coordinate, title: point.title ?? "no title", subtitle: point.subtitle ?? "no subtitle", image: point.image!)
             return CustomCalloutView(annotation: customAnnotation)
         }
         return nil

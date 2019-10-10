@@ -7,12 +7,12 @@ class CustomAnnotation: NSObject, MGLAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?
-    var imageView: UIImageView
+    var image: String?
 
-    init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String, imageView: UIImageView) {
+    init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String, image: String) {
         self.coordinate = coordinate
         self.title = title
         self.subtitle = subtitle
-        self.imageView = imageView
+        self.image = image
     }
 }
