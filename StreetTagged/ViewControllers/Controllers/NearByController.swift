@@ -36,7 +36,7 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
         mapView.showsUserLocation = true;
         
         
-    
+        
         view.addSubview(mapView)
         // Set the delegate property of our map view to `self` after instantiating it.
         mapView.delegate = self
@@ -80,39 +80,43 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
     
     
     @objc func postUpdates() {
-        for annotation in currentAnnotation {
-            self.mapView.removeAnnotation(annotation)
-        }
+        // Declare the marker `hello` and set its coordinates, title, and subtitle.
         
-        currentAnnotation.removeAll()
         
         for post in posts {
-            let pin = MGLPointAnnotation()
-            pin.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(post.coordinates[1]), longitude: CLLocationDegrees(post.coordinates[0]))
-            pin.title = post.username
-            pin.subtitle = post.about
-            self.currentAnnotation.append(pin)
-            self.mapView.addAnnotation(pin)
+            let imageUrlString = post.image
+            let pin = CLLocationCoordinate2D(latitude: CLLocationDegrees(post.coordinates[1]), longitude: CLLocationDegrees(post.coordinates[0]))
+            let imageUrl = URL(string: imageUrlString)!
+
+            let imageData = try! Data(contentsOf: imageUrl)
+
+            let image = UIImage(data: imageData)
+            
+            let imagePin = CustomAnnotation(coordinate: pin,title: post.about , subtitle: post.username, image: image!)     // Add marker `hello` to the map.
+            mapView.addAnnotation(imagePin)
         }
         
-        if (hasGlobalGPS) {
-            let locValue: CLLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: globalLatitude!, longitude: globalLongitude!)
-            mapView.setCenter(locValue, animated: true)
-            mapView.setZoomLevel(15.0, animated: true)
-        }
     }
     
-    // Use the default marker. See also: our view annotation or custom marker examples.// Use the default marker. See also: our view annotation or custom marker examples.
-    public func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-    return nil
+    // Use the default marker. See also: our view annotation or custom marker examples.
+    public  func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        return nil
     }
-     
+    
     // Allow callout view to appear when an annotation is tapped.
-    public func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-    return true
+    public   func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
     }
-    public override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    
+    
+    public   func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView? {
+        
+        if let point = annotation as? CustomAnnotation
+        { let image = point.image
+            let customAnnotation = CustomAnnotation(coordinate: annotation.coordinate, title: point.title ?? "no title", subtitle: point.subtitle ?? "no subtitle", image: image)
+            return CustomCalloutView(annotation: customAnnotation)
+        }
+        return nil
     }
     
     deinit {
