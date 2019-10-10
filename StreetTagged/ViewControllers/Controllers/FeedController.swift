@@ -131,7 +131,7 @@ class FeedController: UICollectionViewController {
             configuration.tintColor = UIColor.gray
 
             var item1 = AWSItem()
-            item1.image = UIImage(named: "photo_1")
+            item1.image = UIImage(named: "photo_big-1")
             item1.title = "Capture local street art"
             item1.description = "Post murals, post ups, and grafitti to share with the world."
 
