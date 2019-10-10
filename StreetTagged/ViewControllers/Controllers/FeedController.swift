@@ -11,6 +11,8 @@ import Foundation
 import AWSMobileClient
 import Alamofire
 import AppleWelcomeScreen
+import CoreLocation
+import MapKit
 
 class FeedController: UICollectionViewController {
     let cellIDEmpty = "EmptyPostCell"
@@ -187,6 +189,36 @@ extension FeedController: PostCellDelegate {
         let shareText = "Share Image"
         let vc = UIActivityViewController(activityItems: [shareText, image], applicationActivities: [])
         present(vc, animated: true, completion: nil)
+    }
+    
+    func directionPost(_ post: Post) {
+        let source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: globalLatitude!, longitude: globalLongitude!)))
+        source.name = "You"
+
+        let destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: CLLocationDegrees.init(post.coordinates[1]), longitude: CLLocationDegrees.init(post.coordinates[0]))))
+        destination.name = "Street Art"
+
+        MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+    }
+    
+    func optionPost(_ post: Post, _ image: UIImage) {
+        let alert = UIAlertController(title: "What would you like to do?", message: "", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Get Directions", style: .default, handler: {(action: UIAlertAction) in
+            let source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: globalLatitude!, longitude: globalLongitude!)))
+            source.name = "You"
+
+            let destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: CLLocationDegrees.init(post.coordinates[1]), longitude: CLLocationDegrees.init(post.coordinates[0]))))
+            destination.name = "Street Art"
+
+            MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+        }))
+        alert.addAction(UIAlertAction(title: "Share", style: .default, handler: {(action: UIAlertAction) in
+            let shareText = "Share Image"
+            let vc = UIActivityViewController(activityItems: [shareText, image], applicationActivities: [])
+            self.present(vc, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
