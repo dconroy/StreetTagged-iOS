@@ -22,7 +22,7 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
         
         mapView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.styleURL = MGLStyle.streetsStyleURL
+        mapView.styleURL = MGLStyle.lightStyleURL
         
         if (hasGlobalGPS) {
             mapView.setCenter(CLLocationCoordinate2D(latitude: globalLatitude!, longitude: globalLongitude!), zoomLevel: 15, animated: false)
@@ -74,7 +74,7 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
         case 2:
             mapView.styleURL = MGLStyle.streetsStyleURL
         default:
-            mapView.styleURL = MGLStyle.streetsStyleURL
+            mapView.styleURL = MGLStyle.lightStyleURL
         }
     }
     // Update the user tracking mode when the user toggles through the
