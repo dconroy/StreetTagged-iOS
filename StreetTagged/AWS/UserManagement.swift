@@ -109,7 +109,8 @@ func getUserAWSUserSub(completionHandler: @escaping GetSubCompletionHandler) {
 
 func userSignIn(navController: UINavigationController) {
     print("userSignIn->handler")
-    AWSMobileClient.default().showSignIn(navigationController: navController,{ (state, error) in
+    let signInUIOptions = SignInUIOptions(canCancel: true, logoImage: UIImage(named: "ItunesArtwork"), backgroundColor:  UIColor.black)
+    AWSMobileClient.default().showSignIn(navigationController: navController, signInUIOptions: signInUIOptions, { (state, error) in
         switch (state) {
             case .guest:
                 userGlobalState = .userGuest
