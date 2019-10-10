@@ -21,7 +21,7 @@ var favoritePostAlls: [Post] = []
 
 var isRefreshingPosts = false
 
-let pageLimit = 5
+let pageLimit = 20
 var pageNumber = 1
 
 extension String {
