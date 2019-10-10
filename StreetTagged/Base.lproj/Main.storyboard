@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vqa-YK-Uz8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vqa-YK-Uz8">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -317,18 +317,23 @@
                                     <action selector="action:forEvent:" destination="g5k-gH-cHd" eventType="touchUpInside" id="hZI-XY-1XF"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27t-qa-nQm">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27t-qa-nQm">
                                 <rect key="frame" x="99" y="188" width="216" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="216" id="D53-oy-sOm"/>
+                                    <constraint firstAttribute="height" constant="21" id="H5j-fC-kZO"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="27t-qa-nQm" firstAttribute="top" secondItem="XHG-Mv-Fvz" secondAttribute="top" constant="144" id="CvA-ZY-OYU"/>
                             <constraint firstItem="tTG-lt-5Z0" firstAttribute="centerX" secondItem="0cj-Od-B30" secondAttribute="centerX" id="EcJ-MI-Oep"/>
                             <constraint firstItem="tTG-lt-5Z0" firstAttribute="centerY" secondItem="0cj-Od-B30" secondAttribute="centerY" id="dNW-Fo-LO6"/>
+                            <constraint firstItem="27t-qa-nQm" firstAttribute="centerX" secondItem="0cj-Od-B30" secondAttribute="centerX" id="ilB-G7-HVl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XHG-Mv-Fvz"/>
                     </view>
