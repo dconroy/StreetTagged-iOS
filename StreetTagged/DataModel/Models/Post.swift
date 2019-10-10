@@ -33,7 +33,7 @@ class Post: NSObject {
     init(uid: String, id: String, coordinates:[Float], dictionary: [String: Any]) {
         self.image = dictionary["image"] as! String
         self.created = dictionary["created"] as! TimeInterval
-        self.about = dictionary["about"] as! String
+        self.about = dictionary["about"] as? String ?? ""
         self.username = dictionary["username"] as! String
         self.profile = dictionary["profile"] as! String
         self.comments = dictionary["comments"] as? [String: Any] ?? [:]
