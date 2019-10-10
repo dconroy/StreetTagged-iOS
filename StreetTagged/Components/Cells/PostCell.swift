@@ -13,6 +13,8 @@ import CoreLocation
 protocol PostCellDelegate {
     func sharePost(_ image: UIImage)
     func likePost(_ post: Post)
+    func directionPost(_ post: Post)
+    func optionPost(_ post: Post, _ image: UIImage)
 }
 
 class PostCell: BaseCollectionViewCell {
@@ -82,18 +84,11 @@ class PostCell: BaseCollectionViewCell {
         return button
     }()
     
-    lazy var commentButton: UIButton = {
+    lazy var gridButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "comment").withRenderingMode(.alwaysOriginal), for: .normal)
-        button.addTarget(self, action: #selector(showComments), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var shareButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "send2").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "grid").withRenderingMode(.alwaysOriginal), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(sharePost), for: .touchUpInside)
+        button.addTarget(self, action: #selector(options), for: .touchUpInside)
         return button
     }()
     
@@ -151,11 +146,11 @@ class PostCell: BaseCollectionViewCell {
         buttonsStack.heightAnchor.constraint(equalToConstant: 50).isActive = true
         buttonsStack.topAnchor.constraint(equalTo: stack.bottomAnchor).isActive = true
         //Add Bookmark
-        addSubview(shareButton)
-        shareButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        shareButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        shareButton.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        shareButton.topAnchor.constraint(equalTo: stack.bottomAnchor).isActive = true
+        addSubview(gridButton)
+        gridButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        gridButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        gridButton.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        gridButton.topAnchor.constraint(equalTo: stack.bottomAnchor).isActive = true
     }
     
     fileprivate func setupPostText() {
@@ -224,8 +219,10 @@ class PostCell: BaseCollectionViewCell {
         }
     }
     
-    @objc func showComments() {
-        
+    @objc func options() {
+        if let image = imageView.visibleCells[0] as? PhotoCell {
+            delegate?.optionPost(post!, image.imageView.image!)
+        }
     }
     
     @objc func likePost() {
