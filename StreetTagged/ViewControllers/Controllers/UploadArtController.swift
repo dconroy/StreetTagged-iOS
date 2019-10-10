@@ -129,6 +129,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
             })
         }
         
+        /*
         tagsField.frame = tagsView.bounds
         tagsView.addSubview(tagsField)
 
@@ -163,7 +164,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
 
         tagsField.onValidateTag = { tag, tags in
             return tag.text != "#" && !tags.contains(where: { $0.text.uppercased() == tag.text.uppercased() })
-        }
+        } */
         
         textView.becomeFirstResponder()
         
