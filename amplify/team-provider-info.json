@@ -21,6 +21,11 @@
             "UnauthRoleName": "streettagged-dev-20191010124851-unauthRole",
             "StackName": "streettagged-dev-20191010124851",
             "StackId": "arn:aws:cloudformation:us-east-1:877945325682:stack/streettagged-dev-20191010124851/d66c6c60-eb7d-11e9-bbd0-127a71eef55e"
+        },
+        "categories": {
+            "auth": {
+                "streettagged1c8d5e46": {}
+            }
         }
     }
 }

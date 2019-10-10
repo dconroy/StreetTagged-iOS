@@ -1,1 +1,22 @@
-{}
+{
+	"auth": {
+		"streettagged1c8d5e46": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	},
+	"function": {
+		"S3Trigger7e9d9b99": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		}
+	},
+	"storage": {
+		"stdev": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}

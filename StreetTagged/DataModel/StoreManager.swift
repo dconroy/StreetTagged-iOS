@@ -65,9 +65,6 @@ public func refreshPosts() {
                             formatter.formatOptions =  [.withInternetDateTime, .withFractionalSeconds]
                             let date = formatter.date(from: art.createdAt)
                             
-                            let post: Post = Post.init(uid: "", id: art.artId, coordinates: art.location.coordinates ,dictionary: ["username":art.username, "image":art.picture, "created": date!.timeIntervalSince1970, "profile": "", "about":art.about, "likes": art.isFavorited!]);
-                                                        
-                            postAlls.append(post)
                         }
                         posts = postAlls.sorted(by: { $0.created > $1.created })
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
