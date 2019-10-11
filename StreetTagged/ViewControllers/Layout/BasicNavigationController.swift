@@ -23,6 +23,14 @@ class BasicNavigationController: UINavigationController {
         #endif
         self.navigationBar.tintColor = UIColor.init(red: 38/255.0, green: 38/255.0, blue: 38/255.0, alpha: 1.0)
         self.navigationItem.title = ""
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Toggle", style: UIBarButtonItem.Style.plain, target: self, action: #selector(toggle))
+
+    }
+    
+    @objc func toggle() {
+        globalSimpleMode = !globalSimpleMode
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
     }
     
 }

@@ -147,6 +147,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let navigationController = BasicNavigationController.init(rootViewController: tabBarController)
         tabBarController.title = "Feed"
         
+        tabBarController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Simple", style: UIBarButtonItem.Style.plain, target: self, action: #selector(toggle))
+        
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
         
@@ -155,6 +157,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         self.locationManager.startUpdatingLocation()
         
         return true
+    }
+    
+    @objc func toggle() {
+        globalSimpleMode = !globalSimpleMode
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
     }
     
     func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {

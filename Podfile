@@ -29,5 +29,6 @@ target 'StreetTagged' do
   pod 'AWSS3', '~> 2.11.0'
   pod 'AppleWelcomeScreen', '~> 1.0.2'
   pod "WSTagsField"
+  pod 'Lightbox'
 
 end
