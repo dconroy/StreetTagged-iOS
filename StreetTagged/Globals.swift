@@ -11,6 +11,8 @@ import UIKit
 import CoreLocation
 import MapKit
 
+var globalSimpleMode: Bool = false
+
 extension UIApplication {
     static var appVersion: String? {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String

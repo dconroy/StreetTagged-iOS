@@ -14,11 +14,14 @@ import AppleWelcomeScreen
 import CoreLocation
 import MapKit
 
+import Lightbox
+
 class FeedController: UICollectionViewController {
     let cellIDEmpty = "EmptyPostCell"
     let cellID = "postCell"
     
     var isRefreshingPosts: Bool = false
+    var isShowingImage: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +81,7 @@ class FeedController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! PostCell
         cell.delegate = self
         if indexPath.item >= posts.count { return cell }
+        cell.simplePost = globalSimpleMode
         cell.post = posts[indexPath.item]
         return cell
     }
@@ -168,20 +172,50 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
             if indexPath.item >= posts.count { return CGSize.zero}
             let textHeight = heightForView(post: posts[indexPath.item], width: view.frame.width - 16)
             var height: CGFloat = view.frame.width + 106 + textHeight + 5
-            if posts[indexPath.item].additionalImages.count > 0 {
+            
+             if posts[indexPath.item].additionalImages.count > 0 {
                 height += 10
             }
-            return CGSize(width: view.frame.width, height: height - 40)
+            
+            var heightFinal: CGFloat = height - 40
+            if (globalSimpleMode) {
+                heightFinal = heightFinal - 110
+            }
+            
+            return CGSize(width: view.frame.width, height: heightFinal)
         }
     }
 }
 
 extension FeedController: PostCellDelegate {
+    
+     
     func likePost(_ post: Post) {
         if (post.likes) {
             favoriteStreetPost(artId: post.id)
         } else {
             favoriteStreetRemove(artId: post.id)
+        }
+    }
+    
+    func viewPost(_ image: UIImage, _ post: Post) {
+        if (!isShowingImage) {
+            isShowingImage = true
+            let images = [
+             LightboxImage(
+               image: image,
+               text: post.about
+             ),
+            ]
+
+            let controller = LightboxController(images: images)
+            controller.pageDelegate = self
+            controller.dismissalDelegate = self
+
+            controller.dynamicBackground = true
+            controller.modalPresentationStyle = .fullScreen
+            
+            self.present(controller, animated: true, completion: nil)
         }
     }
     
@@ -222,4 +256,13 @@ extension FeedController: PostCellDelegate {
     }
 }
 
+extension FeedController: LightboxControllerPageDelegate {
+  func lightboxController(_ controller: LightboxController, didMoveToPage page: Int) { }
+}
 
+extension FeedController: LightboxControllerDismissalDelegate {
+
+  func lightboxControllerWillDismiss(_ controller: LightboxController) {
+    isShowingImage = false
+  }
+}

@@ -11,6 +11,7 @@ import UIKit
 import CoreLocation
 
 protocol PostCellDelegate {
+    func viewPost(_ image: UIImage, _ post: Post)
     func sharePost(_ image: UIImage)
     func likePost(_ post: Post)
     func directionPost(_ post: Post)
@@ -25,6 +26,13 @@ class PostCell: BaseCollectionViewCell {
     let currentUser = ""
     
     let profileSize: CGFloat = 40.0
+    
+    var simplePost: Bool? {
+        didSet {
+            setupControl(isSimple: simplePost!)
+        }
+    }
+    
     var post: Post? {
         didSet {
             loadCell(post!)
@@ -159,7 +167,7 @@ class PostCell: BaseCollectionViewCell {
         postText.topAnchor.constraint(equalTo: buttonsStack.bottomAnchor).isActive = true
     }
     
-    fileprivate func setupPageControll() {
+    fileprivate func setupPageControl() {
         addSubview(stack)
         center_X(item: stack)
         stack.topAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
@@ -169,18 +177,19 @@ class PostCell: BaseCollectionViewCell {
     
     override func setup() {
         backgroundColor = .white
-        //setupProfile()
         setupPostImage()
-        //setupHeader()
-        setupPageControll()
-        setupButtons()
-        setupPostText()
+        setupPageControl()
+    }
+    
+    func setupControl(isSimple: Bool) {
+        if (isSimple == false) {
+            setupButtons()
+            setupPostText()
+        }
     }
     
     fileprivate func loadCell(_ post: Post) {
-        //userProfile.loadImage(post.profile)
         additionalImages = []
-        //self.backgroundColor = UIColor.red
         
         self.artLocation = CLLocation.init(latitude: CLLocationDegrees.init(post.coordinates[1]), longitude: CLLocationDegrees.init(post.coordinates[0]))
         
@@ -199,15 +208,32 @@ class PostCell: BaseCollectionViewCell {
                 page.currentPage = cell.index ?? 0
             }
         }
-        usernameLabel.text = post.username
-        let postAttributedText = NSMutableAttributedString(string: post.username + " ", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.black])
-        postAttributedText.append(NSAttributedString(string: post.about , attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.black]))
-        postAttributedText.append(NSAttributedString(string: "\n\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.gray]))
-        postAttributedText.append(NSAttributedString(string: getTimeElapsed(post.created), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
         
-        postAttributedText.append(NSAttributedString(string: getDistanceFromGlobalLocation(artLocation: self.artLocation!), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
+        if (self.simplePost! == false) {
+            usernameLabel.text = post.username
+            let postAttributedText = NSMutableAttributedString(string: post.username + " ", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.black])
+            postAttributedText.append(NSAttributedString(string: post.about , attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.black]))
+            postAttributedText.append(NSAttributedString(string: "\n\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.gray]))
+            postAttributedText.append(NSAttributedString(string: getTimeElapsed(post.created), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
+            
+            postAttributedText.append(NSAttributedString(string: getDistanceFromGlobalLocation(artLocation: self.artLocation!), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
+            
+            postText.attributedText = postAttributedText
+            postText.isHidden = false
+            stack.isHidden = false
+            usernameLabel.isHidden = false
+            likeButton.isHidden = false
+            gridButton.isHidden = false
+            buttonsStack.isHidden = false
+        } else {
+            postText.isHidden = true
+            stack.isHidden = true
+            usernameLabel.isHidden = true
+            likeButton.isHidden = true
+            gridButton.isHidden = true
+            buttonsStack.isHidden = true
+        }
         
-        postText.attributedText = postAttributedText
         if  post.likes {
             likeButton.setImage(#imageLiteral(resourceName: "like_selected").withRenderingMode(.alwaysTemplate), for: .normal)
             likeButton.tintColor = .red
@@ -270,6 +296,12 @@ class PostCell: BaseCollectionViewCell {
                 }
     }
     
+    @objc func viewImage() {
+        if let image = imageView.visibleCells[0] as? PhotoCell {
+            delegate?.viewPost(image.imageView.image!, post!)
+        }
+    }
+    
     @objc func sharePost() {
         if let image = imageView.visibleCells[0] as? PhotoCell {
             delegate?.sharePost(image.imageView.image!)
@@ -307,11 +339,14 @@ extension PostCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
                 cell.imageView.loadImage(additionalImages[indexPath.item - 1])
             }
         }
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(likeGesture))
-        gesture.numberOfTapsRequired = 2
-        cell.imageView.addGestureRecognizer(gesture)
+        let gestureLike = UITapGestureRecognizer(target: self, action: #selector(likeGesture))
+        gestureLike.numberOfTapsRequired = 2
+        cell.imageView.addGestureRecognizer(gestureLike)
         cell.imageView.isUserInteractionEnabled = true
         cell.index = indexPath.item
+        
+        let gestureView = UILongPressGestureRecognizer(target: self, action: #selector(viewImage))
+        cell.imageView.addGestureRecognizer(gestureView)
         return cell
     }
     
