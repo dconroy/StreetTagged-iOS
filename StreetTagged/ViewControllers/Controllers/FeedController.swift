@@ -13,7 +13,6 @@ import Alamofire
 import AppleWelcomeScreen
 import CoreLocation
 import MapKit
-
 import Lightbox
 
 class FeedController: UICollectionViewController {
