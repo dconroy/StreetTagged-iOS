@@ -95,7 +95,7 @@ public func refreshPosts() {
                         formatter.formatOptions =  [.withInternetDateTime, .withFractionalSeconds]
                         let date = formatter.date(from: art.createdAt)
                         
-                        let post: Post = Post.init(uid: "", id: art.artId, coordinates: art.location.coordinates ,dictionary: ["username":art.username, "image":art.picture, "created": date!.timeIntervalSince1970, "profile": "", "post":""]);
+                        let post: Post = Post.init(uid: "", id: art.artId, coordinates: art.location.coordinates ,dictionary: ["username":art.username, "image":art.picture, "created": date!.timeIntervalSince1970, "profile": "", "about":art.about]);
                         
                         postAlls.append(post)
                     }
@@ -126,7 +126,7 @@ public func favoriteStreetList() {
                     formatter.formatOptions =  [.withInternetDateTime, .withFractionalSeconds]
                     let date = formatter.date(from: art.createdAt)
                     
-                    let post: Post = Post.init(uid: "", id: art.artId, coordinates: art.location.coordinates ,dictionary: ["username":art.username, "image":art.picture, "created": date!.timeIntervalSince1970, "profile": "", "post":""]);
+                    let post: Post = Post.init(uid: "", id: art.artId, coordinates: art.location.coordinates ,dictionary: ["username":art.username, "image":art.picture, "created": date!.timeIntervalSince1970, "profile": "", "about":art.about]);
                     
                     favoritePostAlls.append(post)
                 }
