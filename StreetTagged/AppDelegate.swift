@@ -147,7 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let navigationController = BasicNavigationController.init(rootViewController: tabBarController)
         tabBarController.title = "Feed"
         
-        tabBarController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Simple", style: UIBarButtonItem.Style.plain, target: self, action: #selector(toggle))
+        //tabBarController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Simple", style: UIBarButtonItem.Style.plain, target: self, action: #selector(toggle))
         
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
