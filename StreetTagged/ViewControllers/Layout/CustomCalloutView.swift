@@ -16,6 +16,7 @@ class CustomCalloutView: UIView, MGLCalloutView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 14.0)
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.tintColor = .black
         return label
     }()
 
@@ -39,8 +40,12 @@ class CustomCalloutView: UIView, MGLCalloutView {
         super.init(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: UIScreen.main.bounds.width * 0.75, height: 120.0)))
 
         self.titleLabel.text = self.representedObject.title ?? ""
+        self.titleLabel.textColor = .black
+        
         self.subtitleLabel.text = self.representedObject.subtitle ?? ""
+        self.subtitleLabel.textColor = .black
         self.subtitleLabel.text = "Uploaded by:" + self.subtitleLabel.text!
+        
         self.imageView.loadImage(annotation.image!)
         
         setup()
