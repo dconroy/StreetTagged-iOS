@@ -17,7 +17,7 @@ target 'StreetTagged' do
     # Pods for testing
   end
 
-  pod 'AWSCore', '~> 2.11.0'
+  pod 'AWSCore'
   pod 'AWSUserPoolsSignIn' 
   pod 'AWSMobileClient'
   pod 'AWSAuthUI'
