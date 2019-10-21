@@ -7,10 +7,12 @@
 //
 import UIKit
 import Foundation
+import Lightbox
 
 class FavorController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var images = [Post]()
+    var isShowingImage: Bool = false
     
     var favoriteCollectionView:UICollectionView?
     
@@ -67,7 +69,25 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        //let post = self.images[indexPath.row]
+        if (!isShowingImage) {
+            let post: Post = self.images[indexPath.row]
+            isShowingImage = true
+            let images = [
+             LightboxImage(
+                imageURL: URL(string: post.image)!,
+               text: post.about
+             ),
+            ]
+
+            let controller = LightboxController(images: images)
+            controller.pageDelegate = self
+            controller.dismissalDelegate = self
+
+            controller.dynamicBackground = true
+            controller.modalPresentationStyle = .fullScreen
+            
+            self.present(controller, animated: true, completion: nil)
+        }
     }
     
     
@@ -84,4 +104,15 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
+
+extension FavorController: LightboxControllerPageDelegate {
+  func lightboxController(_ controller: LightboxController, didMoveToPage page: Int) { }
+}
+
+extension FavorController: LightboxControllerDismissalDelegate {
+
+  func lightboxControllerWillDismiss(_ controller: LightboxController) {
+    isShowingImage = false
+  }
 }
