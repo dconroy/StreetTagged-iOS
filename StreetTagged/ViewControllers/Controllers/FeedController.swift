@@ -22,8 +22,12 @@ class FeedController: UICollectionViewController {
     var isRefreshingPosts: Bool = false
     var isShowingImage: Bool = false
     
+    let tapticFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tapticFeedbackGenerator.prepare()
+        
         setup()
         refreshPosts()
         NotificationCenter.default.addObserver(self, selector: #selector(postedNotification), name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
@@ -200,6 +204,9 @@ extension FeedController: PostCellDelegate {
     func viewPost(_ image: UIImage, _ post: Post) {
         if (!isShowingImage) {
             isShowingImage = true
+            
+            tapticFeedbackGenerator.impactOccurred()
+            
             let images = [
              LightboxImage(
                image: image,
