@@ -41,6 +41,8 @@ class CustomCalloutView: UIView, MGLCalloutView {
 
         self.titleLabel.text = self.representedObject.title ?? ""
         self.titleLabel.textColor = .black
+        self.titleLabel.lineBreakMode = .byWordWrapping
+        self.titleLabel.numberOfLines = 4
         
         self.subtitleLabel.text = self.representedObject.subtitle ?? ""
         self.subtitleLabel.textColor = .black
@@ -75,7 +77,7 @@ class CustomCalloutView: UIView, MGLCalloutView {
         titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: spacing/2).isActive = true
         titleLabel.leftAnchor.constraint(equalTo: self.imageView.rightAnchor, constant: spacing).isActive = true
         titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -spacing).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
 
         subtitleLabel.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: spacing).isActive = true
         subtitleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: spacing).isActive = true
