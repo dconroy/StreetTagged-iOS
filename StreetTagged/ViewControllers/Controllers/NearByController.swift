@@ -47,7 +47,7 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
         let styleToggle = UISegmentedControl(items: ["Satellite", "Light", "Streets"])
         styleToggle.translatesAutoresizingMaskIntoConstraints = false
         styleToggle.tintColor = UIColor(red: 0.976, green: 0.843, blue: 0.831, alpha: 1)
-        styleToggle.backgroundColor = UIColor(red: 0.973, green: 0.329, blue: 0.294, alpha: 1)
+        styleToggle.backgroundColor = UIColor.clear
         styleToggle.layer.cornerRadius = 4
         styleToggle.clipsToBounds = true
         styleToggle.selectedSegmentIndex = 1
