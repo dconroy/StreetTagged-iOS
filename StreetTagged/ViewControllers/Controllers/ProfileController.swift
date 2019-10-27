@@ -15,32 +15,33 @@ public class ProfileController: UIViewController {
     @IBOutlet var mainButton: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     
+    weak var tableView: UITableView!
+    
+    var actions: [String] = []
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(red: 244.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0)
-   
-        NotificationCenter.default.addObserver(self, selector: #selector(setProfile), name: NSNotification.Name(rawValue: GLOBAL_SIGNIN_REFRESH), object: nil)
-    }
-    
-    @objc func setProfile(){
-         self.usernameLabel.isHidden = false
-         self.usernameLabel.text = AWSMobileClient.default().username
-         self.mainButton.setTitle("Sign Out", for: UIControl.State.normal)
-    }
-    @objc func clearProfile(){
-         self.mainButton.setTitle("Sign In", for: UIControl.State.normal)
-         self.usernameLabel.isHidden = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NSNotification.Name(rawValue: GLOBAL_SIGNIN_REFRESH), object: nil)
+
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+        self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor),
+            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
+            self.view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+            self.view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+        ])
+        self.tableView = tableView
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
     }
     
     public override func viewWillAppear(_ animated: Bool) {
-        switch userGlobalState {
-        case .userSignedIn:
-            setProfile()
-            break
-        default:
-            clearProfile()
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_NEED_SIGN_UP), object: nil)
-        }
+        refresh()
     }
     
     public override func viewDidLayoutSubviews() {
@@ -52,17 +53,62 @@ public class ProfileController: UIViewController {
         self.present(vc, animated: true, completion: nil)
     }
     
-    @IBAction func action(_ sender: UIButton, forEvent event: UIEvent){
+    @objc func refresh() {
+        actions.removeAll()
         switch userGlobalState {
         case .userSignedIn:
-            userSignOut()
-            clearProfile()
+            actions.append("Sign Out")
             break
         default:
-            userSignIn(navController: self.navigationController!)
-            setProfile()
-            break
+            actions.append("Sign In")
+        }
+        self.tableView.reloadData()
+    }
+    
+    func action() {
+        switch userGlobalState {
+            case .userSignedIn:
+                userSignOut()
+                break
+            default:
+                userSignIn(navController: self.navigationController!)
+                break
         }
 
     }
+}
+
+extension ProfileController: UITableViewDataSource, UITableViewDelegate {
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.actions.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+        let item = self.actions[indexPath.item]
+        cell.textLabel?.text = item
+        return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch userGlobalState {
+            case .userSignedIn:
+                return AWSMobileClient.default().username
+            default:
+                return "My Accounts"
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        action()
+        if let index = self.tableView.indexPathForSelectedRow{
+            self.tableView.deselectRow(at: index, animated: true)
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return "For our privacy policy please visit: https://streettagged.com/privacypolicy.html"
+    }
+    
 }
