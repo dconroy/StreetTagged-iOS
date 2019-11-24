@@ -156,6 +156,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
         
+        let photos = PHPhotoLibrary.authorizationStatus()
+        if photos == .notDetermined {
+            PHPhotoLibrary.requestAuthorization({status in
+                if status == .authorized {
+
+                } else {
+                    
+                }
+            })
+        }
+        
         return true
     }
     
@@ -185,12 +196,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let vc = storyboard.instantiateViewController(withIdentifier: "UploadArt") as! UploadArtController
         vc.image = image
         
-        let coordinate = (info[UIImagePickerController.InfoKey.phAsset] as? PHAsset)?.location?.coordinate
-        /*print(coordinate?.latitude ?? "No latitude found")
-        print(coordinate?.longitude ?? "No longitude found")*/
+        if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset {
+            vc.imageLocation = asset.location
+        }           
                 
         let navigationController = UINavigationController(rootViewController: vc)
-
         self.currentViewController!.dismiss(animated: true, completion: nil)
         self.currentViewController!.present(navigationController, animated: true, completion: nil)
     }

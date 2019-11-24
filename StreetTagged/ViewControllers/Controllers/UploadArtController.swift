@@ -35,6 +35,8 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     
     public var image: UIImage?
     
+    public var imageLocation: CLLocation?
+
     fileprivate let tagsField = WSTagsField()
     @IBOutlet fileprivate weak var tagsView: UIView!
         
@@ -52,12 +54,20 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
             if (userGlobalState == .userSignedIn) {
                 let about: String = self.textView.text!
                 getUserAWSAccessToken (completionHandler: { (token) in
-                    
-                    let parameters: [String : Any] = [
-                        "coordinates": [
+                    var coordinates: [String : Any]?
+                    if self.imageLocation != nil {
+                        coordinates = [
+                            "latitude": self.imageLocation!.coordinate.latitude,
+                            "longitude": self.imageLocation!.coordinate.longitude
+                        ]
+                    } else {
+                        coordinates = [
                             "latitude": globalLatitude!,
                             "longitude": globalLongitude!
-                        ],
+                        ]
+                    }
+                    let parameters: [String : Any] = [
+                        "coordinates": coordinates! as Any,
                         "picture": self.imageLink,
                         "tags": self.tags,
                         "token": token!,
@@ -132,59 +142,26 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
             })
         }
                 
-        //textView.addTarget(self, action: #selector(textFieldDidChange(_:)), forControlEvents: UIControl.Event.EditingChanged)
-        
-        /*
-        tagsField.frame = tagsView.bounds
-        tagsView.addSubview(tagsField)
-
-        tagsField.cornerRadius = 5.0
-        tagsField.spaceBetweenLines = 10
-        tagsField.spaceBetweenTags = 10
-
-        tagsField.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        tagsField.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-
-        tagsField.placeholder = "Enter Tags"
-        tagsField.placeholderAlwaysVisible = true
-        tagsField.backgroundColor = .clear
-        tagsField.returnKeyType = .continue
-        tagsField.delimiter = ""
-
-        tagsField.textDelegate = self
-        
-        tagsField.onDidAddTag = { field, tag in
-            self.tags.append(tag.text)
-        }
-
-        tagsField.onDidRemoveTag = { field, tag in
-            if let index = self.tags.firstIndex(of: tag.text) {
-                self.tags.remove(at: index)
-            }
-        }
-
-        tagsField.onDidChangeText = { _, text in }
-
-        tagsField.onDidChangeHeightTo = { _, height in }
-
-        tagsField.onValidateTag = { tag, tags in
-            return tag.text != "#" && !tags.contains(where: { $0.text.uppercased() == tag.text.uppercased() })
-        } */
-        
         textView.becomeFirstResponder()
         
-        self.centerMapOnLocation(location: globalLocation)
+        if self.imageLocation != nil {
+            self.centerMapOnLocation(location: self.imageLocation!)
+        } else {
+            self.centerMapOnLocation(location: globalLocation)
+        }
     }
     
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        mapView.addAnnotation(annotation)
     }
     
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
-    
 }
 
 extension UploadArtController: UITextFieldDelegate {
