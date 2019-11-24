@@ -24,6 +24,8 @@ var isRefreshingPosts = false
 let pageLimit = 20
 var pageNumber = 1
 
+var nearByPosts: [Post] = []
+
 extension String {
   func epoch(dateFormat: String = "d MMMM yyyy", timeZone: String? = nil) -> TimeInterval? {
     // building the formatter
@@ -109,6 +111,36 @@ public func refreshPosts() {
             }
         }
     }
+}
+
+
+public func allStreetArt() {
+    getUserAWSAccessToken (completionHandler: { (token) in
+            Alamofire.request(getItemURL, method: .get, encoding: JSONEncoding.default).responseJSON { response in
+            do {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                let artWorks = try decoder.decode(ArtWorks.self, from: response.data!)
+                      
+                nearByPosts.removeAll()
+                
+                for art in artWorks.items {
+                    let formatter = ISO8601DateFormatter()
+                    formatter.formatOptions =  [.withInternetDateTime, .withFractionalSeconds]
+                    let date = formatter.date(from: art.createdAt)
+                    
+                    let post: Post = Post.init(uid: "", id: art.artId, coordinates: art.location.coordinates ,dictionary: ["username":art.username, "image":art.picture, "created": date!.timeIntervalSince1970, "profile": "", "about":art.about]);
+                    
+                    nearByPosts.append(post)
+                }
+
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_ALL_REFRESHED), object: nil)
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+
+    })
 }
 
 public func favoriteStreetList() {
