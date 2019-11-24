@@ -61,6 +61,9 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
         
         // Create button to allow user to change the tracking mode.
         setupLocationButton()
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
         allStreetArt()
     }
     
