@@ -41,8 +41,7 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
         // Set the delegate property of our map view to `self` after instantiating it.
         mapView.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(postUpdates), name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(postUpdates), name: NSNotification.Name(rawValue: GLOBAL_ALL_REFRESHED), object: nil)
         
         let styleToggle = UISegmentedControl(items: ["Satellite", "Light", "Streets"])
         styleToggle.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +61,10 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
         
         // Create button to allow user to change the tracking mode.
         setupLocationButton()
-        postUpdates()
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        allStreetArt()
     }
     
     @objc func changeStyle(sender: UISegmentedControl) {
@@ -110,7 +112,7 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
     
     
     @objc func postUpdates() {
-        for post in posts {
+        for post in nearByPosts {
             let pin = CLLocationCoordinate2D(latitude: CLLocationDegrees(post.coordinates[1]), longitude: CLLocationDegrees(post.coordinates[0]))
             let imagePin = CustomAnnotation(coordinate: pin,title: post.about, subtitle: post.username, image: post.image)
             mapView.addAnnotation(imagePin)
