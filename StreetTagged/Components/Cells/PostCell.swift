@@ -25,6 +25,8 @@ class PostCell: BaseCollectionViewCell {
     //let currentUser = UserDefaults.standard.object(forKey: "uid") as! String
     let currentUser = ""
     
+    var isResetting = false
+    
     let profileSize: CGFloat = 40.0
     
     var simplePost: Bool? {
@@ -196,6 +198,7 @@ class PostCell: BaseCollectionViewCell {
         post.additionalImages.forEach { (_, val) in
             additionalImages.append(val)
         }
+        isResetting = false
         imageView.reloadData()
         page.numberOfPages = post.additionalImages.count + 1
         if additionalImages.count == 0 {
@@ -320,6 +323,14 @@ class PostCell: BaseCollectionViewCell {
             isPostBookmarked = !isPostBookmarked
         }
     }
+    
+    override func prepareForReuse() {
+       super.prepareForReuse()
+
+       print("prepareForReuse")
+        isResetting = true
+        imageView.reloadData()
+    }
 }
 
 extension PostCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -333,10 +344,14 @@ extension PostCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! PhotoCell
         if let post = post {
-            if indexPath.item == 0 {
-                cell.imageView.loadImage(post.image)
+            if (isResetting) {
+                cell.resetImage()
             } else {
-                cell.imageView.loadImage(additionalImages[indexPath.item - 1])
+                if indexPath.item == 0 {
+                    cell.imageView.loadImage(post.image)
+                } else {
+                    cell.imageView.loadImage(additionalImages[indexPath.item - 1])
+                }
             }
         }
         let gestureLike = UITapGestureRecognizer(target: self, action: #selector(likeGesture))

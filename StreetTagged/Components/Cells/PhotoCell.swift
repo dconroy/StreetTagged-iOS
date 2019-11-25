@@ -34,4 +34,9 @@ class PhotoCell: BaseCollectionViewCell {
     public func getImage() -> UIImage? {
         return imageView.image
     }
+    
+    public func resetImage() {
+        imageView.image = nil
+        imageView.backgroundColor = .black
+    }
 }
