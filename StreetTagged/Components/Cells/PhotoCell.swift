@@ -37,6 +37,6 @@ class PhotoCell: BaseCollectionViewCell {
     
     public func resetImage() {
         imageView.image = nil
-        imageView.backgroundColor = .black
+        //imageView.backgroundColor = .black
     }
 }
