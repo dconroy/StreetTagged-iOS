@@ -25,7 +25,6 @@
 		451F7E2D232EE8E600DFEBFA /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7E2C232EE8E600DFEBFA /* BaseCollectionViewCell.swift */; };
 		451F7E2F232EE92900DFEBFA /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7E2E232EE92900DFEBFA /* BaseTableViewCell.swift */; };
 		45343FDA23481013001FDDED /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 45343FD923481013001FDDED /* awsconfiguration.json */; };
-		45529FD5233EB15B002AA8DE /* ExampleSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45529FD4233EB15B002AA8DE /* ExampleSwiftUIView.swift */; };
 		455FDD112335C81C0075509A /* ReviewArtWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455FDD102335C81C0075509A /* ReviewArtWork.swift */; };
 		459293B0232AC515008B8B86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293AF232AC515008B8B86 /* AppDelegate.swift */; };
 		459293B2232AC515008B8B86 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293B1232AC515008B8B86 /* ViewController.swift */; };
@@ -85,7 +84,6 @@
 		451F7E2C232EE8E600DFEBFA /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		451F7E2E232EE92900DFEBFA /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		45343FD923481013001FDDED /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
-		45529FD4233EB15B002AA8DE /* ExampleSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleSwiftUIView.swift; sourceTree = "<group>"; };
 		455FDD102335C81C0075509A /* ReviewArtWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewArtWork.swift; sourceTree = "<group>"; };
 		459293AC232AC515008B8B86 /* StreetTagged.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetTagged.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		459293AF232AC515008B8B86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -230,7 +228,6 @@
 		459293A3232AC515008B8B86 = {
 			isa = PBXGroup;
 			children = (
-				45529FD4233EB15B002AA8DE /* ExampleSwiftUIView.swift */,
 				45343FD923481013001FDDED /* awsconfiguration.json */,
 				454FFFE92339A26F0090ABCE /* TestImages */,
 				459293AE232AC515008B8B86 /* StreetTagged */,
@@ -317,7 +314,6 @@
 				3C25AFEA9894805E809FF295 /* Pods-StreetTaggedUITests.debug.xcconfig */,
 				6A564D350152C47697719C9D /* Pods-StreetTaggedUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -576,7 +572,6 @@
 			files = (
 				451F7E1C232ED46100DFEBFA /* HelpFunctions.swift in Sources */,
 				451F7DD9232C404400DFEBFA /* FavorController.swift in Sources */,
-				45529FD5233EB15B002AA8DE /* ExampleSwiftUIView.swift in Sources */,
 				451F7E20232ED5DD00DFEBFA /* BasicContentView.swift in Sources */,
 				451F7E2D232EE8E600DFEBFA /* BaseCollectionViewCell.swift in Sources */,
 				451F7E15232ED39100DFEBFA /* Post.swift in Sources */,
@@ -779,15 +774,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
-				DEVELOPMENT_TEAM = 69UBQ6HF54;
+				CURRENT_PROJECT_VERSION = 27;
+				DEVELOPMENT_TEAM = H8J2PZ9WM8;
 				INFOPLIST_FILE = StreetTagged/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.22;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.streettagged.iosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -801,15 +796,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
-				DEVELOPMENT_TEAM = 69UBQ6HF54;
+				CURRENT_PROJECT_VERSION = 27;
+				DEVELOPMENT_TEAM = H8J2PZ9WM8;
 				INFOPLIST_FILE = StreetTagged/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.22;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.streettagged.iosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
