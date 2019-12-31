@@ -329,10 +329,6 @@ class PostCell: BaseCollectionViewCell {
     
     override func prepareForReuse() {
        super.prepareForReuse()
-
-       print("prepareForReuse")
-       isResetting = true
-       imageView.reloadData()
     }
 }
 

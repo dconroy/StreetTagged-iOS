@@ -11,13 +11,11 @@ import UIKit
 import Kingfisher
 
 class PhotoCell: BaseCollectionViewCell {
-    
     var index: Int?
     
     let imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleToFill
-        //image.backgroundColor = UIColor.black
         image.clipsToBounds = true
         return image
     }()
@@ -35,10 +33,5 @@ class PhotoCell: BaseCollectionViewCell {
     
     public func getImage() -> UIImage? {
         return imageView.image
-    }
-    
-    public func resetImage() {
-        //imageView.image = nil
-        //imageView.backgroundColor = .black
     }
 }
