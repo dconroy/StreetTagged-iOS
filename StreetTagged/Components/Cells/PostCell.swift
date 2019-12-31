@@ -343,15 +343,11 @@ extension PostCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! PhotoCell
         if let post = post {
-            if (isResetting) {
-                cell.resetImage()
+            if indexPath.item == 0 {
+                let url = URL(string: post.image)
+                cell.imageView.kf.setImage(with: url)
             } else {
-                if indexPath.item == 0 {
-                    let url = URL(string: post.image)
-                    cell.imageView.kf.setImage(with: url)
-                } else {
-                    //cell.imageView.loadImage(additionalImages[indexPath.item - 1])
-                }
+                //cell.imageView.loadImage(additionalImages[indexPath.item - 1])
             }
         }
         let gestureLike = UITapGestureRecognizer(target: self, action: #selector(likeGesture))
