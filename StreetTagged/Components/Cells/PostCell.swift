@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreLocation
+import Kingfisher
 
 protocol PostCellDelegate {
     func viewPost(_ image: UIImage, _ post: Post)
@@ -199,7 +200,9 @@ class PostCell: BaseCollectionViewCell {
             additionalImages.append(val)
         }
         isResetting = false
+        
         imageView.reloadData()
+        
         page.numberOfPages = post.additionalImages.count + 1
         if additionalImages.count == 0 {
             stackHeight?.constant = 0
@@ -328,8 +331,8 @@ class PostCell: BaseCollectionViewCell {
        super.prepareForReuse()
 
        print("prepareForReuse")
-        isResetting = true
-        imageView.reloadData()
+       isResetting = true
+       imageView.reloadData()
     }
 }
 
@@ -348,9 +351,10 @@ extension PostCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
                 cell.resetImage()
             } else {
                 if indexPath.item == 0 {
-                    cell.imageView.loadImage(post.image)
+                    let url = URL(string: post.image)
+                    cell.imageView.kf.setImage(with: url)
                 } else {
-                    cell.imageView.loadImage(additionalImages[indexPath.item - 1])
+                    //cell.imageView.loadImage(additionalImages[indexPath.item - 1])
                 }
             }
         }
