@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreLocation
+import Kingfisher
 
 protocol PostCellDelegate {
     func viewPost(_ image: UIImage, _ post: Post)
@@ -24,6 +25,8 @@ class PostCell: BaseCollectionViewCell {
     var delegate: PostCellDelegate?
     //let currentUser = UserDefaults.standard.object(forKey: "uid") as! String
     let currentUser = ""
+    
+    var isResetting = false
     
     let profileSize: CGFloat = 40.0
     
@@ -196,7 +199,10 @@ class PostCell: BaseCollectionViewCell {
         post.additionalImages.forEach { (_, val) in
             additionalImages.append(val)
         }
+        isResetting = false
+        
         imageView.reloadData()
+        
         page.numberOfPages = post.additionalImages.count + 1
         if additionalImages.count == 0 {
             stackHeight?.constant = 0
@@ -320,6 +326,10 @@ class PostCell: BaseCollectionViewCell {
             isPostBookmarked = !isPostBookmarked
         }
     }
+    
+    override func prepareForReuse() {
+       super.prepareForReuse()
+    }
 }
 
 extension PostCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -334,9 +344,10 @@ extension PostCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! PhotoCell
         if let post = post {
             if indexPath.item == 0 {
-                cell.imageView.loadImage(post.image)
+                let url = URL(string: post.image)
+                cell.imageView.kf.setImage(with: url)
             } else {
-                cell.imageView.loadImage(additionalImages[indexPath.item - 1])
+                //cell.imageView.loadImage(additionalImages[indexPath.item - 1])
             }
         }
         let gestureLike = UITapGestureRecognizer(target: self, action: #selector(likeGesture))

@@ -13,10 +13,13 @@ import AWSMobileClient
 import Alamofire
 
 let cache = NSCache<AnyObject, UIImage>()
+
 var posts: [Post] = []
+
 var favoritePosts: [Post] = []
 
 var postAlls: [Post] = []
+
 var favoritePostAlls: [Post] = []
 
 var isRefreshingPosts = false

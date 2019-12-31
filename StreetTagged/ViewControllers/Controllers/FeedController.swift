@@ -102,6 +102,12 @@ class FeedController: UICollectionViewController {
         return 2.0
     }
     
+    override func collectionView(_ collectionView: UICollectionView,
+                   didEndDisplaying cell: UICollectionViewCell,
+                     forItemAt indexPath: IndexPath) {
+      cell.prepareForReuse()
+    }
+    
     @objc fileprivate func refreshAction() {
         topRefreshPost()
     }

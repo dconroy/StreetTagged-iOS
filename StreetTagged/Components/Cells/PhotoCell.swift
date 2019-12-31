@@ -8,15 +8,14 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class PhotoCell: BaseCollectionViewCell {
-    
     var index: Int?
     
     let imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleToFill
-        //image.backgroundColor = UIColor.black
         image.clipsToBounds = true
         return image
     }()
@@ -27,8 +26,9 @@ class PhotoCell: BaseCollectionViewCell {
         addConstraintsWithFormat(format: "V:|[v0]|", views: imageView)
     }
     
-    public func setImage(image: UIImage) {
-        imageView.image = image
+    public func setImage(imageURL: String) {
+        let url = URL(string: imageURL)
+        imageView.kf.setImage(with: url)
     }
     
     public func getImage() -> UIImage? {

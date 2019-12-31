@@ -30,5 +30,6 @@ target 'StreetTagged' do
   pod 'AppleWelcomeScreen'
   pod "WSTagsField"
   pod 'Lightbox'
+  pod 'Kingfisher', '~> 5.0'
 
 end
