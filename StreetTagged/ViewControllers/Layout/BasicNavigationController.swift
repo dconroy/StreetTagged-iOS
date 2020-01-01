@@ -28,6 +28,14 @@ class BasicNavigationController: UINavigationController {
 
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+       if #available(iOS 13, *) {
+              return .darkContent
+          } else {
+              return .default
+          }
+      }
+    
     @objc func toggle() {
         globalSimpleMode = !globalSimpleMode
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
