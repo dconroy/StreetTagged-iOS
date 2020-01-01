@@ -185,7 +185,7 @@ extension String
             let string = self as NSString
 
             return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
-                string.substring(with: $0.range).replacingOccurrences(of: "#", with: "").lowercased()
+                string.substring(with: $0.range).lowercased()
             }
         }
 
