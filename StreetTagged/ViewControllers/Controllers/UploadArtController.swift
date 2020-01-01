@@ -69,10 +69,11 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                     let parameters: [String : Any] = [
                         "coordinates": coordinates! as Any,
                         "picture": self.imageLink,
-                        "tags": self.tags,
+                        "tags": about.hashtags(),
                         "token": token!,
                         "about": about
-                    ]                                    
+                    ]
+                    print(parameters)
                     Alamofire.request(postItemURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
                         print(response)
                         let alert = UIAlertController(title: "Your art was submitted!", message: "As part of the review your submission is going to be review which could take up to 24 hours. Once reviewed it will appear on the global and local feeds.", preferredStyle: UIAlertController.Style.alert)
@@ -173,4 +174,21 @@ extension UploadArtController: UITextFieldDelegate {
         return true
     }
 
+}
+
+extension String
+{
+    func hashtags() -> [String]
+    {
+        if let regex = try? NSRegularExpression(pattern: "#[a-z0-9]+", options: .caseInsensitive)
+        {
+            let string = self as NSString
+
+            return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
+                string.substring(with: $0.range).lowercased()
+            }
+        }
+
+        return []
+    }
 }
