@@ -99,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         tabBarController.didHijackHandler = { tabbarController, viewController, index in
                 if index == 2 {
                     if (userGlobalState == .userSignedIn) {
-                        let alert = UIAlertController(title: "From?", message: "", preferredStyle: .actionSheet)
+                        let alert = UIAlertController(title: "From?", message: "", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action: UIAlertAction) in
                             self.getImage(fromSourceType: .camera)
                         }))

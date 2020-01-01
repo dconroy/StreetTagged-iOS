@@ -248,7 +248,7 @@ extension FeedController: PostCellDelegate {
     }
     
     func optionPost(_ post: Post, _ image: UIImage) {
-        let alert = UIAlertController(title: "What would you like to do?", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "What would you like to do?", message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Get Directions", style: .default, handler: {(action: UIAlertAction) in
             let source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: globalLatitude!, longitude: globalLongitude!)))
             source.name = "You"
@@ -261,7 +261,15 @@ extension FeedController: PostCellDelegate {
         alert.addAction(UIAlertAction(title: "Share", style: .default, handler: {(action: UIAlertAction) in
             let shareText = "Share Image"
             let vc = UIActivityViewController(activityItems: [shareText, image], applicationActivities: [])
+            
+            if let popoverController = vc.popoverPresentationController {
+                popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2, width: 0, height: 0)
+                popoverController.sourceView = self.view
+                popoverController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+            }
+
             self.present(vc, animated: true, completion: nil)
+
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
         self.present(alert, animated: true, completion: nil)
