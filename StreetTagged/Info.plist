@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>AppAPIBaseURL</key>
-	<string>https://api-dev.streettagged.com</string>
+	<string>https://api.streettagged.com</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
