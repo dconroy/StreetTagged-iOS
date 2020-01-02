@@ -42,7 +42,7 @@ enum TabbarLayOut {
             
             if index == 2 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
+                    let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: .alert)
                     let takePhotoAction = UIAlertAction(title: "Take a photo", style: .default, handler: nil)
                     alertController.addAction(takePhotoAction)
                     let selectFromAlbumAction = UIAlertAction(title: "Select from album", style: .default, handler: nil)
