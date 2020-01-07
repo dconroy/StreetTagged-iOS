@@ -21,7 +21,7 @@ struct Art: Decodable {
     let tags: [String]
     let picture: String
     let about: String
-    let isFavorited: Bool?
+    var isFavorited: Bool?
     let location: Location
     let createdAt: String
 }

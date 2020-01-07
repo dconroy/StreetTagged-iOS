@@ -37,7 +37,11 @@ class Post: NSObject {
         self.username = dictionary["username"] as! String
         self.profile = dictionary["profile"] as! String
         self.comments = dictionary["comments"] as? [String: Any] ?? [:]
-        self.likes = dictionary["likes"] as? Bool ?? false
+        if (dictionary["likes"] == nil) {
+            self.likes = false
+        } else {
+            self.likes = dictionary["likes"] as? Bool ?? false
+        }
         self.bookmarks = dictionary["bookmarks"] as? [String: Any] ?? [:]
         self.additionalImages =  dictionary["additionalImages"] as? [String: String] ?? [:]
         self.id = id
