@@ -2,6 +2,11 @@ PODS:
   - Alamofire (4.9.1)
   - AppleWelcomeScreen (1.0.2):
     - SnapKit
+  - AWSAppSync (3.0.0):
+    - AWSCore (~> 2.12.0)
+    - ReachabilitySwift (~> 5.0.0)
+    - SQLite.swift (~> 0.12.2)
+    - Starscream (~> 3.0.2)
   - AWSAuthCore (2.12.3):
     - AWSCore (= 2.12.3)
   - AWSAuthUI (2.12.3):
@@ -15,6 +20,8 @@ PODS:
   - AWSMobileClient (2.12.3):
     - AWSAuthCore (= 2.12.3)
     - AWSCognitoIdentityProvider (= 2.12.3)
+  - AWSPinpoint (2.12.3):
+    - AWSCore (= 2.12.3)
   - AWSS3 (2.12.3):
     - AWSCore (= 2.12.3)
   - AWSUserPoolsSignIn (2.12.3):
@@ -22,6 +29,9 @@ PODS:
     - AWSCognitoIdentityProvider (= 2.12.3)
   - Cache (5.2.0)
   - ESTabBarController-swift (2.7)
+  - Eureka (5.1.0)
+  - ImageRow (4.0.0):
+    - Eureka (~> 5.0)
   - Imaginary (4.2.0):
     - Cache (~> 5.0)
   - Kingfisher (5.12.0):
@@ -33,23 +43,32 @@ PODS:
   - Mapbox-iOS-SDK (5.6.0):
     - MapboxMobileEvents (= 0.10.2)
   - MapboxMobileEvents (0.10.2)
+  - ReachabilitySwift (5.0.0)
   - Realm (4.3.0):
     - Realm/Headers (= 4.3.0)
   - Realm/Headers (4.3.0)
   - RealmSwift (4.3.0):
     - Realm (= 4.3.0)
   - SnapKit (5.0.1)
+  - SQLite.swift (0.12.2):
+    - SQLite.swift/standard (= 0.12.2)
+  - SQLite.swift/standard (0.12.2)
+  - Starscream (3.0.6)
   - WSTagsField (5.2.0)
 
 DEPENDENCIES:
   - Alamofire
   - AppleWelcomeScreen
+  - AWSAppSync
   - AWSAuthUI
   - AWSCore
   - AWSMobileClient
+  - AWSPinpoint
   - AWSS3
   - AWSUserPoolsSignIn
   - ESTabBarController-swift
+  - Eureka
+  - ImageRow (~> 4.0)
   - Kingfisher (~> 5.0)
   - Lightbox
   - lottie-ios
@@ -61,51 +80,65 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AppleWelcomeScreen
+    - AWSAppSync
     - AWSAuthCore
     - AWSAuthUI
     - AWSCognitoIdentityProvider
     - AWSCognitoIdentityProviderASF
     - AWSCore
     - AWSMobileClient
+    - AWSPinpoint
     - AWSS3
     - AWSUserPoolsSignIn
     - Cache
     - ESTabBarController-swift
+    - Eureka
+    - ImageRow
     - Imaginary
     - Kingfisher
     - Lightbox
     - lottie-ios
     - Mapbox-iOS-SDK
     - MapboxMobileEvents
+    - ReachabilitySwift
     - Realm
     - RealmSwift
     - SnapKit
+    - SQLite.swift
+    - Starscream
     - WSTagsField
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppleWelcomeScreen: 92fb44fc457df8fdc2af00e29546ef280571611f
+  AWSAppSync: 04f615ce0c3a0c815b7bf1ca3d47362a22ed12ca
   AWSAuthCore: 1a23c09b678484ba69ae4f5c24e6fdec5bb530a4
   AWSAuthUI: e241b3b2e23b2546a2f2a8f23a4a74e1ae0c831e
   AWSCognitoIdentityProvider: 3561d7cdbe7343a808bd7b2ce61da5b0c27b98e5
   AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
   AWSCore: a4b4aeb414bdfd55a5e8879adb4985c46da157d6
   AWSMobileClient: e3f9e8bcd4084c94612e409359a7371380d4dcf6
+  AWSPinpoint: 2922a25814aaaba3a460f06fdb0a722f73fc48a7
   AWSS3: 511a7b646572686c7e193aa19bd6a5cc43ec2977
   AWSUserPoolsSignIn: 46b5d1f06f513edb7f62bc44f5ba2f2c8563c4fa
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   ESTabBarController-swift: 4fb52ad03d94d0717ef97bc9eb09a5abfdded0a2
+  Eureka: 18a5076dcf0c41f9cd9748aa1c42f4d11434bdae
+  ImageRow: e65b2e1a33f89062bf2a553a2aad61d975eb7428
   Imaginary: dae33d06dbc2ada22f98afef5eb45cc061311a2c
   Kingfisher: dc6e0f53bb5b12c3e75bedb0e01bbd7a640eea69
   Lightbox: d317750e4132bfb871a5307cfe0a2c7d6a583c65
   lottie-ios: 32bf84389337d86fbc8b12266e88452e0abf1dee
   Mapbox-iOS-SDK: 913c4655bd72a200f84996caf7a755b377abc77f
   MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Realm: 9357c3589555793e1860a7104a7412bca4a48d99
   RealmSwift: 402f1e379a8ef82c635313037b043f0f06de880c
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   WSTagsField: d57a287fd552934db1d93a85d38abbf74b067d6a
 
-PODFILE CHECKSUM: 41be52c07220ffa56a279bd914f1904e60cc6fb6
+PODFILE CHECKSUM: 3c85bf69be075754b0ceda15a4444291f7533c77
 
 COCOAPODS: 1.8.3

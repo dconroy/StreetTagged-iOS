@@ -136,5 +136,12 @@ func userSignInWithCreds(username: String, password: String) {
 
 func userSignOut() {
     AWSMobileClient.default().signOut()
+     firstName = ""
+     lastName = ""
+     bio = ""
+     avatarImage = ""
+     location = ""
+     username = ""
+    
 }
 

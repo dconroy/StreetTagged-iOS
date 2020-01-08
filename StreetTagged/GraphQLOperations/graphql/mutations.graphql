@@ -1,0 +1,28 @@
+# this is an auto generated file. This will be overwritten
+mutation Save(
+  $id: ID
+  $username: String
+  $firstName: String
+  $lastName: String
+  $bio: String
+  $image: String
+  $location: String
+) {
+  save(
+    id: $id
+    username: $username
+    firstName: $firstName
+    lastName: $lastName
+    bio: $bio
+    image: $image
+    location: $location
+  ) {
+    id
+    username
+    firstName
+    lastName
+    bio
+    image
+    location
+  }
+}

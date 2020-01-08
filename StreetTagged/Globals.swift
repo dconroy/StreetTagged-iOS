@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import CoreLocation
 import MapKit
+import AWSAppSync
+
 
 var globalSimpleMode: Bool = false
 
@@ -65,4 +67,9 @@ let getItemURL = UIApplication.appAPIURL! + "/items"
 func imageURLFromS3Key(key: String, filter: String) -> String {
     return "https://" + GLOBAL_CDN + "/" + filter + "/" + key
 }
+
+let AppSyncRegion: AWSRegionType = AWSRegionType.USEast1
+let AppSyncEndpointURL: URL = URL(string: "https://m6qdgibsyjcbpewzvzbue7spdu.appsync-api.us-east-1.amazonaws.com/graphql")!
+let database_name: String = "settings"
+
 

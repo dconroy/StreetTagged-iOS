@@ -29,6 +29,14 @@ var pageNumber = 1
 
 var nearByPosts: [Post] = []
 
+//user profile temp storage, should this be using a model?
+var firstName: String = ""
+var lastName: String = ""
+var bio: String = ""
+var avatarImage: String = ""
+var location: String = ""
+var username: String = ""
+
 extension String {
   func epoch(dateFormat: String = "d MMMM yyyy", timeZone: String? = nil) -> TimeInterval? {
     // building the formatter

@@ -17,12 +17,16 @@ target 'StreetTagged' do
     # Pods for testing
   end
 
+  pod 'AWSPinpoint'
+  pod 'AWSAppSync'
   pod 'AWSCore'
   pod 'AWSUserPoolsSignIn' 
   pod 'AWSMobileClient'
   pod 'AWSAuthUI'
   pod 'Alamofire'
+  pod 'Eureka'
   pod "ESTabBarController-swift"
+  pod 'ImageRow', '~> 4.0'
   pod 'lottie-ios'
   pod 'Mapbox-iOS-SDK'
   pod 'RealmSwift'
