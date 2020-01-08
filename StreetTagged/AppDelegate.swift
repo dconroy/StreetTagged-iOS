@@ -311,7 +311,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     func getSettingsQuery() {
-        appSyncClient?.fetch(query: GetQuery()) {
+        appSyncClient?.fetch(query: GetUserQuery()) {
             (result, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "")
@@ -319,12 +319,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             }
             
             
-            firstName = (result?.data?.get?.firstName)!
-            lastName = (result?.data?.get?.lastName)!
-            bio = (result?.data?.get?.bio)!
-            location = (result?.data?.get?.location)!
-            username = (result?.data?.get?.username)!
-            avatarImage = (result?.data?.get?.image)!
+            firstName = (result?.data?.getUser?.firstName)!
+            lastName = (result?.data?.getUser?.lastName)!
+            bio = (result?.data?.getUser?.bio)!
+            location = (result?.data?.getUser?.location)!
+            username = (result?.data?.getUser?.username)!
+            avatarImage = (result?.data?.getUser?.image)!
             
         }
         
@@ -332,7 +332,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     
     func saveProfile(firstName:String,lastName:String, bio:String, image:String,location:String) {
         
-        let mutation = SaveMutation(firstName: firstName, lastName:lastName,
+        let mutation = SaveUserMutation(firstName: firstName, lastName:lastName,
                                     bio:bio,image:image,location:location)
         
         self.appSyncClient?.perform(mutation: mutation)
