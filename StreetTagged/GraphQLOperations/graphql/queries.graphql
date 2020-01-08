@@ -1,6 +1,6 @@
 # this is an auto generated file. This will be overwritten
-query Get($id: ID, $username: String) {
-  get(id: $id, username: $username) {
+query GetUser($id: ID, $username: String) {
+  getUser(id: $id, username: $username) {
     id
     username
     firstName

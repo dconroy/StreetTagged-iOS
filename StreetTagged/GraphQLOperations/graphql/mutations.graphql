@@ -1,5 +1,5 @@
 # this is an auto generated file. This will be overwritten
-mutation Save(
+mutation SaveUser(
   $id: ID
   $username: String
   $firstName: String
@@ -8,7 +8,7 @@ mutation Save(
   $image: String
   $location: String
 ) {
-  save(
+  saveUser(
     id: $id
     username: $username
     firstName: $firstName
@@ -24,5 +24,19 @@ mutation Save(
     bio
     image
     location
+  }
+}
+mutation WriteComment($id: ID, $content: String) {
+  writeComment(id: $id, content: $content) {
+    postid
+    commentid
+    content
+  }
+}
+mutation DeleteComment($d: ID) {
+  deleteComment(d: $d) {
+    postid
+    commentid
+    content
   }
 }
