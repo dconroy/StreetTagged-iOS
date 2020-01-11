@@ -105,17 +105,7 @@ class UserAccountController: FormViewController {
             switch userGlobalState {
             case .userSignedIn:
                 userSignOut()
-            let clearCacheOptions = ClearCacheOptions(clearQueries: true,
-                                                        clearMutations: true,
-                                                    clearSubscriptions: true)
-                do {
-                    try {
-                        appSyncClient.clearCaches(options: clearCacheOptions)
-                    }
-                    catch {
-                           print("fuck me")
-                    }}
-              
+          
                 break
             default:
                 userSignIn(navController: self.navigationController!)
