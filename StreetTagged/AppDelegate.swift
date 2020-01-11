@@ -194,15 +194,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                                 }
                             }
                         }
-                        return MyCognitoUserPoolsAuthProvider()}(),
-                      cacheConfiguration: cacheConfiguration)
+                        return MyCognitoUserPoolsAuthProvider()}())
 
             // Initialize the AWS AppSync client
             appSyncClient = try AWSAppSyncClient(appSyncConfig: appSyncConfig)
         } catch {
             print("Error initializing appsync client. \(error)")
         }
-   
+       // saveProfile(firstName: "Tester", lastName: "McTester", bio: "QA For Street Tagged", image: "https://dummy.com", location: "The Cloud")
+      
         getSettingsQuery()
     }
     
@@ -319,7 +319,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 return
             }
             
-           // print(result.data!)
+            print(result?.data?.getUser?.firstName)
             firstName = (result?.data?.getUser?.firstName)!
             lastName = (result?.data?.getUser?.lastName)!
             bio = (result?.data?.getUser?.bio)!

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import AWSMobileClient
 import AWSCore
+import AWSAppSync
 
 // Enum for the different state managament
 enum UserAuthState {
@@ -24,6 +25,8 @@ enum UserAuthState {
 // Globals for the iOS App
 var userGlobalState: UserAuthState = .userGuest
 var isLogs = true
+
+var appSyncClient: AWSAppSyncClient?
 
 typealias GetTokenCompletionHandler = (_ token:Optional<String>) -> Void
 typealias GetSubCompletionHandler = (_ sub:Optional<String>) -> Void
@@ -135,13 +138,15 @@ func userSignInWithCreds(username: String, password: String) {
 }
 
 func userSignOut() {
+    firstName = ""
+      lastName = ""
+      bio = ""
+      avatarImage = ""
+      location = ""
+      username = ""
+
     AWSMobileClient.default().signOut()
-     firstName = ""
-     lastName = ""
-     bio = ""
-     avatarImage = ""
-     location = ""
-     username = ""
+
     
 }
 
