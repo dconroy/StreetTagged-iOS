@@ -26,9 +26,12 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     
     var imageLink = ""
     var tags: [String] = []
+    var tags: [String] = []
     let center = UNUserNotificationCenter.current()
     
     var hasImage: Bool = false
+    var hasModerationTags: Bool = false
+
     var timer = Timer()
     
     let regionRadius: CLLocationDistance = 1000
@@ -55,6 +58,8 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                 let about: String = self.textView.text!
                 getUserAWSAccessToken (completionHandler: { (token) in
                     var coordinates: [String : Any]?
+                    
+                    //if moderation tags = null, seet is active to true
                     if self.imageLocation != nil {
                         coordinates = [
                             "latitude": self.imageLocation!.coordinate.latitude,
@@ -104,7 +109,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @objc func timerAction() {
-        if (self.hasImage == true && hasGlobalGPS == true && self.progressBar.progress == 1.0) {
+        if (self.hasImage == true && hasGlobalGPS == true && self.hasModerationTags && self.progressBar.progress == 1.0) {
             navigationItem.rightBarButtonItem?.isEnabled = true;
         }
         if (self.progressBar.progress == 1.0) {
@@ -138,11 +143,15 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                         self.imageLink = imageURL
                         self.hasImage = true
                         print(imageURL)
+                        //moderate image
+                            // if passes
+                        self.hasModerationTags = true
+                        
                     }
                 }
             })
         }
-                
+        
         textView.becomeFirstResponder()
         
         if self.imageLocation != nil {

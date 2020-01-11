@@ -58,6 +58,10 @@ let GLOBAL_NEED_SIGN_UP = "GLOBAL_NEED_SIGN_UP"
 let GLOBAL_CDN = "images.streettagged.com"
 
 let searchURL = UIApplication.appAPIURL! + "/items/search"
+
+let postItemURL = UIApplication.appAPIURL! + "/items"
+let moderationTagsURL = UIApplication.appAPIURL! + "/tags/moderation"
+let tagsURL = UIApplication.appAPIURL! + "/tags"
 let postItemURL = UIApplication.appAPIURL! + "/items"
 let urlFavorite = UIApplication.appAPIURL! + "/favorites"
 let getItemURL = UIApplication.appAPIURL! + "/items"

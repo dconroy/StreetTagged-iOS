@@ -64,3 +64,16 @@ func fixOrientation(img:UIImage) -> UIImage {
   return normalizedImage;
 
 }
+
+
+func getModerationTags(params:String) -> String {
+    let moderationParameters = {
+        
+            "bucket": "streetartprod",
+            "name": "2549f47b-4ed4-4fcd-a7ed-712bddfd7bc6-56AB1578-0A5F-444A-B8ED-5C50410FD770.jpg"
+        
+        
+    }
+    
+    print(moderationParameters)
+}
