@@ -64,5 +64,3 @@ func fixOrientation(img:UIImage) -> UIImage {
   return normalizedImage;
 
 }
-
-
