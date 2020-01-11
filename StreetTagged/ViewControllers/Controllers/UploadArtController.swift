@@ -17,7 +17,6 @@ import WSTagsField
 import MapKit
 
 public class UploadArtController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
-       
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var progressBar: UIProgressView!
     @IBOutlet var textView: UITextView!
@@ -25,13 +24,15 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     @IBOutlet weak var mapView: MKMapView!
     
     var imageLink = ""
+    var imageFilename = ""
     var tags: [String] = []
-    var tags: [String] = []
+    var moderationTags: [ModerationLabel] = []
     let center = UNUserNotificationCenter.current()
     
     var hasImage: Bool = false
-    var hasModerationTags: Bool = false
-
+    var moderationComplete: Bool = false
+    var moderationPending: Bool = false
+    var needsModeration: Bool = true
     var timer = Timer()
     
     let regionRadius: CLLocationDistance = 1000
@@ -39,16 +40,16 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     public var image: UIImage?
     
     public var imageLocation: CLLocation?
-
+    
     fileprivate let tagsField = WSTagsField()
     @IBOutlet fileprivate weak var tagsView: UIView!
-        
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     deinit {
-      timer.invalidate()
+        timer.invalidate()
     }
     
     @objc func post() {
@@ -76,23 +77,34 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                         "picture": self.imageLink,
                         "tags": about.hashtags(),
                         "token": token!,
-                        "about": about
+                        "about": about,
+                        "isActive":  !self.needsModeration
                     ]
-                    print(parameters)
                     Alamofire.request(postItemURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
-                        print(response)
-                        let alert = UIAlertController(title: "Your art was submitted!", message: "As part of the review your submission is going to be review which could take up to 24 hours. Once reviewed it will appear on the global and local feeds.", preferredStyle: UIAlertController.Style.alert)
-                        alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
-                            self.dismiss(animated: true, completion: nil)
-                        }))
-                        self.present(alert, animated: true, completion: nil)
+                 
+                        
+                        if(self.needsModeration){
+                            
+                            let alert = UIAlertController(title: "Success!", message: "Your art was submitted, but requires further review. Please check back soon.", preferredStyle: UIAlertController.Style.alert)
+                            alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
+                                self.dismiss(animated: true, completion: nil)}))
+                            self.present(alert, animated: true, completion: nil)
+                            
+                        } else {
+                            let alert = UIAlertController(title: "Success!", message: "Your art was submitted!", preferredStyle: UIAlertController.Style.alert)
+                            alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
+                                self.dismiss(animated: true, completion: nil)
+                            }))
+                            self.present(alert, animated: true, completion: nil)
+                            
+                        }
+                        
                     }
                 })
             }
         } else {
             let alert = UIAlertController(title: "Could not submit", message: "", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
-                                       
             }))
             self.present(alert, animated: true, completion: nil)
         }
@@ -109,14 +121,51 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @objc func timerAction() {
-        if (self.hasImage == true && hasGlobalGPS == true && self.hasModerationTags && self.progressBar.progress == 1.0) {
+        if (self.hasImage == true && hasGlobalGPS == true && self.moderationComplete == true && self.progressBar.progress == 1.0) {
             navigationItem.rightBarButtonItem?.isEnabled = true;
         }
-        if (self.progressBar.progress == 1.0) {
+        
+        if (self.progressBar.progress == 1.0 && self.moderationPending == false) {
+            //only call moderation endpoint once
+            moderationPending = true
+            
+            let modParameters: [String : Any] = [
+                "bucket": s3Bucket,
+                "name": imageFilename
+                //"name": "1840_burnt-orange2.jpg"
+            ]
+            
+            
+            Alamofire.request(moderationTagsURL, method: .post, parameters: modParameters, encoding: JSONEncoding.default).responseJSON { response in
+                do {
+                    let decoder = JSONDecoder()
+                    let moderationLabels = try decoder.decode(ModerationLabels.self, from: response.data!)
+                    self.moderationTags = moderationLabels.data
+                    self.needsModeration = false
+                    
+                    //if we find a moderation label, set needsModeration to true
+                    
+                    for moderationLabel in moderationLabels.data {
+                        print(moderationLabel)
+                        self.needsModeration = true
+                    }
+                    
+                    self.moderationComplete = true
+                    
+                } catch let error {
+                    print(error.localizedDescription)
+                    
+                }
+            }
+        }
+        
+        //keep progress bar up until moderation check is complete now
+        if (self.progressBar.progress == 1.0 && self.moderationComplete == true) {
             self.progressBar.isHidden = true
         }
     }
-        
+    
+
     override public func viewDidLoad() {
         super.viewDidLoad()
         let filter = "1080x1080"
@@ -124,11 +173,11 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
         
         let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
         let postItem = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(post))
-
+        
         navigationItem.rightBarButtonItem = postItem
         navigationItem.leftBarButtonItem = cancelItem
         navigationItem.rightBarButtonItem?.isEnabled = false;
-      
+        
         timer.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         
@@ -141,16 +190,17 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                     if (key?.isEmpty == false  && filter.isEmpty == false) {
                         let imageURL: String = imageURLFromS3Key(key: key!,filter: filter)
                         self.imageLink = imageURL
+                        self.imageFilename = key!
                         self.hasImage = true
                         print(imageURL)
-                        //moderate image
-                            // if passes
-                        self.hasModerationTags = true
+                        
                         
                     }
+                    
                 }
             })
         }
+        
         
         textView.becomeFirstResponder()
         
@@ -175,14 +225,14 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
 }
 
 extension UploadArtController: UITextFieldDelegate {
-
+    
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == tagsField {
-
+            
         }
         return true
     }
-
+    
 }
 
 extension String
@@ -192,12 +242,12 @@ extension String
         if let regex = try? NSRegularExpression(pattern: "#[a-z0-9]+", options: .caseInsensitive)
         {
             let string = self as NSString
-
+            
             return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
                 string.substring(with: $0.range).lowercased()
             }
         }
-
+        
         return []
     }
 }

@@ -62,9 +62,9 @@ let searchURL = UIApplication.appAPIURL! + "/items/search"
 let postItemURL = UIApplication.appAPIURL! + "/items"
 let moderationTagsURL = UIApplication.appAPIURL! + "/tags/moderation"
 let tagsURL = UIApplication.appAPIURL! + "/tags"
-let postItemURL = UIApplication.appAPIURL! + "/items"
 let urlFavorite = UIApplication.appAPIURL! + "/favorites"
 let getItemURL = UIApplication.appAPIURL! + "/items"
+let s3Bucket = "streetartprod"
 
 func imageURLFromS3Key(key: String, filter: String) -> String {
     return "https://" + GLOBAL_CDN + "/" + filter + "/" + key
