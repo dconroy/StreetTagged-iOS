@@ -14,14 +14,13 @@ class UserAccountController: FormViewController {
         print(userGlobalState)
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NSNotification.Name(rawValue: GLOBAL_SIGNIN_REFRESH), object: nil)
         
-        form
-            
-            +++ Section() {
+        form = Section("Basic Information") {
                 $0.header = HeaderFooterView<SALogoView>(.class)
             }
             
             +++ Section("Basic Information")
             <<< LabelRow(){ row in
+                row.tag = "username"
                 row.title = "Username"
                 row.value = username
             }
@@ -44,8 +43,10 @@ class UserAccountController: FormViewController {
             
             +++ Section()
             <<< ButtonRow() { (row: ButtonRow) -> Void in
+                
                 row.tag = "login"
                 row.title = getUserState()
+                
             }
             .onCellSelection { cell, row in
                 self.handleLogin()
@@ -100,20 +101,16 @@ class UserAccountController: FormViewController {
     }
 }
 
-
-
-
 class SALogoView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 130)
         
-        let imageView = UIImageView(image: UIImage(named: "headshot"))
+        let imageView = UIImageView(image: UIImage(named: "dummy-avatar"))
         imageView.layer.borderWidth = 1.0
         imageView.layer.masksToBounds = false
         imageView.layer.borderColor = UIColor.white.cgColor
-        print(UIScreen.main.bounds.width/2-50)
         imageView.frame = CGRect(x: (UIScreen.main.bounds.width/2)-50, y: 10, width: 100, height: 100)
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
         imageView.clipsToBounds = true

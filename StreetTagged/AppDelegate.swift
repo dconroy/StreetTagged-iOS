@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         
         userStateInitialize(enabledLogs: true, responder: self)
         
-        let profile = storyboard.instantiateViewController(withIdentifier: "Profile") as! ProfileController
+        //let profile = storyboard.instantiateViewController(withIdentifier: "Profile") as! ProfileController
         
         let flow = UICollectionViewFlowLayout()
         let v1 = FeedController(collectionViewLayout: flow)
@@ -202,6 +202,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         } catch {
             print("Error initializing appsync client. \(error)")
         }
+   
         getSettingsQuery()
     }
     
@@ -318,7 +319,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 return
             }
             
-            
+           // print(result.data!)
             firstName = (result?.data?.getUser?.firstName)!
             lastName = (result?.data?.getUser?.lastName)!
             bio = (result?.data?.getUser?.bio)!
