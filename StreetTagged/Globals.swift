@@ -58,9 +58,13 @@ let GLOBAL_NEED_SIGN_UP = "GLOBAL_NEED_SIGN_UP"
 let GLOBAL_CDN = "images.streettagged.com"
 
 let searchURL = UIApplication.appAPIURL! + "/items/search"
+
 let postItemURL = UIApplication.appAPIURL! + "/items"
+let moderationTagsURL = UIApplication.appAPIURL! + "/tags/moderation"
+let tagsURL = UIApplication.appAPIURL! + "/tags"
 let urlFavorite = UIApplication.appAPIURL! + "/favorites"
 let getItemURL = UIApplication.appAPIURL! + "/items"
+let s3Bucket = "streetartprod"
 
 func imageURLFromS3Key(key: String, filter: String) -> String {
     return "https://" + GLOBAL_CDN + "/" + filter + "/" + key

@@ -35,6 +35,16 @@ struct ArtWorks: Decodable {
     let items: [Art]
 }
 
+struct ModerationLabel: Decodable {
+    let Confidence: Double
+    let Name: String
+    let ParentName: String
+}
+
+struct ModerationLabels: Decodable {
+    let data: [ModerationLabel]
+ }
+
 struct FavoriteArtWorks: Decodable {
     let artWorks: [Art]
 }
