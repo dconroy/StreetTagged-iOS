@@ -96,6 +96,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                                 self.dismiss(animated: true, completion: nil)
                             }))
                             self.present(alert, animated: true, completion: nil)
+                            refreshPosts()
                             
                         }
                         
@@ -132,7 +133,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
             let modParameters: [String : Any] = [
                 "bucket": s3Bucket,
                 "name": imageFilename
-                //"name": "1840_burnt-orange2.jpg"
+                //"name": "1840_burnt-orange2.jpg"  //use this line to force a moderation label
             ]
             
             
