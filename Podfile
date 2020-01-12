@@ -31,5 +31,9 @@ target 'StreetTagged' do
   pod "WSTagsField"
   pod 'Lightbox'
   pod 'Kingfisher', '~> 5.0'
+  pod 'SPPermissions/Camera'
+  pod 'SPPermissions/Location'
+  pod 'SPPermissions/Notification'
+  pod 'SPPermissions/PhotoLibrary'
 
 end
