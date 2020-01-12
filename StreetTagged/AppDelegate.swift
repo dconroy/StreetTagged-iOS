@@ -135,7 +135,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 }
         }
                
-               
         v1.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Feed", image: UIImage(named: "home"), selectedImage: UIImage(named: "home_1"))
         v2.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Nearby", image: UIImage(named: "find"), selectedImage: UIImage(named: "find_1"))
         v3.tabBarItem = ESTabBarItem.init(TabContentView(), title: nil, image: UIImage(named: "photo_verybig"), selectedImage: UIImage(named: "photo_verybig"))
@@ -147,27 +146,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let navigationController = BasicNavigationController.init(rootViewController: tabBarController)
         tabBarController.title = "Feed"
         
-        //tabBarController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Simple", style: UIBarButtonItem.Style.plain, target: self, action: #selector(toggle))
-        
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(startLocationManager), name: NSNotification.Name(rawValue: GLOBAL_START_LOCATION_MANAGER), object: nil)
+    
+        return true
+    }
+    
+    @objc func startLocationManager() {
         self.locationManager.delegate = self
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
-        
-        let photos = PHPhotoLibrary.authorizationStatus()
-        if photos == .notDetermined {
-            PHPhotoLibrary.requestAuthorization({status in
-                if status == .authorized {
-
-                } else {
-                    
-                }
-            })
-        }
-        
-        return true
     }
     
     @objc func toggle() {
