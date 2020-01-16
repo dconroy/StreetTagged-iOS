@@ -15,8 +15,9 @@ import CoreLocation
 import UserNotifications
 import WSTagsField
 import MapKit
+import Eureka
 
-public class UploadArtController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
+public class UploadArtController: FormViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var progressBar: UIProgressView!
     @IBOutlet var textView: UITextView!
@@ -44,9 +45,9 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
     fileprivate let tagsField = WSTagsField()
     @IBOutlet fileprivate weak var tagsView: UIView!
     
-    required init?(coder aDecoder: NSCoder) {
+    /*required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
+    }*/
     
     deinit {
         timer.invalidate()
@@ -136,14 +137,18 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                 //"name": "1840_burnt-orange2.jpg"  //use this line to force a moderation label
             ]
             
+            print(modParameters)
             
             Alamofire.request(moderationTagsURL, method: .post, parameters: modParameters, encoding: JSONEncoding.default).responseJSON { response in
                 do {
+                    print(response)
+                    
                     let decoder = JSONDecoder()
                     let moderationLabels = try decoder.decode(ModerationLabels.self, from: response.data!)
                     self.moderationTags = moderationLabels.data
                     self.needsModeration = false
                     
+                    print(moderationLabels)
                     //if we find a moderation label, set needsModeration to true
                     
                     for moderationLabel in moderationLabels.data {
@@ -155,7 +160,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                     
                 } catch let error {
                     print(error.localizedDescription)
-                    
+                    self.moderationComplete = true
                 }
             }
         }
@@ -166,7 +171,60 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
         }
     }
     
-
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+        // Navigation controls
+        let filter = "1080x1080"
+        self.title = "Upload Street Art"
+        
+        let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+        let postItem = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(post))
+        
+        navigationItem.rightBarButtonItem = postItem
+        navigationItem.leftBarButtonItem = cancelItem
+        navigationItem.rightBarButtonItem?.isEnabled = false;
+        
+        // Form building
+        form
+        +++ Section("Art Work")
+            <<< ImageRow(){ row in
+                
+            }
+        +++ Section("General Details")
+            <<< TextRow(){ row in
+                row.title = "Name"
+                row.placeholder = ""
+            }
+            <<< TextRow(){ row in
+                row.title = "Artist"
+                row.placeholder = "if known"
+            }
+            <<< TextAreaRow(){
+                $0.title = "Description"
+                $0.placeholder = "description"
+            }
+        +++ Section("Geolocation")
+            <<< LocationRow(){
+                $0.title = "LocationRow"
+                $0.value = CLLocation(latitude: -34.91, longitude: -56.1646)
+            }
+        +++ MultivaluedSection(multivaluedOptions: [.Reorder, .Insert, .Delete],
+                           header: "Tags",
+                           footer: "Please tag this peice of street art. Your honest input helps StreetTagged train AI models to give the art community a better overall experience") {
+            $0.addButtonProvider = { section in
+                return ButtonRow(){
+                    $0.title = "Add New Tag"
+                }
+            }
+            $0.multivaluedRowToInsertAt = { index in
+                return NameRow() {
+                    $0.placeholder = "Tag Name"
+                }
+            }
+        }
+    }
+    
+    /*
     override public func viewDidLoad() {
         super.viewDidLoad()
         let filter = "1080x1080"
@@ -194,8 +252,6 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
                         self.imageFilename = key!
                         self.hasImage = true
                         print(imageURL)
-                        
-                        
                     }
                     
                 }
@@ -210,7 +266,7 @@ public class UploadArtController: UIViewController, UIImagePickerControllerDeleg
         } else {
             self.centerMapOnLocation(location: globalLocation)
         }
-    }
+    }*/
     
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)

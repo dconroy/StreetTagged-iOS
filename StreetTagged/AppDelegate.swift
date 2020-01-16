@@ -183,7 +183,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         
-        let vc = storyboard.instantiateViewController(withIdentifier: "UploadArt") as! UploadArtController
+        //let vc = storyboard.instantiateViewController(withIdentifier: "UploadArt") as! UploadArtController
+        let vc = UploadArtController()
         vc.image = image
         
         if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset {
@@ -191,6 +192,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         }           
                 
         let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.modalPresentationStyle = .fullScreen
         self.currentViewController!.dismiss(animated: true, completion: nil)
         self.currentViewController!.present(navigationController, animated: true, completion: nil)
     }
