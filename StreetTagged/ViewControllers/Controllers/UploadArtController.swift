@@ -187,7 +187,7 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         // Form building
         form
         +++ Section("Art Work")
-            <<< ImageRow(){ row in
+            <<< CustomRow() { row in
                 
             }
         +++ Section("General Details")
