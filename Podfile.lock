@@ -64,10 +64,10 @@ DEPENDENCIES:
   - lottie-ios
   - Mapbox-iOS-SDK
   - RealmSwift
-  - SPPermissions/Camera
-  - SPPermissions/Location
-  - SPPermissions/Notification
-  - SPPermissions/PhotoLibrary
+  - SPPermissions/Camera (~> 5.2.6)
+  - SPPermissions/Location (~> 5.2.6)
+  - SPPermissions/Notification (~> 5.2.6)
+  - SPPermissions/PhotoLibrary (~> 5.2.6)
   - WSTagsField
 
 SPEC REPOS:
@@ -121,6 +121,6 @@ SPEC CHECKSUMS:
   SPPermissions: a11dd5e68bcbf0b7de7b4ba86ba008e77ae66abd
   WSTagsField: d57a287fd552934db1d93a85d38abbf74b067d6a
 
-PODFILE CHECKSUM: e04044790fcac15ad809b2f6474a006f21530413
+PODFILE CHECKSUM: 7732d9b17545df46134d315dca5410a789319987
 
 COCOAPODS: 1.8.3

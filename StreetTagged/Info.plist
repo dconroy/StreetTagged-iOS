@@ -26,6 +26,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>StreetTagged uses camera to save art</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>For push notifications when nearby popular street art</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Shows your location on the map and helps improve OpenStreetMap.
 </string>
