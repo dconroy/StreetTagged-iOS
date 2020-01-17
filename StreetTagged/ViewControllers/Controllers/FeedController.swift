@@ -173,6 +173,8 @@ class FeedController: UICollectionViewController {
             vc.configuration = configuration
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true)
+        }  else {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_START_LOCATION_MANAGER), object: nil)
         }
     }
 }
