@@ -22,12 +22,15 @@ import Photos
 public class UploadArtController: FormViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var progressBar: UIProgressView!
-    @IBOutlet var textView: UITextView!
     
     @IBOutlet weak var mapView: MKMapView!
     
     var imageRow: ImageRow?
     var editRow: ButtonRow?
+    var locationRow: LocationRow?
+    var arttitle: String = ""
+    var artist: String = ""
+    var artdescription: String = ""
     
     var imageLink = ""
     var imageFilename = ""
@@ -59,7 +62,36 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
     }
     
     @objc func post() {
-        navigationItem.rightBarButtonItem?.isEnabled = false;
+        getUserAWSAccessToken (completionHandler: { (token) in
+            var coordinates: [String : Any]?
+            
+            //if moderation tags = null, seet is active to true
+            if self.imageLocation != nil {
+                coordinates = [
+                    "latitude": self.imageLocation!.coordinate.latitude,
+                    "longitude": self.imageLocation!.coordinate.longitude
+                ]
+            } else {
+                coordinates = [
+                    "latitude": globalLatitude!,
+                    "longitude": globalLongitude!
+                ]
+            }
+            let parameters: [String : Any] = [
+                "coordinates": coordinates! as Any,
+                "picture": self.imageLink,
+                "tags": [],
+                "token": token!,
+                "about": self.artdescription,
+                "isActive":  !self.needsModeration
+            ]
+        })
+        
+        
+        
+        
+        //navigationItem.rightBarButtonItem?.isEnabled = false;
+        /*
         if (hasImage && hasGlobalGPS) {
             if (userGlobalState == .userSignedIn) {
                 let about: String = self.textView.text!
@@ -115,6 +147,7 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
             }))
             self.present(alert, animated: true, completion: nil)
         }
+        */
     }
     
     @objc func cancel() {
@@ -128,9 +161,10 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
     }
     
     @objc func timerAction() {
-        if (self.hasImage == true && hasGlobalGPS == true && self.moderationComplete == true && self.progressBar.progress == 1.0) {
+        navigationItem.rightBarButtonItem?.isEnabled = true;
+        /*if (self.hasImage == true && hasGlobalGPS == true && self.moderationComplete == true && self.progressBar.progress == 1.0) {
             navigationItem.rightBarButtonItem?.isEnabled = true;
-        }
+        }*/
         
         if (self.progressBar.progress == 1.0 && self.moderationPending == false) {
             //only call moderation endpoint once
@@ -191,13 +225,17 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         
         if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset {
-            print(asset)
+            if (asset.location != nil) {
+                imageLocation = asset.location
+            } else {
+                imageLocation = globalLocation
+            }
         }
-        
         
         self.image = image
         self.imageRow!.reload()
         self.editRow!.reload()
+        self.locationRow!.reload()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -212,7 +250,7 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         
         navigationItem.rightBarButtonItem = postItem
         navigationItem.leftBarButtonItem = cancelItem
-        navigationItem.rightBarButtonItem?.isEnabled = false;
+        navigationItem.rightBarButtonItem?.isEnabled = true;
         
         self.imageRow = ImageRow() { row in
             row.value = self.image
@@ -249,6 +287,17 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
                 }
             }
         }
+        
+        self.locationRow = LocationRow(){
+            $0.title = "Art Location"
+            $0.value = globalLocation
+        }.cellUpdate { ps, row in
+            if (self.imageLocation != nil) {
+                row.value = self.imageLocation
+            } else {
+                row.value = globalLocation
+            }
+        }
                 
         // Form building
         form
@@ -275,20 +324,24 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
             <<< TextRow(){ row in
                 row.title = "Title"
                 row.placeholder = "if known"
+            }.onChange { row in
+                self.arttitle = row.value!
             }
             <<< TextRow(){ row in
                 row.title = "Artist"
                 row.placeholder = "if known"
+            }.onChange { row in
+                self.artist = row.value!
             }
             <<< TextAreaRow(){
                 $0.title = "Description"
                 $0.placeholder = "description - if available"
+            }.onChange { row in
+                self.artdescription = row.value!
             }
         +++ Section(header: "Geolocation (Step #3)", footer: "An accurate location allows us to provide the community reliable directions to find this artwork with ease.")
-            <<< LocationRow(){
-                $0.title = "Art Location"
-                $0.value = globalLocation
-            }
+            <<< self.locationRow!
+        
         /*+++ MultivaluedSection(multivaluedOptions: [.Reorder, .Insert, .Delete],
                            header: "Tags (Step #4)",
                            footer: "Please tag this piece of street art. Your honest input helps StreetTagged train AI models to give the art community a better overall experience.") {

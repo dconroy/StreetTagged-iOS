@@ -11,7 +11,6 @@ public struct Style {
   public static let `default` = Style()
 
   public struct Control {
-
     public var backgroundColor = UIColor(white: 0.98, alpha: 1)
 
     public init() {

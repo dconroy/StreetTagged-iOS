@@ -329,9 +329,14 @@ public final class PixelEditViewController : UIViewController {
   
   @objc
   private func didTapCancelButton() {
-    
-    callbacks.didCancelEditing(self)
-    delegate?.pixelEditViewControllerDidCancelEditing(in: self)
+    let alert = UIAlertController(title: "Are you sure?", message: "If you discard your art work edits you cannot recover it. Are you sure you'd like to discard it?", preferredStyle: UIAlertController.Style.actionSheet)
+    alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
+    }))
+    alert.addAction(UIAlertAction(title: "Yes, Discard", style: UIAlertAction.Style.destructive, handler: { (alert: UIAlertAction!) in
+        self.callbacks.didCancelEditing(self)
+        self.delegate?.pixelEditViewControllerDidCancelEditing(in: self)
+    }))
+    self.present(alert, animated: true, completion: nil)
   }
 
   private func set(mode: Mode) {
