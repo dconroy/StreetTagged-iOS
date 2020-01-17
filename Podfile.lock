@@ -49,6 +49,7 @@ PODS:
     - SPPermissions/Core
   - SPPermissions/PhotoLibrary (5.2.6):
     - SPPermissions/Core
+  - TransitionPatch (1.0.2)
   - WSTagsField (5.2.0)
 
 DEPENDENCIES:
@@ -70,6 +71,7 @@ DEPENDENCIES:
   - SPPermissions/Location (~> 5.2.6)
   - SPPermissions/Notification (~> 5.2.6)
   - SPPermissions/PhotoLibrary (~> 5.2.6)
+  - TransitionPatch
   - WSTagsField
 
 SPEC REPOS:
@@ -97,6 +99,7 @@ SPEC REPOS:
     - RealmSwift
     - SnapKit
     - SPPermissions
+    - TransitionPatch
     - WSTagsField
 
 SPEC CHECKSUMS:
@@ -123,8 +126,9 @@ SPEC CHECKSUMS:
   RealmSwift: 402f1e379a8ef82c635313037b043f0f06de880c
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SPPermissions: a11dd5e68bcbf0b7de7b4ba86ba008e77ae66abd
+  TransitionPatch: c02b48b1429255b14ef82b7e411034e0958b9681
   WSTagsField: d57a287fd552934db1d93a85d38abbf74b067d6a
 
-PODFILE CHECKSUM: 358e54d65ad8c66fc0796b629cd8d0557c2b01e1
+PODFILE CHECKSUM: 7393103ed84a5297d7f4dc3625610a4fd2da0970
 
 COCOAPODS: 1.8.3

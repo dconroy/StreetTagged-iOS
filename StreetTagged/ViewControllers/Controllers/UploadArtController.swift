@@ -16,6 +16,7 @@ import UserNotifications
 import WSTagsField
 import MapKit
 import Eureka
+import Lightbox
 
 public class UploadArtController: FormViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
     @IBOutlet var imageView: UIImageView!
@@ -23,6 +24,9 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
     @IBOutlet var textView: UITextView!
     
     @IBOutlet weak var mapView: MKMapView!
+    
+    var imageRow: ImageRow?
+    var editRow: ButtonRow?
     
     var imageLink = ""
     var imageFilename = ""
@@ -113,7 +117,7 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
     }
     
     @objc func cancel() {
-        let alert = UIAlertController(title: "Are you sure?", message: "If you discard your art work post you cannot recover it. Are you sure you'd like to discard it?", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Are you sure?", message: "If you discard your art work post you cannot recover it. Are you sure you'd like to discard it?", preferredStyle: UIAlertController.Style.actionSheet)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
         }))
         alert.addAction(UIAlertAction(title: "Yes, Discard", style: UIAlertAction.Style.destructive, handler: { (alert: UIAlertAction!) in
@@ -171,10 +175,29 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         }
     }
     
+    func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = sourceType
+            imagePickerController.modalPresentationStyle = .fullScreen
+            imagePickerController.allowsEditing = true
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+    
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        self.image = image
+        self.imageRow!.reload()
+        self.editRow!.reload()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         // Navigation controls
-        let filter = "1080x1080"
+        //let filter = "1080x1080"
         self.title = "Upload Street Art"
         
         let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
@@ -184,16 +207,69 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         navigationItem.leftBarButtonItem = cancelItem
         navigationItem.rightBarButtonItem?.isEnabled = false;
         
+        self.imageRow = ImageRow() { row in
+            row.value = self.image
+            row.onCellSelection { cell, row in
+                if (self.image != nil) {
+                    row.deselect()
+                    
+                    let images = [
+                     LightboxImage(
+                        image: self.image!,
+                        text: ""
+                     ),
+                    ]
+
+                    let controller = LightboxController(images: images)
+                    controller.pageDelegate = self
+                    controller.dismissalDelegate = self
+
+                    controller.dynamicBackground = true
+                    controller.modalPresentationStyle = .fullScreen
+                    
+                    self.present(controller, animated: true, completion: nil)
+                }
+            }
+        }.cellUpdate { cell, row in
+            row.value = self.image
+        }
+        
+        self.editRow = ButtonRow(){ row in
+            row.title = "Edit Image"
+            row.onCellSelection { cell, row in
+                if (self.image != nil) {
+                    let controller = PixelEditViewController.init(image: self.image!)
+                    controller.delegate = self
+                    self.navigationController!.pushViewController(controller, animated: true)
+                }
+            }
+        }
+                
         // Form building
         form
-        +++ Section("Art Work")
-            <<< CustomRow() { row in
-                
+        +++ Section(header: "Art Work (Step #1)", footer: "Once you are done with your submission of art work, you can tap on the art above to get a preview on the piece after it has been approved.")
+            <<< self.imageRow!
+            
+        +++ Section(header: "Image Options", footer: "")
+            <<< ButtonRow(){ row in
+                row.title = "Select Image"
+                row.onCellSelection { cell, row in
+                    let alert = UIAlertController(title: "Where would you like to select the image from?", message: "", preferredStyle: .actionSheet)
+                    alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action: UIAlertAction) in
+                        self.getImage(fromSourceType: .camera)
+                    }))
+                    alert.addAction(UIAlertAction(title: "Photo Album", style: .default, handler: {(action: UIAlertAction) in
+                        self.getImage(fromSourceType: .photoLibrary)
+                    }))
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
-        +++ Section("General Details")
+            <<< self.editRow!
+        +++ Section(header: "General Details (Step #2)", footer: "General details about the piece allow us to index quickly and create custom feeds.")
             <<< TextRow(){ row in
-                row.title = "Name"
-                row.placeholder = ""
+                row.title = "Title"
+                row.placeholder = "if known"
             }
             <<< TextRow(){ row in
                 row.title = "Artist"
@@ -201,16 +277,16 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
             }
             <<< TextAreaRow(){
                 $0.title = "Description"
-                $0.placeholder = "description"
+                $0.placeholder = "description - if available"
             }
-        +++ Section("Geolocation")
+        +++ Section(header: "Geolocation (Step #3)", footer: "An accurate location allows us to provide the community reliable directions to find this artwork with ease.")
             <<< LocationRow(){
-                $0.title = "LocationRow"
+                $0.title = "Art Location"
                 $0.value = CLLocation(latitude: -34.91, longitude: -56.1646)
             }
         +++ MultivaluedSection(multivaluedOptions: [.Reorder, .Insert, .Delete],
-                           header: "Tags",
-                           footer: "Please tag this peice of street art. Your honest input helps StreetTagged train AI models to give the art community a better overall experience") {
+                           header: "Tags (Step #4)",
+                           footer: "Please tag this piece of street art. Your honest input helps StreetTagged train AI models to give the art community a better overall experience.") {
             $0.addButtonProvider = { section in
                 return ButtonRow(){
                     $0.title = "Add New Tag"
@@ -222,6 +298,7 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
                 }
             }
         }
+        
     }
     
     /*
@@ -279,6 +356,31 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
+}
+
+extension UploadArtController: LightboxControllerPageDelegate {
+    public func lightboxController(_ controller: LightboxController, didMoveToPage page: Int) { }
+}
+
+extension UploadArtController: LightboxControllerDismissalDelegate {
+    public func lightboxControllerWillDismiss(_ controller: LightboxController) {
+
+  }
+}
+
+extension UploadArtController : PixelEditViewControllerDelegate {
+  
+    public func pixelEditViewController(_ controller: PixelEditViewController, didEndEditing editingStack: EditingStack) {
+        self.navigationController?.popToViewController(self, animated: true)
+        let image = editingStack.makeRenderer().render(resolution: .full)
+        self.image = image
+        self.imageRow!.reload()
+    }
+  
+    public func pixelEditViewControllerDidCancelEditing(in controller: PixelEditViewController) {
+    self.navigationController?.popToViewController(self, animated: true)
+  }
+  
 }
 
 extension UploadArtController: UITextFieldDelegate {

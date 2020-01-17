@@ -54,6 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         userStateInitialize(enabledLogs: true, responder: self)
+        
+        // TODO: Refactor the cube storage
+        ColorCubeStorage.loadToDefault()
                     
         let profile = storyboard.instantiateViewController(withIdentifier: "Profile") as! ProfileController
         
@@ -99,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         tabBarController.didHijackHandler = { tabbarController, viewController, index in
                 if index == 2 {
                     if (userGlobalState == .userSignedIn) {
-                        let alert = UIAlertController(title: "From?", message: "", preferredStyle: .alert)
+                        /*let alert = UIAlertController(title: "From?", message: "", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action: UIAlertAction) in
                             self.getImage(fromSourceType: .camera)
                         }))
@@ -107,7 +110,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                             self.getImage(fromSourceType: .photoLibrary)
                         }))
                         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
-                        self.currentViewController!.present(alert, animated: true, completion: nil)
+                        self.currentViewController!.present(alert, animated: true, completion: nil)*/
+                        
+                        let vc = UploadArtController()
+                        let navigationController = UINavigationController(rootViewController: vc)
+                        navigationController.modalPresentationStyle = .fullScreen
+                        self.currentViewController!.dismiss(animated: true, completion: nil)
+                        self.currentViewController!.present(navigationController, animated: true, completion: nil)
                     } else {
                         let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to submit and favorite street art.", preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in

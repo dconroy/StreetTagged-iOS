@@ -36,5 +36,6 @@ target 'StreetTagged' do
   pod 'SPPermissions/Notification','~> 5.2.6'
   pod 'SPPermissions/PhotoLibrary','~> 5.2.6'
   pod 'Eureka', '~> 5.1.0'
+  pod 'TransitionPatch'
 
 end
