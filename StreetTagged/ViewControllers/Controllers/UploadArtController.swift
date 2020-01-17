@@ -297,6 +297,9 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
             } else {
                 row.value = globalLocation
             }
+        }.onChange { row in
+            self.imageLocation = row.value!
+            self.locationRow?.reload()
         }
                 
         // Form building
