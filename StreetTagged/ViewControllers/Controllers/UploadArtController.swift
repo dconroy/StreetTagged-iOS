@@ -17,6 +17,7 @@ import WSTagsField
 import MapKit
 import Eureka
 import Lightbox
+import Photos
 
 public class UploadArtController: FormViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
     @IBOutlet var imageView: UIImageView!
@@ -188,6 +189,12 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        
+        if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset {
+            print(asset)
+        }
+        
+        
         self.image = image
         self.imageRow!.reload()
         self.editRow!.reload()
@@ -223,10 +230,8 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
                     let controller = LightboxController(images: images)
                     controller.pageDelegate = self
                     controller.dismissalDelegate = self
-
                     controller.dynamicBackground = true
                     controller.modalPresentationStyle = .fullScreen
-                    
                     self.present(controller, animated: true, completion: nil)
                 }
             }
@@ -247,7 +252,7 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
                 
         // Form building
         form
-        +++ Section(header: "Art Work (Step #1)", footer: "Once you are done with your submission of art work, you can tap on the art above to get a preview on the piece after it has been approved.")
+        +++ Section(header: "Artwork (Step #1)", footer: "Once you are done with your submission of artwork, you can tap on the art above to get a preview on the piece after it has been approved.")
             <<< self.imageRow!
             
         +++ Section(header: "Image Options", footer: "")
@@ -262,7 +267,7 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
                         self.getImage(fromSourceType: .photoLibrary)
                     }))
                     alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                    self.navigationController!.present(alert, animated: true, completion: nil)
                 }
             }
             <<< self.editRow!
@@ -282,9 +287,9 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         +++ Section(header: "Geolocation (Step #3)", footer: "An accurate location allows us to provide the community reliable directions to find this artwork with ease.")
             <<< LocationRow(){
                 $0.title = "Art Location"
-                $0.value = CLLocation(latitude: -34.91, longitude: -56.1646)
+                $0.value = globalLocation
             }
-        +++ MultivaluedSection(multivaluedOptions: [.Reorder, .Insert, .Delete],
+        /*+++ MultivaluedSection(multivaluedOptions: [.Reorder, .Insert, .Delete],
                            header: "Tags (Step #4)",
                            footer: "Please tag this piece of street art. Your honest input helps StreetTagged train AI models to give the art community a better overall experience.") {
             $0.addButtonProvider = { section in
@@ -297,7 +302,7 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
                     $0.placeholder = "Tag Name"
                 }
             }
-        }
+        }*/
         
     }
     

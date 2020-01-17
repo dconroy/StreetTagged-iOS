@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vqa-YK-Uz8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vqa-YK-Uz8">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -243,64 +244,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GOT-1R-hmD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="40.579710144927539" y="1310.4910714285713"/>
-        </scene>
-        <!--Upload Art Controller-->
-        <scene sceneID="ioq-2X-jvX">
-            <objects>
-                <viewController storyboardIdentifier="UploadArt" useStoryboardIdentifierAsRestorationIdentifier="YES" id="f3C-5A-7fB" customClass="UploadArtController" customModule="StreetTagged" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ud3-VQ-4o3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8YJ-bL-PYK">
-                                <rect key="frame" x="0.0" y="57" width="140" height="140"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="140" id="9bQ-V8-tio"/>
-                                    <constraint firstAttribute="width" constant="140" id="dJh-W9-Fr5"/>
-                                </constraints>
-                            </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8b-1a-59g">
-                                <rect key="frame" x="148" y="57" width="266" height="140"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bnM-i5-DYj">
-                                <rect key="frame" x="0.0" y="263" width="414" height="304"/>
-                            </mapView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oOK-LF-Kh7">
-                                <rect key="frame" x="4" y="205" width="136" height="2"/>
-                            </progressView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="8YJ-bL-PYK" firstAttribute="top" secondItem="bGt-8D-RxH" secondAttribute="top" constant="13" id="5DG-a9-b41"/>
-                            <constraint firstItem="Y8b-1a-59g" firstAttribute="leading" secondItem="8YJ-bL-PYK" secondAttribute="trailing" constant="8" id="BhG-eS-yWK"/>
-                            <constraint firstItem="bGt-8D-RxH" firstAttribute="bottom" secondItem="bnM-i5-DYj" secondAttribute="bottom" constant="295" id="CTq-My-hIG"/>
-                            <constraint firstItem="8YJ-bL-PYK" firstAttribute="bottom" secondItem="Y8b-1a-59g" secondAttribute="bottom" id="J0h-fY-cJq"/>
-                            <constraint firstItem="8YJ-bL-PYK" firstAttribute="leading" secondItem="bGt-8D-RxH" secondAttribute="leading" id="PPc-fy-0Ac"/>
-                            <constraint firstItem="oOK-LF-Kh7" firstAttribute="leading" secondItem="ud3-VQ-4o3" secondAttribute="leadingMargin" constant="-16" id="Uoc-IO-pqM"/>
-                            <constraint firstItem="bnM-i5-DYj" firstAttribute="trailing" secondItem="Y8b-1a-59g" secondAttribute="trailing" id="Uxx-Ja-bEm"/>
-                            <constraint firstItem="8YJ-bL-PYK" firstAttribute="trailing" secondItem="oOK-LF-Kh7" secondAttribute="trailing" id="hfv-Ma-feu"/>
-                            <constraint firstItem="8YJ-bL-PYK" firstAttribute="top" secondItem="Y8b-1a-59g" secondAttribute="top" id="hgy-pA-ie2"/>
-                            <constraint firstItem="oOK-LF-Kh7" firstAttribute="top" secondItem="8YJ-bL-PYK" secondAttribute="bottom" constant="8" id="jio-oc-tdf"/>
-                            <constraint firstItem="bnM-i5-DYj" firstAttribute="centerX" secondItem="ud3-VQ-4o3" secondAttribute="centerX" id="kLS-HV-N6I"/>
-                            <constraint firstItem="bnM-i5-DYj" firstAttribute="top" secondItem="oOK-LF-Kh7" secondAttribute="bottom" constant="56" id="tC8-fu-KyC"/>
-                            <constraint firstItem="8YJ-bL-PYK" firstAttribute="leading" secondItem="bnM-i5-DYj" secondAttribute="leading" id="uDK-Wk-79T"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="bGt-8D-RxH"/>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="8YJ-bL-PYK" id="Tfe-O9-6C7"/>
-                        <outlet property="mapView" destination="bnM-i5-DYj" id="3Mq-tg-Ihm"/>
-                        <outlet property="progressBar" destination="oOK-LF-Kh7" id="3xa-5C-aNQ"/>
-                        <outlet property="textView" destination="Y8b-1a-59g" id="dRg-ni-Ln6"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2l3-xY-bfy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2198.5507246376815" y="-159.375"/>
         </scene>
         <!--Profile Controller-->
         <scene sceneID="eWw-mH-a15">

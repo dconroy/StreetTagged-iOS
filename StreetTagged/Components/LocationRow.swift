@@ -130,6 +130,8 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(mapView)
+        
+        navigationItem.hidesBackButton = true
 
         mapView.delegate = self
         mapView.addSubview(pinView)
@@ -156,6 +158,8 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         let center = mapView.convert(mapView.centerCoordinate, toPointTo: pinView)
         pinView.center = CGPoint(x: center.x, y: center.y - (pinView.bounds.height/2))
         ellipsisLayer.position = center
+        
+        
     }
 
 
