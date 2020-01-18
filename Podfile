@@ -23,6 +23,8 @@ target 'StreetTagged' do
   pod 'AWSAuthUI'
   pod 'Alamofire'
   pod "ESTabBarController-swift"
+  pod 'GetStream'
+  pod 'GetStreamActivityFeed'
   pod 'lottie-ios'
   pod 'Mapbox-iOS-SDK'
   pod 'RealmSwift'
