@@ -14,7 +14,7 @@ import AWSS3
 import Photos
 import CoreLocation
 import GetStream
-//import GetStreamActivityFeed
+import GetStreamActivityFeed
 
 
 var globalLatitude: CLLocationDegrees?
@@ -62,7 +62,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
  let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZGNvbnJveSJ9.rSOAY6E4wxjNisPAZsmuodR6rywEfU_w004em4SfL00"
          
          Client.config = .init(apiKey: "2v627n68x39v", appId: "67539",logsEnabled: true)
-         Client.shared.setupUser(token: token) { result in
+         Client.shared.setupUser(GetStreamActivityFeed.User(name: "Dave Conroy",
+                                                                  id: "dconroy"),
+                                                                  token: token) { result in
+  
              if let currentUser = try? result.get() {
                  // Load you feeds.
              } else if let error = result.error {
@@ -71,21 +74,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
              // or
              if GetStream.User.current != nil {
                  
-                 let userFeed = Client.shared.flatFeed(feedSlug: "user")
+                 //let userFeed = Client.shared.flatFeed(feedSlug: "user")
                  // Create an Activity. You can make own Activity class or struct with custom properties.
-                 //let activity = Activity(actor: User.current!, verb: "add", object: "picture:10", foreignId: "picture:10")
+                // let activity = Activity(actor: User.current!, verb: "add", object: "picture:10", foreignId: "picture:10")
                  
-                 //userFeed?.add(activity) { result in
+              //   userFeed?.add(activity) { result in
                  //A result of the adding of the activity.
-                 //    print(result)
-                 //}
-                 let timelineFeed = Client.shared.flatFeed(feedSlug: "timeline")
+              //       print(result)
+              //   }
+               //  let timelineFeed = Client.shared.flatFeed(feedSlug: "timeline")
+
+               // timelineFeed?.follow(toTarget: userFeed!.feedId, activityCopyLimit: 1) { result in
+                    //    print(result)
+               // }
                
                  // Read timeline and user's post appears in the feed:
-                 timelineFeed?.get(pagination: .limit(10)) { result in
-                     let response = try! result.get()
-                     print(response.results)
-                 }
+               //  timelineFeed?.get(pagination: .limit(10)) { result in
+                 //    let response = try! result.get()
+                   //  print(response.results)
+                // }
                  
                  
                  

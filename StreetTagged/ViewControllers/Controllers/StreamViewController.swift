@@ -14,7 +14,7 @@ class StreamViewController: FlatFeedViewController<GetStreamActivityFeed.Activit
         }
         super.viewDidLoad()
         setupTextToolBar()
-        subscribeForUpdates()
+       //subscribeForUpdates()
     }
 
     func setupTextToolBar() {
