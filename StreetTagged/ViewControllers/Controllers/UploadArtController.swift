@@ -185,6 +185,7 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         self.imageRow!.reload()
         self.editRow!.reload()
         self.locationRow!.reload()
+        navigationItem.rightBarButtonItem?.isEnabled = true;
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -199,7 +200,8 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         
         navigationItem.rightBarButtonItem = postItem
         navigationItem.leftBarButtonItem = cancelItem
-        navigationItem.rightBarButtonItem?.isEnabled = true;
+        navigationItem.rightBarButtonItem?.isEnabled = false;
+        
         
         self.imageRow = ImageRow() { row in
             row.value = self.image
@@ -318,6 +320,7 @@ extension UploadArtController : PixelEditViewControllerDelegate {
         let image = editingStack.makeRenderer().render(resolution: .full)
         self.image = image
         self.imageRow!.reload()
+        navigationItem.rightBarButtonItem?.isEnabled = true;
     }
   
     public func pixelEditViewControllerDidCancelEditing(in controller: PixelEditViewController) {
