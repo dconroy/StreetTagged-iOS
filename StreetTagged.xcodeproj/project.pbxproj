@@ -44,6 +44,7 @@
 		B0A182B2264DABB37B41B80C /* Pods_StreetTaggedUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E68A09E61126E717A7A3591 /* Pods_StreetTaggedUITests.framework */; };
 		F6A9AC01234F3B7F00E01006 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A9AC00234F3B7F00E01006 /* CustomAnnotation.swift */; };
 		F6A9AC03234F3D2400E01006 /* CustomCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A9AC02234F3D2400E01006 /* CustomCalloutView.swift */; };
+		F6B4111823D302E200E5FD70 /* StreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B4111723D302E200E5FD70 /* StreamViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		EB759B62474DAFDADCCA34CC /* Pods-StreetTaggedUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreetTaggedUITests.debug.xcconfig"; path = "Target Support Files/Pods-StreetTaggedUITests/Pods-StreetTaggedUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F6A9AC00234F3B7F00E01006 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		F6A9AC02234F3D2400E01006 /* CustomCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalloutView.swift; sourceTree = "<group>"; };
+		F6B4111723D302E200E5FD70 /* StreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamViewController.swift; sourceTree = "<group>"; };
 		FE51AFDFD354FE34009B013B /* Pods-StreetTaggedUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreetTaggedUITests.release.xcconfig"; path = "Target Support Files/Pods-StreetTaggedUITests/Pods-StreetTaggedUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,6 +174,7 @@
 				459293B1232AC515008B8B86 /* ViewController.swift */,
 				455FDD102335C81C0075509A /* ReviewArtWork.swift */,
 				45FB709D233BD0F3008C4477 /* UploadArtController.swift */,
+				F6B4111723D302E200E5FD70 /* StreamViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 				451F7DDB232C428500DFEBFA /* ProfileController.swift in Sources */,
 				45FB709C233AEA55008C4477 /* ImageManagement.swift in Sources */,
 				45FB709E233BD0F3008C4477 /* UploadArtController.swift in Sources */,
+				F6B4111823D302E200E5FD70 /* StreamViewController.swift in Sources */,
 				451F7E24232ED65B00DFEBFA /* TabBasicContentView.swift in Sources */,
 				451F7E17232ED3B200DFEBFA /* Comment.swift in Sources */,
 				451F7E29232EE62900DFEBFA /* PostCell.swift in Sources */,

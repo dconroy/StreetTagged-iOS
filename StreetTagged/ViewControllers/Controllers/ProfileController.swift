@@ -78,9 +78,6 @@ public class ProfileController: UIViewController {
         }
     }
     
-    // Create a user feed.
-    // ⚠️ Make sure your feeds are instance variables to wait for the result: `var userFeed: FlatFeed?`
-    
     
     
     
