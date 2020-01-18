@@ -122,6 +122,7 @@
 		459293D3232AC516008B8B86 /* StreetTaggedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293D2232AC516008B8B86 /* StreetTaggedUITests.swift */; };
 		459293E6232C1838008B8B86 /* BasicNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293E5232C1838008B8B86 /* BasicNavigationController.swift */; };
 		459293F8232C19FB008B8B86 /* TabbarLayOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293F7232C19FB008B8B86 /* TabbarLayOut.swift */; };
+		45A571A023D2A10800D4A218 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A5719F23D2A10800D4A218 /* LoadingView.swift */; };
 		45E0B3C223383DFE0061C98C /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E0B3C123383DFE0061C98C /* Globals.swift */; };
 		45E0B3C523383E720061C98C /* UserManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E0B3C423383E720061C98C /* UserManagement.swift */; };
 		45FB709C233AEA55008C4477 /* ImageManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FB709B233AEA55008C4477 /* ImageManagement.swift */; };
@@ -276,6 +277,7 @@
 		459293E5232C1838008B8B86 /* BasicNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicNavigationController.swift; sourceTree = "<group>"; };
 		459293F7232C19FB008B8B86 /* TabbarLayOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarLayOut.swift; sourceTree = "<group>"; };
 		45929401232C1DFC008B8B86 /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = ../ESTabBarController/ESTabBarControllerExample/ESTabBarControllerExample/Lottie/Lottie.framework; sourceTree = "<group>"; };
+		45A5719F23D2A10800D4A218 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		45E0B3C123383DFE0061C98C /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		45E0B3C423383E720061C98C /* UserManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagement.swift; sourceTree = "<group>"; };
 		45FB709B233AEA55008C4477 /* ImageManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagement.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 				45343FD923481013001FDDED /* awsconfiguration.json */,
 				456E516C23D13ED0001839E3 /* ImageEditor */,
 				454FFFE92339A26F0090ABCE /* TestImages */,
+				45A5719E23D2A0EB00D4A218 /* Components */,
 				459293AE232AC515008B8B86 /* StreetTagged */,
 				459293C6232AC516008B8B86 /* StreetTaggedTests */,
 				459293D1232AC516008B8B86 /* StreetTaggedUITests */,
@@ -664,6 +667,14 @@
 				451F7E1D232ED4E700DFEBFA /* Controllers */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		45A5719E23D2A0EB00D4A218 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				45A5719F23D2A10800D4A218 /* LoadingView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		45E0B3C323383E4B0061C98C /* AWS */ = {
@@ -1044,6 +1055,7 @@
 				456E523F23D140D4001839E3 /* EditMenuControlView.swift in Sources */,
 				456E529323D1412D001839E3 /* EditingStack.swift in Sources */,
 				456E524D23D140D4001839E3 /* FadeControl.swift in Sources */,
+				45A571A023D2A10800D4A218 /* LoadingView.swift in Sources */,
 				456E525B23D140D4001839E3 /* BlurredMosaicView.swift in Sources */,
 				451F7E24232ED65B00DFEBFA /* TabBasicContentView.swift in Sources */,
 				451F7E17232ED3B200DFEBFA /* Comment.swift in Sources */,

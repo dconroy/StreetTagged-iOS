@@ -13,18 +13,14 @@ import AWSMobileClient
 import AWSS3
 import CoreLocation
 import UserNotifications
-import WSTagsField
 import MapKit
 import Eureka
 import Lightbox
 import Photos
 
 public class UploadArtController: FormViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var progressBar: UIProgressView!
-    
-    @IBOutlet weak var mapView: MKMapView!
-    
+    let loading = LoadingView()
+
     var imageRow: ImageRow?
     var editRow: ButtonRow?
     var locationRow: LocationRow?
@@ -43,15 +39,9 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
     var moderationPending: Bool = false
     var needsModeration: Bool = true
     var timer = Timer()
-    
-    let regionRadius: CLLocationDistance = 1000
-    
+        
     public var image: UIImage?
-    
     public var imageLocation: CLLocation?
-    
-    fileprivate let tagsField = WSTagsField()
-    @IBOutlet fileprivate weak var tagsView: UIView!
     
     /*required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -61,7 +51,7 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         timer.invalidate()
     }
     
-    @objc func post() {
+    func startSubmitting() {
         getUserAWSAccessToken (completionHandler: { (token) in
             var coordinates: [String : Any]?
             
@@ -80,74 +70,82 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
             let parameters: [String : Any] = [
                 "coordinates": coordinates! as Any,
                 "picture": self.imageLink,
-                "tags": [],
+                "tags": self.artdescription.hashTags(),
                 "token": token!,
                 "about": self.artdescription,
                 "isActive":  !self.needsModeration
             ]
+            Alamofire.request(postItemURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+                   if(self.needsModeration){
+                       let alert = UIAlertController(title: "Success!", message: "Your art was submitted, but requires further review. Please check back soon.", preferredStyle: UIAlertController.Style.alert)
+                       alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
+                           self.dismiss(animated: true, completion: nil)
+                       }))
+                       self.present(alert, animated: true, completion: nil)
+                   } else {
+                        self.loading.hide()
+                        refreshPosts()
+                        self.dismiss(animated: true, completion: nil)
+                   }
+               }
         })
-        
-        
-        
-        
-        //navigationItem.rightBarButtonItem?.isEnabled = false;
-        /*
-        if (hasImage && hasGlobalGPS) {
-            if (userGlobalState == .userSignedIn) {
-                let about: String = self.textView.text!
-                getUserAWSAccessToken (completionHandler: { (token) in
-                    var coordinates: [String : Any]?
-                    
-                    //if moderation tags = null, seet is active to true
-                    if self.imageLocation != nil {
-                        coordinates = [
-                            "latitude": self.imageLocation!.coordinate.latitude,
-                            "longitude": self.imageLocation!.coordinate.longitude
-                        ]
-                    } else {
-                        coordinates = [
-                            "latitude": globalLatitude!,
-                            "longitude": globalLongitude!
-                        ]
-                    }
-                    let parameters: [String : Any] = [
-                        "coordinates": coordinates! as Any,
-                        "picture": self.imageLink,
-                        "tags": about.hashtags(),
-                        "token": token!,
-                        "about": about,
-                        "isActive":  !self.needsModeration
-                    ]
-                    Alamofire.request(postItemURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
-                 
-                        
-                        if(self.needsModeration){
-                            
-                            let alert = UIAlertController(title: "Success!", message: "Your art was submitted, but requires further review. Please check back soon.", preferredStyle: UIAlertController.Style.alert)
-                            alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
-                                self.dismiss(animated: true, completion: nil)}))
-                            self.present(alert, animated: true, completion: nil)
-                            
-                        } else {
-                            let alert = UIAlertController(title: "Success!", message: "Your art was submitted!", preferredStyle: UIAlertController.Style.alert)
-                            alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
-                                self.dismiss(animated: true, completion: nil)
-                            }))
-                            self.present(alert, animated: true, completion: nil)
-                            refreshPosts()
-                            
-                        }
-                        
-                    }
-                })
+    }
+    
+    func startProcessing() {
+        let modParameters: [String : Any] = [
+            "bucket": s3Bucket,
+            "name": self.imageFilename
+        ]
+        self.needsModeration = false
+        Alamofire.request(moderationTagsURL, method: .post, parameters: modParameters, encoding: JSONEncoding.default).responseJSON { response in
+            do {
+                let decoder = JSONDecoder()
+                let moderationLabels = try decoder.decode(ModerationLabels.self, from: response.data!)
+                self.moderationTags = moderationLabels.data
+                for moderationLabel in moderationLabels.data {
+                    print(moderationLabel)
+                    self.needsModeration = true
+                }
+                self.moderationComplete = true
+            } catch let error {
+                print(error.localizedDescription)
+                self.moderationComplete = true
             }
-        } else {
-            let alert = UIAlertController(title: "Could not submit", message: "", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
-            }))
-            self.present(alert, animated: true, completion: nil)
+            
+            self.loading.setTitle(text: "Submitting");
+            self.startSubmitting();
         }
-        */
+    }
+    
+    @objc func post() {
+        loading.show(view: view,color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+        loading.setTitle(text: "Upload...");
+        navigationItem.rightBarButtonItem?.isEnabled = false;
+        var isCompleted = false;
+        if (userGlobalState == .userSignedIn) {
+            let filter = "1080x1080"
+            uploadUIImageToAWSS3(image: image!, progressHandler: { (progress) in
+                if (progress.fractionCompleted == 1.0 && !isCompleted) {
+                    isCompleted = true
+                    self.loading.setTitle(text: "Processing");
+                    self.startProcessing()
+                } else {
+                    if (!isCompleted) {
+                        self.loading.setTitle(text: "Upload..." + String(format: "%.2f", (progress.fractionCompleted * 100)) + "%");
+                    }
+                }
+            }, statusHandler: { (task, key) in
+                if let _ = task.result {
+                    if (key?.isEmpty == false  && filter.isEmpty == false) {
+                        let imageURL: String = imageURLFromS3Key(key: key!,filter: filter)
+                        print(imageURL)
+                        self.imageLink = imageURL
+                        self.imageFilename = key!
+                    }
+                    
+                }
+            })
+        }
     }
     
     @objc func cancel() {
@@ -160,55 +158,6 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         self.present(alert, animated: true, completion: nil)
     }
     
-    @objc func timerAction() {
-        navigationItem.rightBarButtonItem?.isEnabled = true;
-        /*if (self.hasImage == true && hasGlobalGPS == true && self.moderationComplete == true && self.progressBar.progress == 1.0) {
-            navigationItem.rightBarButtonItem?.isEnabled = true;
-        }*/
-        
-        if (self.progressBar.progress == 1.0 && self.moderationPending == false) {
-            //only call moderation endpoint once
-            moderationPending = true
-            
-            let modParameters: [String : Any] = [
-                "bucket": s3Bucket,
-                "name": imageFilename
-                //"name": "1840_burnt-orange2.jpg"  //use this line to force a moderation label
-            ]
-            
-            print(modParameters)
-            
-            Alamofire.request(moderationTagsURL, method: .post, parameters: modParameters, encoding: JSONEncoding.default).responseJSON { response in
-                do {
-                    print(response)
-                    
-                    let decoder = JSONDecoder()
-                    let moderationLabels = try decoder.decode(ModerationLabels.self, from: response.data!)
-                    self.moderationTags = moderationLabels.data
-                    self.needsModeration = false
-                    
-                    print(moderationLabels)
-                    //if we find a moderation label, set needsModeration to true
-                    
-                    for moderationLabel in moderationLabels.data {
-                        print(moderationLabel)
-                        self.needsModeration = true
-                    }
-                    
-                    self.moderationComplete = true
-                    
-                } catch let error {
-                    print(error.localizedDescription)
-                    self.moderationComplete = true
-                }
-            }
-        }
-        
-        //keep progress bar up until moderation check is complete now
-        if (self.progressBar.progress == 1.0 && self.moderationComplete == true) {
-            self.progressBar.isHidden = true
-        }
-    }
     
     func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
@@ -340,80 +289,14 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
                 $0.title = "Description"
                 $0.placeholder = "description - if available"
             }.onChange { row in
-                self.artdescription = row.value!
+                if (row.value != nil) {
+                    self.artdescription = row.value!
+                }
             }
         +++ Section(header: "Geolocation (Step #3)", footer: "An accurate location allows us to provide the community reliable directions to find this artwork with ease.")
             <<< self.locationRow!
-        
-        /*+++ MultivaluedSection(multivaluedOptions: [.Reorder, .Insert, .Delete],
-                           header: "Tags (Step #4)",
-                           footer: "Please tag this piece of street art. Your honest input helps StreetTagged train AI models to give the art community a better overall experience.") {
-            $0.addButtonProvider = { section in
-                return ButtonRow(){
-                    $0.title = "Add New Tag"
-                }
-            }
-            $0.multivaluedRowToInsertAt = { index in
-                return NameRow() {
-                    $0.placeholder = "Tag Name"
-                }
-            }
-        }*/
-        
     }
-    
-    /*
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-        let filter = "1080x1080"
-        self.title = "Upload Street Art"
         
-        let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
-        let postItem = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(post))
-        
-        navigationItem.rightBarButtonItem = postItem
-        navigationItem.leftBarButtonItem = cancelItem
-        navigationItem.rightBarButtonItem?.isEnabled = false;
-        
-        timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-        
-        self.imageView.image = image!
-        if (userGlobalState == .userSignedIn) {
-            uploadUIImageToAWSS3(image: image!, progressHandler: { (progress) in
-                self.progressBar.progress = Float(progress.fractionCompleted)
-            }, statusHandler: { (task, key) in
-                if let _ = task.result {
-                    if (key?.isEmpty == false  && filter.isEmpty == false) {
-                        let imageURL: String = imageURLFromS3Key(key: key!,filter: filter)
-                        self.imageLink = imageURL
-                        self.imageFilename = key!
-                        self.hasImage = true
-                        print(imageURL)
-                    }
-                    
-                }
-            })
-        }
-        
-        
-        textView.becomeFirstResponder()
-        
-        if self.imageLocation != nil {
-            self.centerMapOnLocation(location: self.imageLocation!)
-        } else {
-            self.centerMapOnLocation(location: globalLocation)
-        }
-    }*/
-    
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
-        mapView.setRegion(coordinateRegion, animated: true)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        mapView.addAnnotation(annotation)
-    }
-    
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
@@ -425,7 +308,6 @@ extension UploadArtController: LightboxControllerPageDelegate {
 
 extension UploadArtController: LightboxControllerDismissalDelegate {
     public func lightboxControllerWillDismiss(_ controller: LightboxController) {
-
   }
 }
 
@@ -444,20 +326,9 @@ extension UploadArtController : PixelEditViewControllerDelegate {
   
 }
 
-extension UploadArtController: UITextFieldDelegate {
-    
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == tagsField {
-            
-        }
-        return true
-    }
-    
-}
-
 extension String
 {
-    func hashtags() -> [String]
+    func hashTags() -> [String]
     {
         if let regex = try? NSRegularExpression(pattern: "#[a-z0-9]+", options: .caseInsensitive)
         {
@@ -467,7 +338,6 @@ extension String
                 string.substring(with: $0.range).lowercased()
             }
         }
-        
         return []
     }
 }

@@ -50,7 +50,6 @@ PODS:
   - SPPermissions/PhotoLibrary (5.2.6):
     - SPPermissions/Core
   - TransitionPatch (1.0.2)
-  - WSTagsField (5.2.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -72,7 +71,6 @@ DEPENDENCIES:
   - SPPermissions/Notification (~> 5.2.6)
   - SPPermissions/PhotoLibrary (~> 5.2.6)
   - TransitionPatch
-  - WSTagsField
 
 SPEC REPOS:
   trunk:
@@ -100,7 +98,6 @@ SPEC REPOS:
     - SnapKit
     - SPPermissions
     - TransitionPatch
-    - WSTagsField
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -127,8 +124,7 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SPPermissions: a11dd5e68bcbf0b7de7b4ba86ba008e77ae66abd
   TransitionPatch: c02b48b1429255b14ef82b7e411034e0958b9681
-  WSTagsField: d57a287fd552934db1d93a85d38abbf74b067d6a
 
-PODFILE CHECKSUM: 7393103ed84a5297d7f4dc3625610a4fd2da0970
+PODFILE CHECKSUM: 6c7d40e7c4ca6e34a5e9b3319e12ab4bdfa5723e
 
 COCOAPODS: 1.8.3
