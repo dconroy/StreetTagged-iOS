@@ -20,20 +20,17 @@ import Photos
 
 public class UploadArtController: FormViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
     let loading = LoadingView()
-
     var imageRow: ImageRow?
     var editRow: ButtonRow?
     var locationRow: LocationRow?
     var arttitle: String = ""
     var artist: String = ""
     var artdescription: String = ""
-    
     var imageLink = ""
     var imageFilename = ""
     var tags: [String] = []
     var moderationTags: [ModerationLabel] = []
     let center = UNUserNotificationCenter.current()
-    
     var hasImage: Bool = false
     var moderationComplete: Bool = false
     var moderationPending: Bool = false
@@ -43,10 +40,6 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
     public var image: UIImage?
     public var imageLocation: CLLocation?
     
-    /*required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }*/
-    
     deinit {
         timer.invalidate()
     }
@@ -55,7 +48,6 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         getUserAWSAccessToken (completionHandler: { (token) in
             var coordinates: [String : Any]?
             
-            //if moderation tags = null, seet is active to true
             if self.imageLocation != nil {
                 coordinates = [
                     "latitude": self.imageLocation!.coordinate.latitude,
@@ -191,8 +183,6 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        // Navigation controls
-        //let filter = "1080x1080"
         self.title = "Upload Street Art"
         
         let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
@@ -201,7 +191,6 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         navigationItem.rightBarButtonItem = postItem
         navigationItem.leftBarButtonItem = cancelItem
         navigationItem.rightBarButtonItem?.isEnabled = false;
-        
         
         self.imageRow = ImageRow() { row in
             row.value = self.image
@@ -327,20 +316,4 @@ extension UploadArtController : PixelEditViewControllerDelegate {
     self.navigationController?.popToViewController(self, animated: true)
   }
   
-}
-
-extension String
-{
-    func hashTags() -> [String]
-    {
-        if let regex = try? NSRegularExpression(pattern: "#[a-z0-9]+", options: .caseInsensitive)
-        {
-            let string = self as NSString
-            
-            return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
-                string.substring(with: $0.range).lowercased()
-            }
-        }
-        return []
-    }
 }

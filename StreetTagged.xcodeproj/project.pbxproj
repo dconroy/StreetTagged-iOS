@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45016B6023D529F900694AF7 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45016B5F23D529F900694AF7 /* String.swift */; };
 		451F7DD5232C3D9C00DFEBFA /* NearByController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7DD4232C3D9C00DFEBFA /* NearByController.swift */; };
 		451F7DD7232C3EEC00DFEBFA /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7DD6232C3EEC00DFEBFA /* FeedController.swift */; };
 		451F7DD9232C404400DFEBFA /* FavorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7DD8232C404400DFEBFA /* FavorController.swift */; };
@@ -152,6 +153,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		45016B5F23D529F900694AF7 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		451F7DD4232C3D9C00DFEBFA /* NearByController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearByController.swift; sourceTree = "<group>"; };
 		451F7DD6232C3EEC00DFEBFA /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		451F7DD8232C404400DFEBFA /* FavorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavorController.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				451F7E1B232ED46100DFEBFA /* HelpFunctions.swift */,
+				45016B5F23D529F900694AF7 /* String.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1006,6 +1009,7 @@
 				459293F8232C19FB008B8B86 /* TabbarLayOut.swift in Sources */,
 				456E529E23D1412E001839E3 /* FilterExposure.swift in Sources */,
 				456E525A23D140D4001839E3 /* ImagePreviewView.swift in Sources */,
+				45016B6023D529F900694AF7 /* String.swift in Sources */,
 				459293E6232C1838008B8B86 /* BasicNavigationController.swift in Sources */,
 				456E528F23D1412D001839E3 /* ImageSource.swift in Sources */,
 				456E524E23D140D4001839E3 /* DoodleControlView.swift in Sources */,
