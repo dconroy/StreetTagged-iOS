@@ -30,12 +30,13 @@ target 'StreetTagged' do
   pod 'RealmSwift'
   pod 'AWSS3'
   pod 'AppleWelcomeScreen'
-  pod "WSTagsField"
   pod 'Lightbox'
   pod 'Kingfisher', '~> 5.0'
   pod 'SPPermissions/Camera','~> 5.2.6'
   pod 'SPPermissions/Location','~> 5.2.6'
   pod 'SPPermissions/Notification','~> 5.2.6'
   pod 'SPPermissions/PhotoLibrary','~> 5.2.6'
+  pod 'Eureka', '~> 5.1.0'
+  pod 'TransitionPatch'
 
 end

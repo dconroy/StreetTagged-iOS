@@ -23,6 +23,7 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(favoriteNotification), name: NSNotification.Name(rawValue: GLOBAL_FAVS_REFRESHED), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_START_LOCATION_MANAGER), object: nil)
     }
     
     @objc func favoriteNotification() {

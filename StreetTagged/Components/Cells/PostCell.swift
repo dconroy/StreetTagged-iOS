@@ -90,19 +90,19 @@ class PostCell: BaseCollectionViewCell {
     
     lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "like_unselected").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(UIImage(named: "like_unselected")?.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(likePost), for: .touchUpInside)
         return button
     }()
-    
+
     lazy var gridButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "grid").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(UIImage(named: "grid")?.withRenderingMode(.alwaysOriginal), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(options), for: .touchUpInside)
         return button
     }()
-    
+        
     lazy var buttonsStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [likeButton])
         stack.distribution = .equalSpacing
@@ -241,11 +241,11 @@ class PostCell: BaseCollectionViewCell {
         }
         
         if  post.likes {
-            likeButton.setImage(#imageLiteral(resourceName: "like_selected").withRenderingMode(.alwaysTemplate), for: .normal)
+            likeButton.setImage(UIImage(named: "like_selected")?.withRenderingMode(.alwaysTemplate), for: .normal)
             likeButton.tintColor = .red
             isPostLiked = true
         } else {
-            likeButton.setImage(#imageLiteral(resourceName: "like_unselected").withRenderingMode(.alwaysTemplate), for: .normal)
+            likeButton.setImage(UIImage(named: "like_unselected")?.withRenderingMode(.alwaysTemplate), for: .normal)
             likeButton.tintColor = .black
             isPostLiked = false
         }
@@ -261,11 +261,11 @@ class PostCell: BaseCollectionViewCell {
         if (userGlobalState == .userSignedIn) {
             if let post = post {
                 if isPostLiked {
-                    likeButton.setImage(#imageLiteral(resourceName: "like_unselected").withRenderingMode(.alwaysTemplate), for: .normal)
+                    likeButton.setImage(UIImage(named: "like_unselected")?.withRenderingMode(.alwaysTemplate), for: .normal)
                     likeButton.tintColor = .black
                     post.likes = false
                 } else {
-                    likeButton.setImage(#imageLiteral(resourceName: "like_selected").withRenderingMode(.alwaysTemplate), for: .normal)
+                    likeButton.setImage(UIImage(named: "like_selected")?.withRenderingMode(.alwaysTemplate), for: .normal)
                     likeButton.tintColor = .red
                     post.likes = true
                 }
@@ -282,7 +282,7 @@ class PostCell: BaseCollectionViewCell {
                     likePost()
                     let heartIcon: UIImageView = {
                         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-                        image.image = #imageLiteral(resourceName: "red-heart").withRenderingMode(.alwaysOriginal)
+                        image.image = UIImage(named: "red-heart")?.withRenderingMode(.alwaysOriginal)
                         image.contentMode = .scaleAspectFit
                         return image
                     }()

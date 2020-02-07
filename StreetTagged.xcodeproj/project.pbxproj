@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45016B6023D529F900694AF7 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45016B5F23D529F900694AF7 /* String.swift */; };
 		451F7DD5232C3D9C00DFEBFA /* NearByController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7DD4232C3D9C00DFEBFA /* NearByController.swift */; };
 		451F7DD7232C3EEC00DFEBFA /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7DD6232C3EEC00DFEBFA /* FeedController.swift */; };
 		451F7DD9232C404400DFEBFA /* FavorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7DD8232C404400DFEBFA /* FavorController.swift */; };
@@ -24,7 +25,94 @@
 		451F7E2D232EE8E600DFEBFA /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7E2C232EE8E600DFEBFA /* BaseCollectionViewCell.swift */; };
 		451F7E2F232EE92900DFEBFA /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F7E2E232EE92900DFEBFA /* BaseTableViewCell.swift */; };
 		45343FDA23481013001FDDED /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 45343FD923481013001FDDED /* awsconfiguration.json */; };
+		4545CC0923D016FF00C66713 /* LocationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4545CC0823D016FF00C66713 /* LocationRow.swift */; };
+		4545CC0B23D02B3D00C66713 /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4545CC0A23D02B3D00C66713 /* ImageRow.swift */; };
+		4545CC1323D0400C00C66713 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4545CC1223D0400C00C66713 /* CustomCell.xib */; };
 		455FDD112335C81C0075509A /* ReviewArtWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455FDD102335C81C0075509A /* ReviewArtWork.swift */; };
+		456E523923D140D4001839E3 /* PixelEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E520F23D140D4001839E3 /* PixelEditor.swift */; };
+		456E523A23D140D4001839E3 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E521023D140D4001839E3 /* Options.swift */; };
+		456E523B23D140D4001839E3 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E521123D140D4001839E3 /* L10n.swift */; };
+		456E523C23D140D4001839E3 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 456E521223D140D4001839E3 /* Media.xcassets */; };
+		456E523D23D140D4001839E3 /* EditorLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E521523D140D4001839E3 /* EditorLog.swift */; };
+		456E523E23D140D4001839E3 /* DryDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E521723D140D4001839E3 /* DryDrawingView.swift */; };
+		456E523F23D140D4001839E3 /* EditMenuControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E521923D140D4001839E3 /* EditMenuControlView.swift */; };
+		456E524023D140D4001839E3 /* ColorCubeControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E521A23D140D4001839E3 /* ColorCubeControlView.swift */; };
+		456E524123D140D4001839E3 /* ExposureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E521C23D140D4001839E3 /* ExposureControl.swift */; };
+		456E524223D140D4001839E3 /* SharpenControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E521D23D140D4001839E3 /* SharpenControl.swift */; };
+		456E524323D140D4001839E3 /* SaturationControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E521E23D140D4001839E3 /* SaturationControl.swift */; };
+		456E524423D140D4001839E3 /* TempCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E521F23D140D4001839E3 /* TempCode.swift */; };
+		456E524523D140D4001839E3 /* FilterControlBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522023D140D4001839E3 /* FilterControlBase.swift */; };
+		456E524623D140D4001839E3 /* HighlightsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522123D140D4001839E3 /* HighlightsControl.swift */; };
+		456E524723D140D4001839E3 /* ClarityControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522223D140D4001839E3 /* ClarityControl.swift */; };
+		456E524823D140D4001839E3 /* VignetteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522323D140D4001839E3 /* VignetteControl.swift */; };
+		456E524923D140D4001839E3 /* GaussianBlurControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522423D140D4001839E3 /* GaussianBlurControl.swift */; };
+		456E524A23D140D4001839E3 /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522523D140D4001839E3 /* TemperatureControl.swift */; };
+		456E524B23D140D4001839E3 /* ContrastControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522623D140D4001839E3 /* ContrastControl.swift */; };
+		456E524C23D140D4001839E3 /* ShadowsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522723D140D4001839E3 /* ShadowsControl.swift */; };
+		456E524D23D140D4001839E3 /* FadeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522823D140D4001839E3 /* FadeControl.swift */; };
+		456E524E23D140D4001839E3 /* DoodleControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522923D140D4001839E3 /* DoodleControlView.swift */; };
+		456E524F23D140D4001839E3 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522A23D140D4001839E3 /* NavigationView.swift */; };
+		456E525023D140D4001839E3 /* AdjustmentControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522B23D140D4001839E3 /* AdjustmentControlView.swift */; };
+		456E525123D140D4001839E3 /* ControlStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522C23D140D4001839E3 /* ControlStackView.swift */; };
+		456E525223D140D4001839E3 /* RootControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522D23D140D4001839E3 /* RootControlView.swift */; };
+		456E525323D140D4001839E3 /* MaskControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522E23D140D4001839E3 /* MaskControlView.swift */; };
+		456E525423D140D4001839E3 /* ControlViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E522F23D140D4001839E3 /* ControlViewBase.swift */; };
+		456E525523D140D4001839E3 /* ZoomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E523023D140D4001839E3 /* ZoomImageView.swift */; };
+		456E525623D140D4001839E3 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E523123D140D4001839E3 /* ImageScrollView.swift */; };
+		456E525723D140D4001839E3 /* StepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E523223D140D4001839E3 /* StepSlider.swift */; };
+		456E525823D140D4001839E3 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E523323D140D4001839E3 /* Style.swift */; };
+		456E525923D140D4001839E3 /* PixelEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E523423D140D4001839E3 /* PixelEditViewController.swift */; };
+		456E525A23D140D4001839E3 /* ImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E523623D140D4001839E3 /* ImagePreviewView.swift */; };
+		456E525B23D140D4001839E3 /* BlurredMosaicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E523723D140D4001839E3 /* BlurredMosaicView.swift */; };
+		456E525C23D140D4001839E3 /* CropAndStraightenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E523823D140D4001839E3 /* CropAndStraightenView.swift */; };
+		456E528723D1412D001839E3 /* ColorCube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E525E23D1412D001839E3 /* ColorCube.swift */; };
+		456E528823D1412D001839E3 /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E525F23D1412D001839E3 /* Geometry.swift */; };
+		456E528923D1412D001839E3 /* MetalImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526123D1412D001839E3 /* MetalImageView.swift */; };
+		456E528A23D1412D001839E3 /* HardwareImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526223D1412D001839E3 /* HardwareImageView.swift */; };
+		456E528B23D1412D001839E3 /* GLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526323D1412D001839E3 /* GLImageView.swift */; };
+		456E528C23D1412D001839E3 /* GraphicDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526423D1412D001839E3 /* GraphicDrawing.swift */; };
+		456E528D23D1412D001839E3 /* EngineLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526623D1412D001839E3 /* EngineLog.swift */; };
+		456E528E23D1412D001839E3 /* ColorCubeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526723D1412D001839E3 /* ColorCubeStorage.swift */; };
+		456E528F23D1412D001839E3 /* ImageSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526823D1412D001839E3 /* ImageSource.swift */; };
+		456E529023D1412D001839E3 /* Filtering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526923D1412D001839E3 /* Filtering.swift */; };
+		456E529123D1412D001839E3 /* DrawnPathInRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526A23D1412D001839E3 /* DrawnPathInRect.swift */; };
+		456E529223D1412D001839E3 /* BlurredMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526B23D1412D001839E3 /* BlurredMask.swift */; };
+		456E529323D1412D001839E3 /* EditingStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526C23D1412D001839E3 /* EditingStack.swift */; };
+		456E529423D1412D001839E3 /* OvalBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526D23D1412D001839E3 /* OvalBrush.swift */; };
+		456E529523D1412D001839E3 /* InternalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526E23D1412D001839E3 /* InternalUtils.swift */; };
+		456E529623D1412D001839E3 /* ParameterRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E526F23D1412D001839E3 /* ParameterRange.swift */; };
+		456E529723D1412D001839E3 /* FilterVignette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527123D1412D001839E3 /* FilterVignette.swift */; };
+		456E529823D1412E001839E3 /* FilterHighlightShadowTint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527223D1412D001839E3 /* FilterHighlightShadowTint.swift */; };
+		456E529923D1412E001839E3 /* FilterColorCube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527323D1412D001839E3 /* FilterColorCube.swift */; };
+		456E529A23D1412E001839E3 /* FilterShadows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527423D1412D001839E3 /* FilterShadows.swift */; };
+		456E529B23D1412E001839E3 /* FilterSaturation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527523D1412D001839E3 /* FilterSaturation.swift */; };
+		456E529C23D1412E001839E3 /* FilterTemperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527623D1412D001839E3 /* FilterTemperature.swift */; };
+		456E529D23D1412E001839E3 /* FilterBrightness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527723D1412D001839E3 /* FilterBrightness.swift */; };
+		456E529E23D1412E001839E3 /* FilterExposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527823D1412D001839E3 /* FilterExposure.swift */; };
+		456E529F23D1412E001839E3 /* FilterSharpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527923D1412D001839E3 /* FilterSharpen.swift */; };
+		456E52A023D1412E001839E3 /* FilterHighlights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527A23D1412D001839E3 /* FilterHighlights.swift */; };
+		456E52A123D1412E001839E3 /* FilterContrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527B23D1412D001839E3 /* FilterContrast.swift */; };
+		456E52A223D1412E001839E3 /* FilterGaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527C23D1412D001839E3 /* FilterGaussianBlur.swift */; };
+		456E52A323D1412E001839E3 /* FilterFade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527D23D1412D001839E3 /* FilterFade.swift */; };
+		456E52A423D1412E001839E3 /* FilterUnsharpMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527E23D1412D001839E3 /* FilterUnsharpMask.swift */; };
+		456E52A523D1412E001839E3 /* DrawnPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E527F23D1412D001839E3 /* DrawnPath.swift */; };
+		456E52A623D1412E001839E3 /* YUCIColorLookup.cikernel in Resources */ = {isa = PBXBuildFile; fileRef = 456E528123D1412D001839E3 /* YUCIColorLookup.cikernel */; };
+		456E52A723D1412E001839E3 /* ImageTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E528323D1412D001839E3 /* ImageTool.swift */; };
+		456E52A823D1412E001839E3 /* ImageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E528423D1412D001839E3 /* ImageRenderer.swift */; };
+		456E52A923D1412E001839E3 /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E528523D1412D001839E3 /* Layer.swift */; };
+		456E52AA23D1412E001839E3 /* PixelEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E528623D1412D001839E3 /* PixelEngine.swift */; };
+		456E52B623D14C5C001839E3 /* LUT_M01.png in Resources */ = {isa = PBXBuildFile; fileRef = 456E52AC23D14C5C001839E3 /* LUT_M01.png */; };
+		456E52B723D14C5C001839E3 /* LUT_M02.png in Resources */ = {isa = PBXBuildFile; fileRef = 456E52AD23D14C5C001839E3 /* LUT_M02.png */; };
+		456E52B823D14C5C001839E3 /* LUT_M03.png in Resources */ = {isa = PBXBuildFile; fileRef = 456E52AE23D14C5C001839E3 /* LUT_M03.png */; };
+		456E52B923D14C5C001839E3 /* LUT_M07.png in Resources */ = {isa = PBXBuildFile; fileRef = 456E52AF23D14C5C001839E3 /* LUT_M07.png */; };
+		456E52BA23D14C5C001839E3 /* LUT_M06.png in Resources */ = {isa = PBXBuildFile; fileRef = 456E52B023D14C5C001839E3 /* LUT_M06.png */; };
+		456E52BB23D14C5C001839E3 /* LUT_M12.png in Resources */ = {isa = PBXBuildFile; fileRef = 456E52B123D14C5C001839E3 /* LUT_M12.png */; };
+		456E52BC23D14C5C001839E3 /* LUT_M11.png in Resources */ = {isa = PBXBuildFile; fileRef = 456E52B223D14C5C001839E3 /* LUT_M11.png */; };
+		456E52BD23D14C5C001839E3 /* LUT_M05.png in Resources */ = {isa = PBXBuildFile; fileRef = 456E52B323D14C5C001839E3 /* LUT_M05.png */; };
+		456E52BE23D14C5C001839E3 /* LUT_M08.png in Resources */ = {isa = PBXBuildFile; fileRef = 456E52B423D14C5C001839E3 /* LUT_M08.png */; };
+		456E52BF23D14C5C001839E3 /* LUT_M09.png in Resources */ = {isa = PBXBuildFile; fileRef = 456E52B523D14C5C001839E3 /* LUT_M09.png */; };
+		456E52C323D155AD001839E3 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E52C223D155AD001839E3 /* CollectionExtension.swift */; };
+		456E52C523D155DF001839E3 /* PIXELLICENSE.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 456E52C423D155DF001839E3 /* PIXELLICENSE.rtf */; };
 		459293B0232AC515008B8B86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293AF232AC515008B8B86 /* AppDelegate.swift */; };
 		459293B2232AC515008B8B86 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293B1232AC515008B8B86 /* ViewController.swift */; };
 		459293B5232AC515008B8B86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459293B3232AC515008B8B86 /* Main.storyboard */; };
@@ -35,6 +123,7 @@
 		459293D3232AC516008B8B86 /* StreetTaggedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293D2232AC516008B8B86 /* StreetTaggedUITests.swift */; };
 		459293E6232C1838008B8B86 /* BasicNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293E5232C1838008B8B86 /* BasicNavigationController.swift */; };
 		459293F8232C19FB008B8B86 /* TabbarLayOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459293F7232C19FB008B8B86 /* TabbarLayOut.swift */; };
+		45A571A023D2A10800D4A218 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A5719F23D2A10800D4A218 /* LoadingView.swift */; };
 		45E0B3C223383DFE0061C98C /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E0B3C123383DFE0061C98C /* Globals.swift */; };
 		45E0B3C523383E720061C98C /* UserManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E0B3C423383E720061C98C /* UserManagement.swift */; };
 		45FB709C233AEA55008C4477 /* ImageManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FB709B233AEA55008C4477 /* ImageManagement.swift */; };
@@ -65,6 +154,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		45016B5F23D529F900694AF7 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		451F7DD4232C3D9C00DFEBFA /* NearByController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearByController.swift; sourceTree = "<group>"; };
 		451F7DD6232C3EEC00DFEBFA /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		451F7DD8232C404400DFEBFA /* FavorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavorController.swift; sourceTree = "<group>"; };
@@ -82,8 +172,97 @@
 		451F7E2C232EE8E600DFEBFA /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		451F7E2E232EE92900DFEBFA /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		45343FD923481013001FDDED /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		4545CC0823D016FF00C66713 /* LocationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRow.swift; sourceTree = "<group>"; };
+		4545CC0A23D02B3D00C66713 /* ImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
+		4545CC1223D0400C00C66713 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		455FDD102335C81C0075509A /* ReviewArtWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewArtWork.swift; sourceTree = "<group>"; };
 		456C0B2423CAAA03001B7BEB /* AppConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppConfig.xcconfig; sourceTree = "<group>"; };
+		456E520F23D140D4001839E3 /* PixelEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelEditor.swift; sourceTree = "<group>"; };
+		456E521023D140D4001839E3 /* Options.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
+		456E521123D140D4001839E3 /* L10n.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
+		456E521223D140D4001839E3 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		456E521323D140D4001839E3 /* PixelEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelEditor.h; sourceTree = "<group>"; };
+		456E521523D140D4001839E3 /* EditorLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorLog.swift; sourceTree = "<group>"; };
+		456E521723D140D4001839E3 /* DryDrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DryDrawingView.swift; sourceTree = "<group>"; };
+		456E521923D140D4001839E3 /* EditMenuControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMenuControlView.swift; sourceTree = "<group>"; };
+		456E521A23D140D4001839E3 /* ColorCubeControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCubeControlView.swift; sourceTree = "<group>"; };
+		456E521C23D140D4001839E3 /* ExposureControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureControl.swift; sourceTree = "<group>"; };
+		456E521D23D140D4001839E3 /* SharpenControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharpenControl.swift; sourceTree = "<group>"; };
+		456E521E23D140D4001839E3 /* SaturationControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaturationControl.swift; sourceTree = "<group>"; };
+		456E521F23D140D4001839E3 /* TempCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempCode.swift; sourceTree = "<group>"; };
+		456E522023D140D4001839E3 /* FilterControlBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterControlBase.swift; sourceTree = "<group>"; };
+		456E522123D140D4001839E3 /* HighlightsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightsControl.swift; sourceTree = "<group>"; };
+		456E522223D140D4001839E3 /* ClarityControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClarityControl.swift; sourceTree = "<group>"; };
+		456E522323D140D4001839E3 /* VignetteControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VignetteControl.swift; sourceTree = "<group>"; };
+		456E522423D140D4001839E3 /* GaussianBlurControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaussianBlurControl.swift; sourceTree = "<group>"; };
+		456E522523D140D4001839E3 /* TemperatureControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureControl.swift; sourceTree = "<group>"; };
+		456E522623D140D4001839E3 /* ContrastControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContrastControl.swift; sourceTree = "<group>"; };
+		456E522723D140D4001839E3 /* ShadowsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowsControl.swift; sourceTree = "<group>"; };
+		456E522823D140D4001839E3 /* FadeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeControl.swift; sourceTree = "<group>"; };
+		456E522923D140D4001839E3 /* DoodleControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoodleControlView.swift; sourceTree = "<group>"; };
+		456E522A23D140D4001839E3 /* NavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
+		456E522B23D140D4001839E3 /* AdjustmentControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjustmentControlView.swift; sourceTree = "<group>"; };
+		456E522C23D140D4001839E3 /* ControlStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlStackView.swift; sourceTree = "<group>"; };
+		456E522D23D140D4001839E3 /* RootControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootControlView.swift; sourceTree = "<group>"; };
+		456E522E23D140D4001839E3 /* MaskControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskControlView.swift; sourceTree = "<group>"; };
+		456E522F23D140D4001839E3 /* ControlViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlViewBase.swift; sourceTree = "<group>"; };
+		456E523023D140D4001839E3 /* ZoomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomImageView.swift; sourceTree = "<group>"; };
+		456E523123D140D4001839E3 /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
+		456E523223D140D4001839E3 /* StepSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepSlider.swift; sourceTree = "<group>"; };
+		456E523323D140D4001839E3 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		456E523423D140D4001839E3 /* PixelEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelEditViewController.swift; sourceTree = "<group>"; };
+		456E523623D140D4001839E3 /* ImagePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePreviewView.swift; sourceTree = "<group>"; };
+		456E523723D140D4001839E3 /* BlurredMosaicView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurredMosaicView.swift; sourceTree = "<group>"; };
+		456E523823D140D4001839E3 /* CropAndStraightenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropAndStraightenView.swift; sourceTree = "<group>"; };
+		456E525E23D1412D001839E3 /* ColorCube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCube.swift; sourceTree = "<group>"; };
+		456E525F23D1412D001839E3 /* Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
+		456E526123D1412D001839E3 /* MetalImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalImageView.swift; sourceTree = "<group>"; };
+		456E526223D1412D001839E3 /* HardwareImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HardwareImageView.swift; sourceTree = "<group>"; };
+		456E526323D1412D001839E3 /* GLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLImageView.swift; sourceTree = "<group>"; };
+		456E526423D1412D001839E3 /* GraphicDrawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphicDrawing.swift; sourceTree = "<group>"; };
+		456E526523D1412D001839E3 /* PixelEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelEngine.h; sourceTree = "<group>"; };
+		456E526623D1412D001839E3 /* EngineLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EngineLog.swift; sourceTree = "<group>"; };
+		456E526723D1412D001839E3 /* ColorCubeStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCubeStorage.swift; sourceTree = "<group>"; };
+		456E526823D1412D001839E3 /* ImageSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSource.swift; sourceTree = "<group>"; };
+		456E526923D1412D001839E3 /* Filtering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filtering.swift; sourceTree = "<group>"; };
+		456E526A23D1412D001839E3 /* DrawnPathInRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawnPathInRect.swift; sourceTree = "<group>"; };
+		456E526B23D1412D001839E3 /* BlurredMask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurredMask.swift; sourceTree = "<group>"; };
+		456E526C23D1412D001839E3 /* EditingStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditingStack.swift; sourceTree = "<group>"; };
+		456E526D23D1412D001839E3 /* OvalBrush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OvalBrush.swift; sourceTree = "<group>"; };
+		456E526E23D1412D001839E3 /* InternalUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalUtils.swift; sourceTree = "<group>"; };
+		456E526F23D1412D001839E3 /* ParameterRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterRange.swift; sourceTree = "<group>"; };
+		456E527123D1412D001839E3 /* FilterVignette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterVignette.swift; sourceTree = "<group>"; };
+		456E527223D1412D001839E3 /* FilterHighlightShadowTint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterHighlightShadowTint.swift; sourceTree = "<group>"; };
+		456E527323D1412D001839E3 /* FilterColorCube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterColorCube.swift; sourceTree = "<group>"; };
+		456E527423D1412D001839E3 /* FilterShadows.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterShadows.swift; sourceTree = "<group>"; };
+		456E527523D1412D001839E3 /* FilterSaturation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterSaturation.swift; sourceTree = "<group>"; };
+		456E527623D1412D001839E3 /* FilterTemperature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTemperature.swift; sourceTree = "<group>"; };
+		456E527723D1412D001839E3 /* FilterBrightness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterBrightness.swift; sourceTree = "<group>"; };
+		456E527823D1412D001839E3 /* FilterExposure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterExposure.swift; sourceTree = "<group>"; };
+		456E527923D1412D001839E3 /* FilterSharpen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterSharpen.swift; sourceTree = "<group>"; };
+		456E527A23D1412D001839E3 /* FilterHighlights.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterHighlights.swift; sourceTree = "<group>"; };
+		456E527B23D1412D001839E3 /* FilterContrast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterContrast.swift; sourceTree = "<group>"; };
+		456E527C23D1412D001839E3 /* FilterGaussianBlur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterGaussianBlur.swift; sourceTree = "<group>"; };
+		456E527D23D1412D001839E3 /* FilterFade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterFade.swift; sourceTree = "<group>"; };
+		456E527E23D1412D001839E3 /* FilterUnsharpMask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterUnsharpMask.swift; sourceTree = "<group>"; };
+		456E527F23D1412D001839E3 /* DrawnPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawnPath.swift; sourceTree = "<group>"; };
+		456E528123D1412D001839E3 /* YUCIColorLookup.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = YUCIColorLookup.cikernel; sourceTree = "<group>"; };
+		456E528323D1412D001839E3 /* ImageTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTool.swift; sourceTree = "<group>"; };
+		456E528423D1412D001839E3 /* ImageRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRenderer.swift; sourceTree = "<group>"; };
+		456E528523D1412D001839E3 /* Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
+		456E528623D1412D001839E3 /* PixelEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelEngine.swift; sourceTree = "<group>"; };
+		456E52AC23D14C5C001839E3 /* LUT_M01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUT_M01.png; sourceTree = "<group>"; };
+		456E52AD23D14C5C001839E3 /* LUT_M02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUT_M02.png; sourceTree = "<group>"; };
+		456E52AE23D14C5C001839E3 /* LUT_M03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUT_M03.png; sourceTree = "<group>"; };
+		456E52AF23D14C5C001839E3 /* LUT_M07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUT_M07.png; sourceTree = "<group>"; };
+		456E52B023D14C5C001839E3 /* LUT_M06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUT_M06.png; sourceTree = "<group>"; };
+		456E52B123D14C5C001839E3 /* LUT_M12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUT_M12.png; sourceTree = "<group>"; };
+		456E52B223D14C5C001839E3 /* LUT_M11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUT_M11.png; sourceTree = "<group>"; };
+		456E52B323D14C5C001839E3 /* LUT_M05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUT_M05.png; sourceTree = "<group>"; };
+		456E52B423D14C5C001839E3 /* LUT_M08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUT_M08.png; sourceTree = "<group>"; };
+		456E52B523D14C5C001839E3 /* LUT_M09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUT_M09.png; sourceTree = "<group>"; };
+		456E52C223D155AD001839E3 /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
+		456E52C423D155DF001839E3 /* PIXELLICENSE.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = PIXELLICENSE.rtf; sourceTree = "<group>"; };
 		459293AC232AC515008B8B86 /* StreetTagged.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetTagged.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		459293AF232AC515008B8B86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		459293B1232AC515008B8B86 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +280,7 @@
 		459293E5232C1838008B8B86 /* BasicNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicNavigationController.swift; sourceTree = "<group>"; };
 		459293F7232C19FB008B8B86 /* TabbarLayOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarLayOut.swift; sourceTree = "<group>"; };
 		45929401232C1DFC008B8B86 /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = ../ESTabBarController/ESTabBarControllerExample/ESTabBarControllerExample/Lottie/Lottie.framework; sourceTree = "<group>"; };
+		45A5719F23D2A10800D4A218 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		45E0B3C123383DFE0061C98C /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		45E0B3C423383E720061C98C /* UserManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagement.swift; sourceTree = "<group>"; };
 		45FB709B233AEA55008C4477 /* ImageManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagement.swift; sourceTree = "<group>"; };
@@ -160,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				451F7E1B232ED46100DFEBFA /* HelpFunctions.swift */,
+				45016B5F23D529F900694AF7 /* String.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -195,8 +376,11 @@
 		451F7E25232ED8B000DFEBFA /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4545CC1223D0400C00C66713 /* CustomCell.xib */,
 				451F7E27232ED9A700DFEBFA /* Cells */,
 				F6A9AC00234F3B7F00E01006 /* CustomAnnotation.swift */,
+				4545CC0823D016FF00C66713 /* LocationRow.swift */,
+				4545CC0A23D02B3D00C66713 /* ImageRow.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -229,12 +413,203 @@
 			path = TestImages;
 			sourceTree = "<group>";
 		};
+		456E516C23D13ED0001839E3 /* ImageEditor */ = {
+			isa = PBXGroup;
+			children = (
+				456E52AB23D14C5C001839E3 /* Filters */,
+				456E525D23D1412D001839E3 /* PixelEngine */,
+				456E520E23D140D4001839E3 /* PixelEditor */,
+				456E52C223D155AD001839E3 /* CollectionExtension.swift */,
+				456E52C423D155DF001839E3 /* PIXELLICENSE.rtf */,
+			);
+			path = ImageEditor;
+			sourceTree = "<group>";
+		};
+		456E520E23D140D4001839E3 /* PixelEditor */ = {
+			isa = PBXGroup;
+			children = (
+				456E520F23D140D4001839E3 /* PixelEditor.swift */,
+				456E521023D140D4001839E3 /* Options.swift */,
+				456E521123D140D4001839E3 /* L10n.swift */,
+				456E521223D140D4001839E3 /* Media.xcassets */,
+				456E521323D140D4001839E3 /* PixelEditor.h */,
+				456E521423D140D4001839E3 /* Utils */,
+				456E521623D140D4001839E3 /* Components */,
+				456E523323D140D4001839E3 /* Style.swift */,
+				456E523423D140D4001839E3 /* PixelEditViewController.swift */,
+				456E523523D140D4001839E3 /* ImageViews */,
+			);
+			path = PixelEditor;
+			sourceTree = "<group>";
+		};
+		456E521423D140D4001839E3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				456E521523D140D4001839E3 /* EditorLog.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		456E521623D140D4001839E3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				456E521723D140D4001839E3 /* DryDrawingView.swift */,
+				456E521823D140D4001839E3 /* Controls */,
+				456E523023D140D4001839E3 /* ZoomImageView.swift */,
+				456E523123D140D4001839E3 /* ImageScrollView.swift */,
+				456E523223D140D4001839E3 /* StepSlider.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		456E521823D140D4001839E3 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				456E521923D140D4001839E3 /* EditMenuControlView.swift */,
+				456E521A23D140D4001839E3 /* ColorCubeControlView.swift */,
+				456E521B23D140D4001839E3 /* FilterControl */,
+				456E522923D140D4001839E3 /* DoodleControlView.swift */,
+				456E522A23D140D4001839E3 /* NavigationView.swift */,
+				456E522B23D140D4001839E3 /* AdjustmentControlView.swift */,
+				456E522C23D140D4001839E3 /* ControlStackView.swift */,
+				456E522D23D140D4001839E3 /* RootControlView.swift */,
+				456E522E23D140D4001839E3 /* MaskControlView.swift */,
+				456E522F23D140D4001839E3 /* ControlViewBase.swift */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		456E521B23D140D4001839E3 /* FilterControl */ = {
+			isa = PBXGroup;
+			children = (
+				456E521C23D140D4001839E3 /* ExposureControl.swift */,
+				456E521D23D140D4001839E3 /* SharpenControl.swift */,
+				456E521E23D140D4001839E3 /* SaturationControl.swift */,
+				456E521F23D140D4001839E3 /* TempCode.swift */,
+				456E522023D140D4001839E3 /* FilterControlBase.swift */,
+				456E522123D140D4001839E3 /* HighlightsControl.swift */,
+				456E522223D140D4001839E3 /* ClarityControl.swift */,
+				456E522323D140D4001839E3 /* VignetteControl.swift */,
+				456E522423D140D4001839E3 /* GaussianBlurControl.swift */,
+				456E522523D140D4001839E3 /* TemperatureControl.swift */,
+				456E522623D140D4001839E3 /* ContrastControl.swift */,
+				456E522723D140D4001839E3 /* ShadowsControl.swift */,
+				456E522823D140D4001839E3 /* FadeControl.swift */,
+			);
+			path = FilterControl;
+			sourceTree = "<group>";
+		};
+		456E523523D140D4001839E3 /* ImageViews */ = {
+			isa = PBXGroup;
+			children = (
+				456E523623D140D4001839E3 /* ImagePreviewView.swift */,
+				456E523723D140D4001839E3 /* BlurredMosaicView.swift */,
+				456E523823D140D4001839E3 /* CropAndStraightenView.swift */,
+			);
+			path = ImageViews;
+			sourceTree = "<group>";
+		};
+		456E525D23D1412D001839E3 /* PixelEngine */ = {
+			isa = PBXGroup;
+			children = (
+				456E525E23D1412D001839E3 /* ColorCube.swift */,
+				456E525F23D1412D001839E3 /* Geometry.swift */,
+				456E526023D1412D001839E3 /* ImageView */,
+				456E526423D1412D001839E3 /* GraphicDrawing.swift */,
+				456E526523D1412D001839E3 /* PixelEngine.h */,
+				456E526623D1412D001839E3 /* EngineLog.swift */,
+				456E526723D1412D001839E3 /* ColorCubeStorage.swift */,
+				456E526823D1412D001839E3 /* ImageSource.swift */,
+				456E526923D1412D001839E3 /* Filtering.swift */,
+				456E526A23D1412D001839E3 /* DrawnPathInRect.swift */,
+				456E526B23D1412D001839E3 /* BlurredMask.swift */,
+				456E526C23D1412D001839E3 /* EditingStack.swift */,
+				456E526D23D1412D001839E3 /* OvalBrush.swift */,
+				456E526E23D1412D001839E3 /* InternalUtils.swift */,
+				456E526F23D1412D001839E3 /* ParameterRange.swift */,
+				456E527023D1412D001839E3 /* Filter */,
+				456E527F23D1412D001839E3 /* DrawnPath.swift */,
+				456E528023D1412D001839E3 /* Resource */,
+				456E528223D1412D001839E3 /* Engine */,
+				456E528623D1412D001839E3 /* PixelEngine.swift */,
+			);
+			path = PixelEngine;
+			sourceTree = "<group>";
+		};
+		456E526023D1412D001839E3 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				456E526123D1412D001839E3 /* MetalImageView.swift */,
+				456E526223D1412D001839E3 /* HardwareImageView.swift */,
+				456E526323D1412D001839E3 /* GLImageView.swift */,
+			);
+			path = ImageView;
+			sourceTree = "<group>";
+		};
+		456E527023D1412D001839E3 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				456E527123D1412D001839E3 /* FilterVignette.swift */,
+				456E527223D1412D001839E3 /* FilterHighlightShadowTint.swift */,
+				456E527323D1412D001839E3 /* FilterColorCube.swift */,
+				456E527423D1412D001839E3 /* FilterShadows.swift */,
+				456E527523D1412D001839E3 /* FilterSaturation.swift */,
+				456E527623D1412D001839E3 /* FilterTemperature.swift */,
+				456E527723D1412D001839E3 /* FilterBrightness.swift */,
+				456E527823D1412D001839E3 /* FilterExposure.swift */,
+				456E527923D1412D001839E3 /* FilterSharpen.swift */,
+				456E527A23D1412D001839E3 /* FilterHighlights.swift */,
+				456E527B23D1412D001839E3 /* FilterContrast.swift */,
+				456E527C23D1412D001839E3 /* FilterGaussianBlur.swift */,
+				456E527D23D1412D001839E3 /* FilterFade.swift */,
+				456E527E23D1412D001839E3 /* FilterUnsharpMask.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		456E528023D1412D001839E3 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				456E528123D1412D001839E3 /* YUCIColorLookup.cikernel */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		456E528223D1412D001839E3 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				456E528323D1412D001839E3 /* ImageTool.swift */,
+				456E528423D1412D001839E3 /* ImageRenderer.swift */,
+				456E528523D1412D001839E3 /* Layer.swift */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		456E52AB23D14C5C001839E3 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				456E52AC23D14C5C001839E3 /* LUT_M01.png */,
+				456E52AD23D14C5C001839E3 /* LUT_M02.png */,
+				456E52AE23D14C5C001839E3 /* LUT_M03.png */,
+				456E52AF23D14C5C001839E3 /* LUT_M07.png */,
+				456E52B023D14C5C001839E3 /* LUT_M06.png */,
+				456E52B123D14C5C001839E3 /* LUT_M12.png */,
+				456E52B223D14C5C001839E3 /* LUT_M11.png */,
+				456E52B323D14C5C001839E3 /* LUT_M05.png */,
+				456E52B423D14C5C001839E3 /* LUT_M08.png */,
+				456E52B523D14C5C001839E3 /* LUT_M09.png */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
 		459293A3232AC515008B8B86 = {
 			isa = PBXGroup;
 			children = (
 				456C0B2423CAAA03001B7BEB /* AppConfig.xcconfig */,
 				45343FD923481013001FDDED /* awsconfiguration.json */,
+				456E516C23D13ED0001839E3 /* ImageEditor */,
 				454FFFE92339A26F0090ABCE /* TestImages */,
+				45A5719E23D2A0EB00D4A218 /* Components */,
 				459293AE232AC515008B8B86 /* StreetTagged */,
 				459293C6232AC516008B8B86 /* StreetTaggedTests */,
 				459293D1232AC516008B8B86 /* StreetTaggedUITests */,
@@ -298,6 +673,14 @@
 				451F7E1D232ED4E700DFEBFA /* Controllers */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		45A5719E23D2A0EB00D4A218 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				45A5719F23D2A10800D4A218 /* LoadingView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		45E0B3C323383E4B0061C98C /* AWS */ = {
@@ -442,9 +825,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				456E52B623D14C5C001839E3 /* LUT_M01.png in Resources */,
+				4545CC1323D0400C00C66713 /* CustomCell.xib in Resources */,
+				456E52B823D14C5C001839E3 /* LUT_M03.png in Resources */,
+				456E52BC23D14C5C001839E3 /* LUT_M11.png in Resources */,
+				456E52BB23D14C5C001839E3 /* LUT_M12.png in Resources */,
+				456E52BD23D14C5C001839E3 /* LUT_M05.png in Resources */,
+				456E52B923D14C5C001839E3 /* LUT_M07.png in Resources */,
+				456E52BE23D14C5C001839E3 /* LUT_M08.png in Resources */,
+				456E52B723D14C5C001839E3 /* LUT_M02.png in Resources */,
+				456E52BA23D14C5C001839E3 /* LUT_M06.png in Resources */,
 				45343FDA23481013001FDDED /* awsconfiguration.json in Resources */,
+				456E52C523D155DF001839E3 /* PIXELLICENSE.rtf in Resources */,
 				459293BD232AC516008B8B86 /* LaunchScreen.storyboard in Resources */,
+				456E52A623D1412E001839E3 /* YUCIColorLookup.cikernel in Resources */,
 				459293BA232AC516008B8B86 /* Assets.xcassets in Resources */,
+				456E523C23D140D4001839E3 /* Media.xcassets in Resources */,
+				456E52BF23D14C5C001839E3 /* LUT_M09.png in Resources */,
 				459293B5232AC515008B8B86 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,33 +973,108 @@
 			buildActionMask = 2147483647;
 			files = (
 				451F7E1C232ED46100DFEBFA /* HelpFunctions.swift in Sources */,
+				456E529C23D1412E001839E3 /* FilterTemperature.swift in Sources */,
+				456E524623D140D4001839E3 /* HighlightsControl.swift in Sources */,
+				456E528D23D1412D001839E3 /* EngineLog.swift in Sources */,
 				451F7DD9232C404400DFEBFA /* FavorController.swift in Sources */,
 				451F7E20232ED5DD00DFEBFA /* BasicContentView.swift in Sources */,
+				456E525623D140D4001839E3 /* ImageScrollView.swift in Sources */,
+				456E523D23D140D4001839E3 /* EditorLog.swift in Sources */,
+				456E529623D1412D001839E3 /* ParameterRange.swift in Sources */,
+				456E525423D140D4001839E3 /* ControlViewBase.swift in Sources */,
+				456E528A23D1412D001839E3 /* HardwareImageView.swift in Sources */,
+				456E524823D140D4001839E3 /* VignetteControl.swift in Sources */,
+				456E523923D140D4001839E3 /* PixelEditor.swift in Sources */,
+				456E529423D1412D001839E3 /* OvalBrush.swift in Sources */,
+				456E529523D1412D001839E3 /* InternalUtils.swift in Sources */,
+				456E524323D140D4001839E3 /* SaturationControl.swift in Sources */,
+				456E529D23D1412E001839E3 /* FilterBrightness.swift in Sources */,
+				456E523E23D140D4001839E3 /* DryDrawingView.swift in Sources */,
+				456E524A23D140D4001839E3 /* TemperatureControl.swift in Sources */,
+				456E52A123D1412E001839E3 /* FilterContrast.swift in Sources */,
+				456E528923D1412D001839E3 /* MetalImageView.swift in Sources */,
+				456E524123D140D4001839E3 /* ExposureControl.swift in Sources */,
 				451F7E2D232EE8E600DFEBFA /* BaseCollectionViewCell.swift in Sources */,
 				451F7E15232ED39100DFEBFA /* Post.swift in Sources */,
 				451F7E22232ED5FC00DFEBFA /* BouncesContentView.swift in Sources */,
 				459293B2232AC515008B8B86 /* ViewController.swift in Sources */,
+				456E524B23D140D4001839E3 /* ContrastControl.swift in Sources */,
+				456E525323D140D4001839E3 /* MaskControlView.swift in Sources */,
 				451F7E19232ED3D900DFEBFA /* User.swift in Sources */,
 				455FDD112335C81C0075509A /* ReviewArtWork.swift in Sources */,
 				459293B8232AC515008B8B86 /* StreetTagged.xcdatamodeld in Sources */,
 				451F7DD7232C3EEC00DFEBFA /* FeedController.swift in Sources */,
 				451F7E2B232EE72500DFEBFA /* PhotoCell.swift in Sources */,
 				F6A9AC03234F3D2400E01006 /* CustomCalloutView.swift in Sources */,
+				456E525923D140D4001839E3 /* PixelEditViewController.swift in Sources */,
+				456E528723D1412D001839E3 /* ColorCube.swift in Sources */,
+				456E524F23D140D4001839E3 /* NavigationView.swift in Sources */,
 				459293F8232C19FB008B8B86 /* TabbarLayOut.swift in Sources */,
+				456E529E23D1412E001839E3 /* FilterExposure.swift in Sources */,
+				456E525A23D140D4001839E3 /* ImagePreviewView.swift in Sources */,
+				45016B6023D529F900694AF7 /* String.swift in Sources */,
 				459293E6232C1838008B8B86 /* BasicNavigationController.swift in Sources */,
+				456E528F23D1412D001839E3 /* ImageSource.swift in Sources */,
+				456E524E23D140D4001839E3 /* DoodleControlView.swift in Sources */,
+				456E524423D140D4001839E3 /* TempCode.swift in Sources */,
 				459293B0232AC515008B8B86 /* AppDelegate.swift in Sources */,
+				4545CC0923D016FF00C66713 /* LocationRow.swift in Sources */,
+				456E524723D140D4001839E3 /* ClarityControl.swift in Sources */,
+				456E524023D140D4001839E3 /* ColorCubeControlView.swift in Sources */,
+				456E52A823D1412E001839E3 /* ImageRenderer.swift in Sources */,
 				451F7DD5232C3D9C00DFEBFA /* NearByController.swift in Sources */,
+				456E52A723D1412E001839E3 /* ImageTool.swift in Sources */,
 				451F7E2F232EE92900DFEBFA /* BaseTableViewCell.swift in Sources */,
+				456E525023D140D4001839E3 /* AdjustmentControlView.swift in Sources */,
+				456E52A523D1412E001839E3 /* DrawnPath.swift in Sources */,
+				456E529723D1412D001839E3 /* FilterVignette.swift in Sources */,
+				456E529923D1412E001839E3 /* FilterColorCube.swift in Sources */,
+				456E52AA23D1412E001839E3 /* PixelEngine.swift in Sources */,
+				456E525823D140D4001839E3 /* Style.swift in Sources */,
+				456E529A23D1412E001839E3 /* FilterShadows.swift in Sources */,
+				456E523B23D140D4001839E3 /* L10n.swift in Sources */,
+				456E52A023D1412E001839E3 /* FilterHighlights.swift in Sources */,
+				456E525223D140D4001839E3 /* RootControlView.swift in Sources */,
+				456E523A23D140D4001839E3 /* Options.swift in Sources */,
+				456E528E23D1412D001839E3 /* ColorCubeStorage.swift in Sources */,
+				456E529823D1412E001839E3 /* FilterHighlightShadowTint.swift in Sources */,
+				456E529F23D1412E001839E3 /* FilterSharpen.swift in Sources */,
+				456E525523D140D4001839E3 /* ZoomImageView.swift in Sources */,
+				456E528823D1412D001839E3 /* Geometry.swift in Sources */,
+				456E524523D140D4001839E3 /* FilterControlBase.swift in Sources */,
+				456E525723D140D4001839E3 /* StepSlider.swift in Sources */,
+				456E52A923D1412E001839E3 /* Layer.swift in Sources */,
+				456E524223D140D4001839E3 /* SharpenControl.swift in Sources */,
 				45E0B3C223383DFE0061C98C /* Globals.swift in Sources */,
+				4545CC0B23D02B3D00C66713 /* ImageRow.swift in Sources */,
 				451F7E12232ED20A00DFEBFA /* StoreManager.swift in Sources */,
 				45E0B3C523383E720061C98C /* UserManagement.swift in Sources */,
+				456E52A223D1412E001839E3 /* FilterGaussianBlur.swift in Sources */,
+				456E529B23D1412E001839E3 /* FilterSaturation.swift in Sources */,
+				456E528C23D1412D001839E3 /* GraphicDrawing.swift in Sources */,
+				456E525C23D140D4001839E3 /* CropAndStraightenView.swift in Sources */,
 				451F7DDB232C428500DFEBFA /* ProfileController.swift in Sources */,
 				45FB709C233AEA55008C4477 /* ImageManagement.swift in Sources */,
+				456E52C323D155AD001839E3 /* CollectionExtension.swift in Sources */,
+				456E52A323D1412E001839E3 /* FilterFade.swift in Sources */,
 				45FB709E233BD0F3008C4477 /* UploadArtController.swift in Sources */,
+				456E525123D140D4001839E3 /* ControlStackView.swift in Sources */,
+				456E523F23D140D4001839E3 /* EditMenuControlView.swift in Sources */,
+				456E529323D1412D001839E3 /* EditingStack.swift in Sources */,
+				456E524D23D140D4001839E3 /* FadeControl.swift in Sources */,
+				45A571A023D2A10800D4A218 /* LoadingView.swift in Sources */,
+				456E525B23D140D4001839E3 /* BlurredMosaicView.swift in Sources */,
 				F6B4111823D302E200E5FD70 /* StreamViewController.swift in Sources */,
 				451F7E24232ED65B00DFEBFA /* TabBasicContentView.swift in Sources */,
 				451F7E17232ED3B200DFEBFA /* Comment.swift in Sources */,
+				456E529223D1412D001839E3 /* BlurredMask.swift in Sources */,
+				456E524923D140D4001839E3 /* GaussianBlurControl.swift in Sources */,
 				451F7E29232EE62900DFEBFA /* PostCell.swift in Sources */,
+				456E528B23D1412D001839E3 /* GLImageView.swift in Sources */,
+				456E524C23D140D4001839E3 /* ShadowsControl.swift in Sources */,
+				456E52A423D1412E001839E3 /* FilterUnsharpMask.swift in Sources */,
+				456E529023D1412D001839E3 /* Filtering.swift in Sources */,
+				456E529123D1412D001839E3 /* DrawnPathInRect.swift in Sources */,
 				F6A9AC01234F3B7F00E01006 /* CustomAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -782,7 +1254,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = H8J2PZ9WM8;
+				DEVELOPMENT_TEAM = 69UBQ6HF54;
 				INFOPLIST_FILE = StreetTagged/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
