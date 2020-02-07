@@ -102,7 +102,7 @@ class PostCell: BaseCollectionViewCell {
         button.addTarget(self, action: #selector(options), for: .touchUpInside)
         return button
     }()
-    
+        
     lazy var buttonsStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [likeButton])
         stack.distribution = .equalSpacing

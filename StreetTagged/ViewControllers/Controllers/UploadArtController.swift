@@ -278,7 +278,9 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
                 row.title = "Artist"
                 row.placeholder = "if known"
             }.onChange { row in
-                self.artist = row.value!
+                if (row.value != nil) {
+                    self.artist = row.value!
+                }
             }
             <<< TextAreaRow(){
                 $0.title = "Description"
