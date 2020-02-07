@@ -2,43 +2,71 @@ PODS:
   - Alamofire (4.9.1)
   - AppleWelcomeScreen (1.0.2):
     - SnapKit
-  - AWSAuthCore (2.12.5):
-    - AWSCore (= 2.12.5)
-  - AWSAuthUI (2.12.5):
-    - AWSAuthCore (= 2.12.5)
-    - AWSCore (= 2.12.5)
-  - AWSCognitoIdentityProvider (2.12.5):
+  - AWSAuthCore (2.12.6):
+    - AWSCore (= 2.12.6)
+  - AWSAuthUI (2.12.6):
+    - AWSAuthCore (= 2.12.6)
+    - AWSCore (= 2.12.6)
+  - AWSCognitoIdentityProvider (2.12.6):
     - AWSCognitoIdentityProviderASF (= 1.0.1)
-    - AWSCore (= 2.12.5)
+    - AWSCore (= 2.12.6)
   - AWSCognitoIdentityProviderASF (1.0.1)
-  - AWSCore (2.12.5)
-  - AWSMobileClient (2.12.5):
-    - AWSAuthCore (= 2.12.5)
-    - AWSCognitoIdentityProvider (= 2.12.5)
-  - AWSS3 (2.12.5):
-    - AWSCore (= 2.12.5)
-  - AWSUserPoolsSignIn (2.12.5):
-    - AWSAuthCore (= 2.12.5)
-    - AWSCognitoIdentityProvider (= 2.12.5)
+  - AWSCore (2.12.6)
+  - AWSMobileClient (2.12.6):
+    - AWSAuthCore (= 2.12.6)
+    - AWSCognitoIdentityProvider (= 2.12.6)
+  - AWSS3 (2.12.6):
+    - AWSCore (= 2.12.6)
+  - AWSUserPoolsSignIn (2.12.6):
+    - AWSAuthCore (= 2.12.6)
+    - AWSCognitoIdentityProvider (= 2.12.6)
   - Cache (5.2.0)
   - ESTabBarController-swift (2.7)
   - Eureka (5.1.0)
+  - Faye (2.0.0):
+    - Starscream (~> 3.1)
+  - GetStream (2.2.1):
+    - GetStream/Core (= 2.2.1)
+    - GetStream/Faye (= 2.2.1)
+  - GetStream/Core (2.2.1):
+    - Moya (~> 13.0)
+    - Swime (~> 3.0)
+  - GetStream/Faye (2.2.1):
+    - Faye
+    - GetStream/Core
+  - GetStreamActivityFeed (2.2.0):
+    - GetStream (~> 2.2)
+    - Nuke (~> 8.1)
+    - Reusable (~> 4.1)
+    - SnapKit (~> 5.0)
   - Imaginary (4.2.0):
     - Cache (~> 5.0)
-  - Kingfisher (5.12.0):
-    - Kingfisher/Core (= 5.12.0)
-  - Kingfisher/Core (5.12.0)
+  - Kingfisher (5.13.0):
+    - Kingfisher/Core (= 5.13.0)
+  - Kingfisher/Core (5.13.0)
   - Lightbox (2.3.0):
     - Imaginary (~> 4.0)
   - lottie-ios (3.1.5)
   - Mapbox-iOS-SDK (5.6.1):
     - MapboxMobileEvents (= 0.10.2)
   - MapboxMobileEvents (0.10.2)
-  - Realm (4.3.0):
-    - Realm/Headers (= 4.3.0)
-  - Realm/Headers (4.3.0)
-  - RealmSwift (4.3.0):
-    - Realm (= 4.3.0)
+  - Moya (13.0.1):
+    - Moya/Core (= 13.0.1)
+  - Moya/Core (13.0.1):
+    - Alamofire (~> 4.1)
+    - Result (~> 4.1)
+  - Nuke (8.4.0)
+  - Realm (4.3.1):
+    - Realm/Headers (= 4.3.1)
+  - Realm/Headers (4.3.1)
+  - RealmSwift (4.3.1):
+    - Realm (= 4.3.1)
+  - Result (4.1.0)
+  - Reusable (4.1.0):
+    - Reusable/Storyboard (= 4.1.0)
+    - Reusable/View (= 4.1.0)
+  - Reusable/Storyboard (4.1.0)
+  - Reusable/View (4.1.0)
   - SnapKit (5.0.1)
   - SPPermissions/Camera (5.2.6):
     - SPPermissions/Core
@@ -50,6 +78,9 @@ PODS:
   - SPPermissions/PhotoLibrary (5.2.6):
     - SPPermissions/Core
   - TransitionPatch (1.0.2)
+  - Starscream (3.1.1)
+  - Swime (3.0.6)
+  - WSTagsField (5.2.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -61,6 +92,8 @@ DEPENDENCIES:
   - AWSUserPoolsSignIn
   - ESTabBarController-swift
   - Eureka (~> 5.1.0)
+  - GetStream
+  - GetStreamActivityFeed
   - Kingfisher (~> 5.0)
   - Lightbox
   - lottie-ios
@@ -71,6 +104,7 @@ DEPENDENCIES:
   - SPPermissions/Notification (~> 5.2.6)
   - SPPermissions/PhotoLibrary (~> 5.2.6)
   - TransitionPatch
+  - WSTagsField
 
 SPEC REPOS:
   trunk:
@@ -87,43 +121,63 @@ SPEC REPOS:
     - Cache
     - ESTabBarController-swift
     - Eureka
+    - Faye
+    - GetStream
+    - GetStreamActivityFeed
     - Imaginary
     - Kingfisher
     - Lightbox
     - lottie-ios
     - Mapbox-iOS-SDK
     - MapboxMobileEvents
+    - Moya
+    - Nuke
     - Realm
     - RealmSwift
+    - Result
+    - Reusable
     - SnapKit
     - SPPermissions
     - TransitionPatch
+    - Starscream
+    - Swime
+    - WSTagsField
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppleWelcomeScreen: 92fb44fc457df8fdc2af00e29546ef280571611f
-  AWSAuthCore: 6b81b748f2fc0b315cda0acdf55f3a540eb8f9b7
-  AWSAuthUI: 03e83f0a9fab660d43cb57e2fe073965737b910a
-  AWSCognitoIdentityProvider: 7c8cbd6477fd84ccce33a349a46fb44d07edb252
+  AWSAuthCore: d981abe8fb987a1caa7ac6c76c428de12387dcf4
+  AWSAuthUI: aa1b7521b5e88503d2901657f1b2384444fd7706
+  AWSCognitoIdentityProvider: 9502438e528185a2c61b97baf66e2fd2ac6833f3
   AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
-  AWSCore: 543d1c281ad08401d0a99e181526aa529051a8ad
-  AWSMobileClient: 5ce94de58005c3042e99d51c2e6bec7956ef2b36
-  AWSS3: 43c54c47c90e0ba408784117827a085ca5123830
-  AWSUserPoolsSignIn: 96d6c17f826b2cc9f3232ae96900d8df4b5cee24
+  AWSCore: 48bb8d477d8137377e86b2ade9eb34a761f42df5
+  AWSMobileClient: d752ed540a75d45516c8d5b2054b3f3b6b9e7e65
+  AWSS3: 2850ae43b735697fdd0d0a4df40836cd6ac465ec
+  AWSUserPoolsSignIn: d4767e657059e979826b65f623e0e0a4994cc439
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   ESTabBarController-swift: 4fb52ad03d94d0717ef97bc9eb09a5abfdded0a2
   Eureka: 18a5076dcf0c41f9cd9748aa1c42f4d11434bdae
+  Faye: be7f08638a7c27da87714716ab5bfc970d4eda6d
+  GetStream: 58ee876a72afb3213e086eaf9fe4cc832fa49949
+  GetStreamActivityFeed: 0a06245fec2ca75ba36c95e7ccef265793ee64e0
   Imaginary: dae33d06dbc2ada22f98afef5eb45cc061311a2c
-  Kingfisher: dc6e0f53bb5b12c3e75bedb0e01bbd7a640eea69
+  Kingfisher: 0d334cada987fcddbe9b5cec516406e1ee9d4748
   Lightbox: d317750e4132bfb871a5307cfe0a2c7d6a583c65
   lottie-ios: 32bf84389337d86fbc8b12266e88452e0abf1dee
   Mapbox-iOS-SDK: b31bd62a5dd5b7e688eab787acd3d093a122f4d6
   MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
-  Realm: 9357c3589555793e1860a7104a7412bca4a48d99
-  RealmSwift: 402f1e379a8ef82c635313037b043f0f06de880c
+  Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
+  Nuke: fa6f784c4f7e1c0f9313668510186c68b7af2509
+  Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
+  RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  Reusable: 82be188f29d96dc5eff0db7b2393bcc08d2cdd5b
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SPPermissions: a11dd5e68bcbf0b7de7b4ba86ba008e77ae66abd
   TransitionPatch: c02b48b1429255b14ef82b7e411034e0958b9681
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  Swime: d7b2c277503b6cea317774aedc2dce05613f8b0b
+  WSTagsField: d57a287fd552934db1d93a85d38abbf74b067d6a
 
 PODFILE CHECKSUM: 6c7d40e7c4ca6e34a5e9b3319e12ab4bdfa5723e
 

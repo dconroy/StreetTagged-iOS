@@ -24,12 +24,12 @@ public class ProfileController: UIViewController {
         self.view.backgroundColor = UIColor.init(red: 244.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0)
         
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NSNotification.Name(rawValue: GLOBAL_SIGNIN_REFRESH), object: nil)
-
+        
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
         NSLayoutConstraint.activate([
-        self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor),
+            self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor),
             self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
             self.view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
             self.view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
@@ -38,7 +38,11 @@ public class ProfileController: UIViewController {
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        
+       
     }
+    
+    
     
     public override func viewWillAppear(_ animated: Bool) {
         refresh()
@@ -67,14 +71,14 @@ public class ProfileController: UIViewController {
     
     func action() {
         switch userGlobalState {
-            case .userSignedIn:
-                userSignOut()
-                break
-            default:
-                userSignIn(navController: self.navigationController!)
-                break
+        case .userSignedIn:
+            userSignOut()
+            break
+        default:
+            userSignIn(navController: self.navigationController!)
+            break
         }
-
+        
     }
 }
 
@@ -93,10 +97,10 @@ extension ProfileController: UITableViewDataSource, UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch userGlobalState {
-            case .userSignedIn:
-                return AWSMobileClient.default().username
-            default:
-                return "My Accounts"
+        case .userSignedIn:
+            return AWSMobileClient.default().username
+        default:
+            return "My Accounts"
         }
     }
     

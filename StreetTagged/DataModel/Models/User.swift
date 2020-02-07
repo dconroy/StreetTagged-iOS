@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User {
+struct AppUser {
     var username: String
     var profile: String
     var posts: Int
