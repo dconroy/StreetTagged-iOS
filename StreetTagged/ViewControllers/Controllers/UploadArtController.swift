@@ -181,6 +181,18 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
         self.dismiss(animated: true, completion: nil)
     }
     
+    func selectImage() {
+        let alert = UIAlertController(title: "Where would you like to select the image from?", message: "", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action: UIAlertAction) in
+            self.getImage(fromSourceType: .camera)
+        }))
+        alert.addAction(UIAlertAction(title: "Photo Album", style: .default, handler: {(action: UIAlertAction) in
+            self.getImage(fromSourceType: .photoLibrary)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        self.navigationController!.present(alert, animated: true, completion: nil)
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Upload Street Art"
@@ -249,27 +261,19 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
             
         +++ Section(header: "Image Options", footer: "")
             <<< ButtonRow(){ row in
-                row.title = "Select Image"
+                row.title = "Re-Select Image"
                 row.onCellSelection { cell, row in
-                    let alert = UIAlertController(title: "Where would you like to select the image from?", message: "", preferredStyle: .actionSheet)
-                    alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action: UIAlertAction) in
-                        self.getImage(fromSourceType: .camera)
-                    }))
-                    alert.addAction(UIAlertAction(title: "Photo Album", style: .default, handler: {(action: UIAlertAction) in
-                        self.getImage(fromSourceType: .photoLibrary)
-                    }))
-                    alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
-                    self.navigationController!.present(alert, animated: true, completion: nil)
+                    self.selectImage()
                 }
             }
             <<< self.editRow!
         +++ Section(header: "General Details (Step #2)", footer: "General details about the piece allow us to index quickly and create custom feeds.")
-            <<< TextRow(){ row in
+            /*<<< TextRow(){ row in
                 row.title = "Title"
                 row.placeholder = "if known"
             }.onChange { row in
                 self.arttitle = row.value!
-            }
+            }*/
             <<< TextRow(){ row in
                 row.title = "Artist"
                 row.placeholder = "if known"
@@ -286,6 +290,9 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
             }
         +++ Section(header: "Geolocation (Step #3)", footer: "An accurate location allows us to provide the community reliable directions to find this artwork with ease.")
             <<< self.locationRow!
+        
+        
+        selectImage()
     }
         
     public override func viewDidLayoutSubviews() {
