@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>To notify users when they are near popular street art.</string>
 	<key>AppAPIBaseURL</key>
 	<string>https://api.streettagged.com</string>
 	<key>CFBundleDevelopmentRegion</key>
