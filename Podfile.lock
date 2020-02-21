@@ -34,11 +34,6 @@ PODS:
   - GetStream/Faye (2.2.1):
     - Faye
     - GetStream/Core
-  - GetStreamActivityFeed (2.2.0):
-    - GetStream (~> 2.2)
-    - Nuke (~> 8.1)
-    - Reusable (~> 4.1)
-    - SnapKit (~> 5.0)
   - Imaginary (4.2.0):
     - Cache (~> 5.0)
   - Kingfisher (5.13.0):
@@ -92,12 +87,13 @@ DEPENDENCIES:
   - ESTabBarController-swift
   - Eureka (~> 5.1.0)
   - GetStream
-  - GetStreamActivityFeed
   - Kingfisher (~> 5.0)
   - Lightbox
   - lottie-ios
   - Mapbox-iOS-SDK
+  - Nuke
   - RealmSwift
+  - Reusable
   - SPPermissions/Camera (~> 5.2.6)
   - SPPermissions/Location (~> 5.2.6)
   - SPPermissions/Notification (~> 5.2.6)
@@ -121,7 +117,6 @@ SPEC REPOS:
     - Eureka
     - Faye
     - GetStream
-    - GetStreamActivityFeed
     - Imaginary
     - Kingfisher
     - Lightbox
@@ -156,7 +151,6 @@ SPEC CHECKSUMS:
   Eureka: 18a5076dcf0c41f9cd9748aa1c42f4d11434bdae
   Faye: be7f08638a7c27da87714716ab5bfc970d4eda6d
   GetStream: 58ee876a72afb3213e086eaf9fe4cc832fa49949
-  GetStreamActivityFeed: 0a06245fec2ca75ba36c95e7ccef265793ee64e0
   Imaginary: dae33d06dbc2ada22f98afef5eb45cc061311a2c
   Kingfisher: 0d334cada987fcddbe9b5cec516406e1ee9d4748
   Lightbox: d317750e4132bfb871a5307cfe0a2c7d6a583c65
@@ -175,6 +169,6 @@ SPEC CHECKSUMS:
   Swime: d7b2c277503b6cea317774aedc2dce05613f8b0b
   TransitionPatch: c02b48b1429255b14ef82b7e411034e0958b9681
 
-PODFILE CHECKSUM: 000edbfc810ea62a91f8fc6da08e45ef91abe92a
+PODFILE CHECKSUM: 51eb254b065ddb241dc9b56ff2f85193001743f7
 
 COCOAPODS: 1.8.3

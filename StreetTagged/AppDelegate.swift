@@ -14,7 +14,7 @@ import AWSS3
 import Photos
 import CoreLocation
 import GetStream
-import GetStreamActivityFeed
+//import GetStreamActivityFeed
 
 
 var globalLatitude: CLLocationDegrees?
@@ -60,11 +60,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         
         // TODO: Refactor the cube storage
         ColorCubeStorage.loadToDefault()
+        
+        let v1 = GetStreamViewController()
+        
+           Client.config = .init(apiKey: "q7uh4u74xqfr", appId: "69783",logsEnabled: false)
+           
+           Client.shared.setupUser(User(name: "Bad Bitch ",
+                                                              id: "88a5aa64-29ea-4fe3-8c8f-deacee160794"),
+                                                              token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODhhNWFhNjQtMjllYS00ZmUzLThjOGYtZGVhY2VlMTYwNzk0In0.yoWj_3e00ceFotdHEBOD7pcICbcNc5JLiAnE-ykTxKc") { (result) in
+                                                               
+                           print(result)
+                                                               print("User.current!")
+                                                               print(User.current!)
+                                                                v1.reloadData()
+                                                                
+                                                               
+                                                               
+           }
+        
+        
                     
         let profile = storyboard.instantiateViewController(withIdentifier: "Profile") as! ProfileController
  
         let flow = UICollectionViewFlowLayout()
-        let v1 = FeedController(collectionViewLayout: flow)
+        //let v1 = FeedController(collectionViewLayout: flow)
         let v2 = NearByController()
         let v3 = FavorController()
         let v4 = FavorController()

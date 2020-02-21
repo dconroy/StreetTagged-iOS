@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import AWSMobileClient
 import AWSCore
+import Alamofire
 
 // Enum for the different state managament
 enum UserAuthState {
@@ -68,6 +69,18 @@ func userStateInitialize(enabledLogs: Bool, responder: UIResponder) {
         if (isLogs) {
             print("AWSMobileClient-State-Change: ", userGlobalState)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_SIGNIN_REFRESH), object: nil)
+            
+            AWSMobileClient.default().getUserAttributes { (attributes, error) in
+                 if(error != nil){
+                    print("ERROR_ATTRIBUTES: \(String(describing: error))")
+                 }else{
+                    if let attributesDict = attributes {
+                        print(attributesDict["sub"]!)
+                        print(AWSMobileClient.default().username!)
+                        grabGetStreamToken(userId: attributesDict["sub"]!);
+                    }
+                 }
+            }
         }
     }
 }
@@ -136,5 +149,20 @@ func userSignInWithCreds(username: String, password: String) {
 
 func userSignOut() {
     AWSMobileClient.default().signOut()
+}
+
+func grabGetStreamToken(userId: String) {
+    Alamofire.request(streamTokenURL, method: .post, parameters: ["userId": userId], encoding: JSONEncoding.default).responseJSON { response in
+        do {
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            let response = try decoder.decode(GetStreamTokenResponse.self, from: response.data!)
+                                
+            print("getstream-userToken")
+            print(response.userToken)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 }
 

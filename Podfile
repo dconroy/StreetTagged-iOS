@@ -24,7 +24,7 @@ target 'StreetTagged' do
   pod 'Alamofire'
   pod "ESTabBarController-swift"
   pod 'GetStream'
-  pod 'GetStreamActivityFeed'
+  # pod 'GetStreamActivityFeed'
   pod 'lottie-ios'
   pod 'Mapbox-iOS-SDK'
   pod 'RealmSwift'
@@ -38,5 +38,6 @@ target 'StreetTagged' do
   pod 'SPPermissions/PhotoLibrary','~> 5.2.6'
   pod 'Eureka', '~> 5.1.0'
   pod 'TransitionPatch'
-
+  pod 'Nuke'
+  pod 'Reusable'
 end
