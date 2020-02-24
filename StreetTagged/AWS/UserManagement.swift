@@ -11,6 +11,7 @@ import UIKit
 import AWSMobileClient
 import AWSCore
 import Alamofire
+import GetStream
 
 // Enum for the different state managament
 enum UserAuthState {
@@ -41,8 +42,10 @@ func userStateInitialize(enabledLogs: Bool, responder: UIResponder) {
                 userGlobalState = .userGuest
             case .signedOut:
                 userGlobalState = .userSignedOut
+                Client.shared.disconnect()
             case .signedIn:
                 userGlobalState = .userSignedIn
+                updateGetStreamFeed()
             case .signedOutUserPoolsTokenInvalid:
                 userGlobalState = .userSignedOutUserPoolsTokenInvalid
             case .signedOutFederatedTokensInvalid:
@@ -57,8 +60,10 @@ func userStateInitialize(enabledLogs: Bool, responder: UIResponder) {
                 userGlobalState = .userGuest
             case .signedOut:
                 userGlobalState = .userSignedOut
+                Client.shared.disconnect()
             case .signedIn:
                 userGlobalState = .userSignedIn
+                updateGetStreamFeed()
             case .signedOutUserPoolsTokenInvalid:
                 userGlobalState = .userSignedOutUserPoolsTokenInvalid
             case .signedOutFederatedTokensInvalid:
@@ -69,19 +74,19 @@ func userStateInitialize(enabledLogs: Bool, responder: UIResponder) {
         if (isLogs) {
             print("AWSMobileClient-State-Change: ", userGlobalState)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_SIGNIN_REFRESH), object: nil)
-            
-            AWSMobileClient.default().getUserAttributes { (attributes, error) in
-                 if(error != nil){
-                    print("ERROR_ATTRIBUTES: \(String(describing: error))")
-                 }else{
-                    if let attributesDict = attributes {
-                        print(attributesDict["sub"]!)
-                        print(AWSMobileClient.default().username!)
-                        grabGetStreamToken(userId: attributesDict["sub"]!);
-                    }
-                 }
-            }
         }
+    }
+}
+
+func updateGetStreamFeed() {
+    AWSMobileClient.default().getUserAttributes { (attributes, error) in
+         if(error != nil){
+            print("ERROR_ATTRIBUTES: \(String(describing: error))")
+         }else{
+            if let attributesDict = attributes {
+                grabGetStreamToken(userId: AWSMobileClient.default().username!);
+            }
+         }
     }
 }
 
@@ -121,7 +126,6 @@ func getUserAWSUserSub(completionHandler: @escaping GetSubCompletionHandler) {
 }
 
 func userSignIn(navController: UINavigationController) {
-    print("userSignIn->handler")
     let signInUIOptions = SignInUIOptions(canCancel: true, logoImage: UIImage(named: "Icon-86"), backgroundColor:  UIColor.darkGray, primaryColor: UIColor(hue: 0.5889, saturation: 0.5, brightness: 0.85, alpha: 1.0))
     AWSMobileClient.default().showSignIn(navigationController: navController, signInUIOptions: signInUIOptions, { (state, error) in
         switch (state) {
@@ -157,9 +161,9 @@ func grabGetStreamToken(userId: String) {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             let response = try decoder.decode(GetStreamTokenResponse.self, from: response.data!)
-                                
-            print("getstream-userToken")
-            print(response.userToken)
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.updateGetStream(name: AWSMobileClient.default().username!, id: userId, token: response.userToken)
         } catch let error {
             print(error.localizedDescription)
         }

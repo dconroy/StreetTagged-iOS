@@ -68,6 +68,7 @@ let getItemURL = UIApplication.appAPIURL! + "/items"
 let s3Bucket = "streetartprod"
 
 let streamTokenURL = UIApplication.appAPIURL! + "/stream/token"
+let streamGetTags = UIApplication.appAPIURL! + "/stream/tags"
 
 func imageURLFromS3Key(key: String, filter: String) -> String {
     return "https://" + GLOBAL_CDN + "/" + filter + "/" + key

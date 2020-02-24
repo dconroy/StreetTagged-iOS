@@ -27,7 +27,7 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
     }
     
     @objc func favoriteNotification() {
-        loadListOfImages()
+        //loadListOfImages()
     }
     
     override func viewWillAppear(_ animated: Bool) {

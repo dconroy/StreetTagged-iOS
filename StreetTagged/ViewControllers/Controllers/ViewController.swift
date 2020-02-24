@@ -53,6 +53,10 @@ struct FavoriteArtWorks: Decodable {
     let artWorks: [Art]
 }
 
+struct TagsRespsonse: Decodable {
+    let tags: [String]
+}
+
 struct ArtWorkReview: Decodable {
     let item: [Art]
 }

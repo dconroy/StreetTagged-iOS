@@ -14,8 +14,6 @@ import AWSS3
 import Photos
 import CoreLocation
 import GetStream
-//import GetStreamActivityFeed
-
 
 var globalLatitude: CLLocationDegrees?
 var globalLongitude: CLLocationDegrees?
@@ -31,7 +29,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     var currentViewController: UIViewController?
     let storyboard: UIStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
     let locationManager = CLLocationManager()
-
+    
+    let v1 = GetStreamViewController()
+    
+    var getStreamFollers: [Follower] = []
+    
+    func setGetStreamFollowers(follower: [Follower]) {
+        getStreamFollers = follower
+    }
+    
+    func getGetStreamFollowers() -> [Follower] {
+        return getStreamFollers
+    }
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print("location manager authorization status changed")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
@@ -53,36 +63,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     @objc func timerGPSFunction() {
         
     }
+    
+    func updateGetStream(name: String, id: String, token: String) {
+        Client.shared.setupUser(User(name: name,  id: id), token: token) { (result) in
+            self.v1.updateSetup()
+            self.v1.reloadData()
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         userStateInitialize(enabledLogs: true, responder: self)
         
         // TODO: Refactor the cube storage
         ColorCubeStorage.loadToDefault()
         
-        let v1 = GetStreamViewController()
-        
-           Client.config = .init(apiKey: "q7uh4u74xqfr", appId: "69783",logsEnabled: false)
-           
-           Client.shared.setupUser(User(name: "Bad Bitch ",
-                                                              id: "88a5aa64-29ea-4fe3-8c8f-deacee160794"),
-                                                              token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODhhNWFhNjQtMjllYS00ZmUzLThjOGYtZGVhY2VlMTYwNzk0In0.yoWj_3e00ceFotdHEBOD7pcICbcNc5JLiAnE-ykTxKc") { (result) in
-                                                               
-                           print(result)
-                                                               print("User.current!")
-                                                               print(User.current!)
-                                                                v1.reloadData()
-                                                                
-                                                               
-                                                               
-           }
-        
-        
-                    
+        Client.config = .init(apiKey: "q7uh4u74xqfr", appId: "69783", logsEnabled: false)
+            
         let profile = storyboard.instantiateViewController(withIdentifier: "Profile") as! ProfileController
- 
-        let flow = UICollectionViewFlowLayout()
+    
+        //let flow = UICollectionViewFlowLayout()
         //let v1 = FeedController(collectionViewLayout: flow)
         let v2 = NearByController()
         let v3 = FavorController()
@@ -181,6 +180,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         self.window?.makeKeyAndVisible()
         
         NotificationCenter.default.addObserver(self, selector: #selector(startLocationManager), name: NSNotification.Name(rawValue: GLOBAL_START_LOCATION_MANAGER), object: nil)
+        
+        tabBarController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Filter", style: UIBarButtonItem.Style.plain, target: self, action: #selector(filter))
     
         return true
     }
@@ -208,7 +209,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     @objc func filter() {
-        
+        let controller = TagsViewController()
+        let navigationController = UINavigationController.init(rootViewController: controller)
+        navigationController.modalPresentationStyle = .fullScreen
+        self.currentViewController!.present(navigationController, animated: true, completion: nil)
     }
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

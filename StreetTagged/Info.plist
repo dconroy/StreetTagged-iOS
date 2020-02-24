@@ -7,7 +7,7 @@
 	<key>NSAllowsArbitraryLoads</key>
 	<true/>
 	<key>AppAPIBaseURL</key>
-	<string>https://f90fb7ef.ngrok.io</string>
+	<string>https://cb2cb94d.ngrok.io</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

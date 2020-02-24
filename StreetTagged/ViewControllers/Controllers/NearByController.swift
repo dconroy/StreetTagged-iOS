@@ -64,7 +64,7 @@ public class NearByController: UIViewController, MGLMapViewDelegate {
     }
     
     public override func viewDidAppear(_ animated: Bool) {
-        allStreetArt()
+        //allStreetArt()
     }
     
     @objc func changeStyle(sender: UISegmentedControl) {

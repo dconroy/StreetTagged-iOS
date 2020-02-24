@@ -46,10 +46,6 @@ public struct ActivityPresenter<T: ActivityProtocol> {
             let activity = repostedActivity as? T {
             return activity
         }
-
-        print("activity")
-        print(activity)
-        
         return activity
     }
     

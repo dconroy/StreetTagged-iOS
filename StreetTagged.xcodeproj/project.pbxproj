@@ -28,6 +28,7 @@
 		4545CC0923D016FF00C66713 /* LocationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4545CC0823D016FF00C66713 /* LocationRow.swift */; };
 		4545CC0B23D02B3D00C66713 /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4545CC0A23D02B3D00C66713 /* ImageRow.swift */; };
 		4545CC1323D0400C00C66713 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4545CC1223D0400C00C66713 /* CustomCell.xib */; };
+		454B591A24033A4A001B7D1F /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454B591924033A4A001B7D1F /* TagsViewController.swift */; };
 		455FDD112335C81C0075509A /* ReviewArtWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455FDD102335C81C0075509A /* ReviewArtWork.swift */; };
 		456E523923D140D4001839E3 /* PixelEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E520F23D140D4001839E3 /* PixelEditor.swift */; };
 		456E523A23D140D4001839E3 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E521023D140D4001839E3 /* Options.swift */; };
@@ -252,6 +253,7 @@
 		4545CC0823D016FF00C66713 /* LocationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRow.swift; sourceTree = "<group>"; };
 		4545CC0A23D02B3D00C66713 /* ImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
 		4545CC1223D0400C00C66713 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		454B591924033A4A001B7D1F /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		455FDD102335C81C0075509A /* ReviewArtWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewArtWork.swift; sourceTree = "<group>"; };
 		456C0B2423CAAA03001B7BEB /* AppConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppConfig.xcconfig; sourceTree = "<group>"; };
 		456E520F23D140D4001839E3 /* PixelEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelEditor.swift; sourceTree = "<group>"; };
@@ -841,6 +843,7 @@
 			isa = PBXGroup;
 			children = (
 				45CC402123FCD36200DD1F99 /* GetStreamViewController.swift */,
+				454B591924033A4A001B7D1F /* TagsViewController.swift */,
 				45CC40EE23FCF53200DD1F99 /* Icons.xcassets */,
 				45CC407623FCF35700DD1F99 /* Components */,
 				45CC404523FCF35700DD1F99 /* Extensions */,
@@ -1425,6 +1428,7 @@
 				456E523E23D140D4001839E3 /* DryDrawingView.swift in Sources */,
 				45CC40CE23FCF35800DD1F99 /* LikeButton.swift in Sources */,
 				456E524A23D140D4001839E3 /* TemperatureControl.swift in Sources */,
+				454B591A24033A4A001B7D1F /* TagsViewController.swift in Sources */,
 				456E52A123D1412E001839E3 /* FilterContrast.swift in Sources */,
 				456E528923D1412D001839E3 /* MetalImageView.swift in Sources */,
 				456E524123D140D4001839E3 /* ExposureControl.swift in Sources */,
