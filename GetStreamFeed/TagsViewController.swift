@@ -6,6 +6,7 @@
 //  Copyright © 2020 John O'Sullivan. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import Alamofire
 import AWSCore
@@ -93,12 +94,8 @@ class TagsViewController: FormViewController, UIImagePickerControllerDelegate, U
     }
     
     @objc func apply() {
-        print("apply")
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        print(appDelegate.getStreamFollers)
-        if let tags = currentTages {
-            print()
-        }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_GET_STREAM_UPDATE_TAGS), object: currentTages)
+        self.dismiss(animated: true, completion: nil)
     }
     
     override public func viewDidLoad() {
@@ -110,7 +107,15 @@ class TagsViewController: FormViewController, UIImagePickerControllerDelegate, U
         
         let applyItem = UIBarButtonItem(title: "Apply", style: .plain, target: self, action: #selector(apply))
         navigationItem.rightBarButtonItem = applyItem
-      
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let followers: [Follower] = appDelegate.getGetStreamFollowers()
+                
+        let currentTags = followers.map({ (follower) -> String in
+            let hashtag = follower.targetFeedId.userId
+            return "#" + hashtag
+        });
+              
         Alamofire.request(streamGetTags, method: .get, encoding: JSONEncoding.default).responseJSON { response in
             do {
                 let decoder = JSONDecoder()
@@ -124,7 +129,13 @@ class TagsViewController: FormViewController, UIImagePickerControllerDelegate, U
                     self.form.last! <<< ImageCheckRow<String>(option){ lrow in
                         lrow.title = option
                         lrow.selectableValue = option
-                        lrow.value = nil
+                        
+                        if currentTags.contains(option) {
+                            lrow.value = option
+                        } else {
+                            lrow.value = nil
+                        }
+                        
                         }.cellSetup { cell, _ in
                             cell.trueImage = UIImage(named: "selectedRectangle")!
                             cell.falseImage = UIImage(named: "unselectedRectangle")!
@@ -139,7 +150,7 @@ class TagsViewController: FormViewController, UIImagePickerControllerDelegate, U
     
     override func valueHasBeenChanged(for row: BaseRow, oldValue: Any?, newValue: Any?) {
         currentTages = ((row.section as! SelectableSection<ImageCheckRow<String>>).selectedRows().map({$0.baseValue}))
-        //print("Mutiple Selection:\((row.section as! SelectableSection<ImageCheckRow<String>>).selectedRows().map({$0.baseValue}))")
+        print("Mutiple Selection:\((row.section as! SelectableSection<ImageCheckRow<String>>).selectedRows().map({$0.baseValue}))")
     }
         
     public override func viewDidLayoutSubviews() {

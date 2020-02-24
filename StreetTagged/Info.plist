@@ -2,12 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GetStreamAPIKey</key>
+	<string>q7uh4u74xqfr</string>
+	<key>GetStreamAppID</key>
+	<string>69783</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>NSAllowsArbitraryLoads</key>
 	<true/>
 	<key>AppAPIBaseURL</key>
-	<string>https://cb2cb94d.ngrok.io</string>
+	<string>https://985a683c.ngrok.io</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

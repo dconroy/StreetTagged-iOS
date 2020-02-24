@@ -12,40 +12,107 @@ import GetStream
 import AppleWelcomeScreen
 import SPPermissions
 
+public struct SequenceDiff<T1, T2> {
+    public let common: [(T1, T2)]
+    public let removed: [T1]
+    public let inserted: [T2]
+    public init(common: [(T1, T2)] = [], removed: [T1] = [], inserted: [T2] = []) {
+        self.common = common
+        self.removed = removed
+        self.inserted = inserted
+    }
+}
+
 class GetStreamViewController: FlatFeedViewController<Activity> {
     
     let textToolBar = TextToolBar.make()
+    var timelineFlatFeed: FlatFeed?
     
     override func viewDidLoad() {
         view.backgroundColor = .white
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTagsFollowers), name: NSNotification.Name(rawValue: GLOBAL_GET_STREAM_UPDATE_TAGS), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         isFirstLaunch();
     }
     
-    public func updateSetup() {
-        if let feedId = FeedId(feedSlug: "timeline") {
-            let timelineFlatFeed = Client.shared.flatFeed(feedId)
-            presenter = FlatFeedPresenter<Activity>(flatFeed: timelineFlatFeed, reactionTypes: [.likes, .comments, .reposts])
-            
-            timelineFlatFeed.following(completion: { result in
-                print("following")
+    public func diffInTags<T1, T2>(_ first: [T1], _ second: [T2], with compare:(T1,T2) -> Bool) -> SequenceDiff<T1, T2> {
+        let removed: [T1] = first.filter { firstElement in !second.contains { secondElement in compare(firstElement, secondElement) } }
+        let inserted: [T2] = second.filter { secondElement in !first.contains { firstElement in compare(firstElement, secondElement) } }
+        let combinations = first.flatMap { firstElement in second.compactMap { secondElement in (firstElement, secondElement) } }
+        let common = combinations.filter { compare($0.0, $0.1) }
+        return SequenceDiff(common: common, removed: removed, inserted: inserted)
+    }
+    
+    @objc func updateTagsFollowers(notification: NSNotification) {
+        let notificationTags = notification.object as! NSArray
+        
+        let newTags = notificationTags.map({ (tagRaw) -> String in
+            return String((tagRaw as! String).dropFirst(1))
+        });
+                
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let followers: [Follower] = appDelegate.getGetStreamFollowers()
+        
+        let currentTags = followers.map({ (follower) -> String in
+            return follower.targetFeedId.userId
+        });
+        
+        let updates = diffInTags(currentTags,newTags, with: ==)
+        
+        let tagUpdatesGroup = DispatchGroup()
+        
+        for tag in updates.inserted {
+            tagUpdatesGroup.enter()
+            self.timelineFlatFeed!.follow(toTarget: FeedId(feedSlug: "tag", userId: tag), completion: { result in
+                print(result)
+                tagUpdatesGroup.leave()
+            })
+        }
+        
+        for tag in updates.removed {
+            tagUpdatesGroup.enter()
+            self.timelineFlatFeed!.unfollow(fromTarget: FeedId(feedSlug: "tag", userId: tag), keepHistory: false, completion: { result in
+                print(result)
+                tagUpdatesGroup.leave()
+            })
+        }
+        
+        tagUpdatesGroup.notify(queue: .main) {
+            self.reloadData()
+            self.timelineFlatFeed!.following(completion: { result in
                 do {
                     let response = try result.get()
-                    //let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    //appDelegate.setGetStreamFollowers(follower: response.results)
+                    DispatchQueue.main.async {
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.setGetStreamFollowers(follower: response.results)
+                    }
                 } catch let responseError {
                     print(responseError)
                 }
             })
-            
-            /*timelineFlatFeed.follow(toTarget: FeedId(feedSlug: "tag", userId: "nyc"), completion: { result in
-                print("follow")
-                print(result)
-            })*/
         }
-        
+    }
+    
+    public func updateSetup() {
+        if let feedId = FeedId(feedSlug: "timeline") {
+            self.timelineFlatFeed = Client.shared.flatFeed(feedId)
+            presenter = FlatFeedPresenter<Activity>(flatFeed: self.timelineFlatFeed!, reactionTypes: [.likes, .comments, .reposts])
+            // Grabs the current feeds thats are being followed
+            self.timelineFlatFeed!.following(completion: { result in
+                do {
+                    let response = try result.get()
+                    DispatchQueue.main.async {
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.setGetStreamFollowers(follower: response.results)
+                    }
+                } catch let responseError {
+                    print(responseError)
+                }
+            })
+        }
         super.viewDidLoad()
         subscribeForUpdates()
     }

@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     let storyboard: UIStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
     let locationManager = CLLocationManager()
     
-    let v1 = GetStreamViewController()
+    let getStreamVC = GetStreamViewController()
     
     var getStreamFollers: [Follower] = []
     
@@ -66,33 +66,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     
     func updateGetStream(name: String, id: String, token: String) {
         Client.shared.setupUser(User(name: name,  id: id), token: token) { (result) in
-            self.v1.updateSetup()
-            self.v1.reloadData()
+            self.getStreamVC.updateSetup()
+            self.getStreamVC.reloadData()
         }
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        userStateInitialize(enabledLogs: true, responder: self)
-        
         // TODO: Refactor the cube storage
         ColorCubeStorage.loadToDefault()
+                
+        Client.config = .init(apiKey: UIApplication.getStreamApiKey!, appId: UIApplication.getStreamAppId!, logsEnabled: false)
         
-        Client.config = .init(apiKey: "q7uh4u74xqfr", appId: "69783", logsEnabled: false)
+        userStateInitialize(enabledLogs: true, responder: self)
             
-        let profile = storyboard.instantiateViewController(withIdentifier: "Profile") as! ProfileController
-    
-        //let flow = UICollectionViewFlowLayout()
-        //let v1 = FeedController(collectionViewLayout: flow)
-        let v2 = NearByController()
-        let v3 = FavorController()
-        let v4 = FavorController()
-        let v5 = profile
+        let nearByVC = NearByController()
+        let blankVC = UIViewController()
+        let favorVC = FavorController()
+        let profileVC = storyboard.instantiateViewController(withIdentifier: "Profile") as! ProfileController
         
-        currentViewController = v1
+        currentViewController = getStreamVC
                 
         let tabBarController = ESTabBarController()
         tabBarController.delegate = self
-        tabBarController.title = "Irregularity"
+        tabBarController.title = ""
         tabBarController.tabBar.shadowImage = UIImage(named: "transparent")
         tabBarController.tabBar.backgroundImage = UIImage(named: "background")
         tabBarController.shouldHijackHandler = {
@@ -123,16 +119,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         tabBarController.didHijackHandler = { tabbarController, viewController, index in
                 if index == 2 {
                     if (userGlobalState == .userSignedIn) {
-                        /*let alert = UIAlertController(title: "From?", message: "", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action: UIAlertAction) in
-                            self.getImage(fromSourceType: .camera)
-                        }))
-                        alert.addAction(UIAlertAction(title: "Photo Album", style: .default, handler: {(action: UIAlertAction) in
-                            self.getImage(fromSourceType: .photoLibrary)
-                        }))
-                        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
-                        self.currentViewController!.present(alert, animated: true, completion: nil)*/
-                        
                         let vc = UploadArtController()
                         let navigationController = UINavigationController(rootViewController: vc)
                         navigationController.modalPresentationStyle = .fullScreen
@@ -165,13 +151,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 }
         }
                
-        v1.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Feed", image: UIImage(named: "home"), selectedImage: UIImage(named: "home_1"))
-        v2.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Nearby", image: UIImage(named: "find"), selectedImage: UIImage(named: "find_1"))
-        v3.tabBarItem = ESTabBarItem.init(TabContentView(), title: nil, image: UIImage(named: "photo_verybig"), selectedImage: UIImage(named: "photo_verybig"))
-        v4.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Favorites", image: UIImage(named: "favor"), selectedImage: UIImage(named: "favor_1"))
-        v5.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Me", image: UIImage(named: "me"), selectedImage: UIImage(named: "me_1"))
+        getStreamVC.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Feed", image: UIImage(named: "home"), selectedImage: UIImage(named: "home_1"))
+        nearByVC.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Nearby", image: UIImage(named: "find"), selectedImage: UIImage(named: "find_1"))
+        blankVC.tabBarItem = ESTabBarItem.init(TabContentView(), title: nil, image: UIImage(named: "photo_verybig"), selectedImage: UIImage(named: "photo_verybig"))
+        favorVC.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Favorites", image: UIImage(named: "favor"), selectedImage: UIImage(named: "favor_1"))
+        profileVC.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Me", image: UIImage(named: "me"), selectedImage: UIImage(named: "me_1"))
                
-        tabBarController.viewControllers = [v1, v2, v3, v4, v5]
+        tabBarController.viewControllers = [getStreamVC, nearByVC, blankVC, favorVC, profileVC]
                
         let navigationController = BasicNavigationController.init(rootViewController: tabBarController)
         tabBarController.title = "Feed"
@@ -181,6 +167,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         
         NotificationCenter.default.addObserver(self, selector: #selector(startLocationManager), name: NSNotification.Name(rawValue: GLOBAL_START_LOCATION_MANAGER), object: nil)
         
+        //TODO: Need refacted tags manager
         tabBarController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Filter", style: UIBarButtonItem.Style.plain, target: self, action: #selector(filter))
     
         return true
