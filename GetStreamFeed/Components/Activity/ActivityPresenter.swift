@@ -109,18 +109,14 @@ extension ActivityPresenter {
             return .activity
         case (cellsCount - 3 - reactionsCellCount):
             if let urls = originalActivityAttachment?.attachmentImageURLs() {
-                print("print(urls)")
-                print(urls)
                 return .attachmentImages(urls)
             }
         case (cellsCount - 2 - reactionsCellCount):
             if let ogData = originalActivityAttachment?.ogData {
-                print(ogData)
                 return .attachmentOpenGraphData(ogData)
             }
             
             if let urls = originalActivityAttachment?.attachmentImageURLs() {
-                print(urls)
                 return .attachmentImages(urls)
             }
         case (cellsCount - 2) where reactionsCellCount > 0:

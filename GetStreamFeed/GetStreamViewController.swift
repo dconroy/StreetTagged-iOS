@@ -67,7 +67,6 @@ class GetStreamViewController: FlatFeedViewController<Activity> {
         for tag in updates.inserted {
             tagUpdatesGroup.enter()
             self.timelineFlatFeed!.follow(toTarget: FeedId(feedSlug: "tag", userId: tag), completion: { result in
-                print(result)
                 tagUpdatesGroup.leave()
             })
         }
@@ -75,7 +74,6 @@ class GetStreamViewController: FlatFeedViewController<Activity> {
         for tag in updates.removed {
             tagUpdatesGroup.enter()
             self.timelineFlatFeed!.unfollow(fromTarget: FeedId(feedSlug: "tag", userId: tag), keepHistory: false, completion: { result in
-                print(result)
                 tagUpdatesGroup.leave()
             })
         }

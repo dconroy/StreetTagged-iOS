@@ -69,9 +69,6 @@ public enum ActivityObject: ActivityObjectProtocol {
         let container = try decoder.singleValueContainer()
         
         if let text = try? container.decode(String.self) {
-            print("print(text)")
-            print(text)
-            
             let data = text.data(using: .utf8)
             let decoder = JSONDecoder()
             if let parsedData = try? decoder.decode(PostMeta.self, from: data!) {

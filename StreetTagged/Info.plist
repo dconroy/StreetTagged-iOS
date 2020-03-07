@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>GetStreamAPIKey</key>
-	<string>q7uh4u74xqfr</string>
+	<string>wkx7qrba3h3h</string>
 	<key>GetStreamAppID</key>
-	<string>69783</string>
+	<string>71352</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>NSAllowsArbitraryLoads</key>
 	<true/>
 	<key>AppAPIBaseURL</key>
-	<string>https://5934f660.ngrok.io</string>
+	<string>https://api-dev.streettagged.com</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
