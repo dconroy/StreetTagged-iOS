@@ -40,12 +40,14 @@ func userStateInitialize(enabledLogs: Bool, responder: UIResponder) {
         switch (state) {
             case .guest:
                 userGlobalState = .userGuest
+                grabGetStreamToken(userId: GET_STREAM_GLOBAL_FEED_NAME);
             case .signedOut:
                 userGlobalState = .userSignedOut
                 Client.shared.disconnect()
+                grabGetStreamToken(userId: GET_STREAM_GLOBAL_FEED_NAME);
             case .signedIn:
                 userGlobalState = .userSignedIn
-                updateGetStreamFeed()
+                grabGetStreamToken(userId: AWSMobileClient.default().username!);
             case .signedOutUserPoolsTokenInvalid:
                 userGlobalState = .userSignedOutUserPoolsTokenInvalid
             case .signedOutFederatedTokensInvalid:
@@ -58,12 +60,14 @@ func userStateInitialize(enabledLogs: Bool, responder: UIResponder) {
         switch (state) {
             case .guest:
                 userGlobalState = .userGuest
+                grabGetStreamToken(userId: GET_STREAM_GLOBAL_FEED_NAME);
             case .signedOut:
                 userGlobalState = .userSignedOut
                 Client.shared.disconnect()
+                grabGetStreamToken(userId: GET_STREAM_GLOBAL_FEED_NAME);
             case .signedIn:
                 userGlobalState = .userSignedIn
-                updateGetStreamFeed()
+                grabGetStreamToken(userId: AWSMobileClient.default().username!);
             case .signedOutUserPoolsTokenInvalid:
                 userGlobalState = .userSignedOutUserPoolsTokenInvalid
             case .signedOutFederatedTokensInvalid:
@@ -75,18 +79,6 @@ func userStateInitialize(enabledLogs: Bool, responder: UIResponder) {
             print("AWSMobileClient-State-Change: ", userGlobalState)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_SIGNIN_REFRESH), object: nil)
         }
-    }
-}
-
-func updateGetStreamFeed() {
-    AWSMobileClient.default().getUserAttributes { (attributes, error) in
-         if(error != nil){
-            print("ERROR_ATTRIBUTES: \(String(describing: error))")
-         }else{
-            if let attributesDict = attributes {
-                grabGetStreamToken(userId: AWSMobileClient.default().username!);
-            }
-         }
     }
 }
 
@@ -163,7 +155,12 @@ func grabGetStreamToken(userId: String) {
             let response = try decoder.decode(GetStreamTokenResponse.self, from: response.data!)
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.updateGetStream(name: AWSMobileClient.default().username!, id: userId, token: response.userToken)
+                        
+            if (AWSMobileClient.default().username != nil) {
+                appDelegate.updateGetStream(name: AWSMobileClient.default().username!, id: userId, token: response.userToken)
+            } else {
+                appDelegate.updateGetStream(name: "guest", id: userId, token: response.userToken)
+            }
         } catch let error {
             print(error.localizedDescription)
         }

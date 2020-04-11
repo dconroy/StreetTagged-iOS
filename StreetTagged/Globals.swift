@@ -76,6 +76,8 @@ let urlFavorite = UIApplication.appAPIURL! + "/favorites"
 let getItemURL = UIApplication.appAPIURL! + "/items"
 let s3Bucket = "streetartprod"
 
+let GET_STREAM_GLOBAL_FEED_NAME = "global_user"
+
 let streamTokenURL = UIApplication.appAPIURL! + "/stream/token"
 let streamGetTags = UIApplication.appAPIURL! + "/stream/tags"
 

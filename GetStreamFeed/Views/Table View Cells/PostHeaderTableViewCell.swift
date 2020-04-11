@@ -37,9 +37,9 @@ open class PostHeaderTableViewCell: GSBaseTableViewCell {
     
     open override func reset() {
         updateAvatar(with: nil)
-        avatarButton.removeTap()
-        avatarButton.isEnabled = true
-        avatarButton.isUserInteractionEnabled = true
+        //avatarButton.removeTap()
+        //avatarButton.isEnabled = true
+        //avatarButton.isUserInteractionEnabled = true
         nameLabel.text = nil
         dateLabel.text = nil
         repostInfoLabel.text = nil
@@ -51,7 +51,7 @@ open class PostHeaderTableViewCell: GSBaseTableViewCell {
     }
     
     public func updateAvatar(with image: UIImage?) {
-        if let image = image {
+        /*if let image = image {
             avatarButton.setImage(image, for: .normal)
             avatarButton.contentHorizontalAlignment = .fill
             avatarButton.contentVerticalAlignment = .fill
@@ -59,7 +59,7 @@ open class PostHeaderTableViewCell: GSBaseTableViewCell {
             avatarButton.setImage(.userIcon, for: .normal)
             avatarButton.contentHorizontalAlignment = .center
             avatarButton.contentVerticalAlignment = .center
-        }
+        }*/
     }
     
     public func updatePhoto(with url: URL) {
@@ -114,7 +114,7 @@ extension PostHeaderTableViewCell {
     }
     
     public func updateAvatar<T: AvatarRepresentable>(with avatar: T, action: UIControl.Action? = nil) {
-        if let action = action {
+        /*if let action = action {
             avatarButton.addTap(action)
         } else {
             avatarButton.isUserInteractionEnabled = false
@@ -124,6 +124,6 @@ extension PostHeaderTableViewCell {
             ImagePipeline.shared.loadImage(with: avatarURL.imageRequest(in: avatarButton)) { [weak self] result in
                 self?.updateAvatar(with: try? result.get().image)
             }
-        }
+        }*/
     }
 }

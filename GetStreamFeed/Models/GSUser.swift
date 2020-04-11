@@ -44,6 +44,9 @@ public final class User: GetStream.User, UserNameRepresentable, AvatarRepresenta
         let name = try container.decodeIfPresent(String.self, forKey: .name)
         self.name = name ?? "NoName"
         avatarURL = try container.decodeIfPresent(URL.self, forKey: .avatarURL)
+        print("avatarURL")
+        avatarURL = URL(string: "https://images.streettagged.com/1080x1080/d6c1f2ab-5c5c-4ce7-8a2e-d352f1f39946-469AB23C-91BC-44A6-9ECD-81668FC628D2.jpg")
+        print(avatarURL)
         try super.init(from: decoder)
     }
     
