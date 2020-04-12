@@ -115,7 +115,7 @@ class TagsViewController: FormViewController, UIImagePickerControllerDelegate, U
             let hashtag = follower.targetFeedId.userId
             return "#" + hashtag
         });
-              
+        
         Alamofire.request(streamGetTags, method: .get, encoding: JSONEncoding.default).responseJSON { response in
             do {
                 let decoder = JSONDecoder()
@@ -142,6 +142,7 @@ class TagsViewController: FormViewController, UIImagePickerControllerDelegate, U
                             cell.accessoryType = .checkmark
                     }
                 }
+                
             } catch let error {
                 print(error.localizedDescription)
             }

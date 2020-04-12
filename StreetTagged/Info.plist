@@ -11,7 +11,7 @@
 	<key>NSAllowsArbitraryLoads</key>
 	<true/>
 	<key>AppAPIBaseURL</key>
-	<string>https://6c14fb13.ngrok.io</string>
+	<string>https://api-dev.streettagged.com</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
