@@ -99,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 self.currentViewController = viewController
 
                 if index == 0 {
-                    tabBarController.title = "Feed"
+                    tabBarController.title = "For You"
                 }
                 if index == 1 {
                     tabBarController.title = "Nearby"
@@ -151,7 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 }
         }
                
-        getStreamVC.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Feed", image: UIImage(named: "home"), selectedImage: UIImage(named: "home_1"))
+        getStreamVC.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "For You", image: UIImage(named: "home"), selectedImage: UIImage(named: "home_1"))
         nearByVC.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Nearby", image: UIImage(named: "find"), selectedImage: UIImage(named: "find_1"))
         blankVC.tabBarItem = ESTabBarItem.init(TabContentView(), title: nil, image: UIImage(named: "photo_verybig"), selectedImage: UIImage(named: "photo_verybig"))
         favorVC.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Favorites", image: UIImage(named: "favor"), selectedImage: UIImage(named: "favor_1"))
@@ -160,7 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         tabBarController.viewControllers = [getStreamVC, nearByVC, blankVC, favorVC, profileVC]
                
         let navigationController = BasicNavigationController.init(rootViewController: tabBarController)
-        tabBarController.title = "Feed"
+        tabBarController.title = "For You"
         
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
@@ -168,7 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(startLocationManager), name: NSNotification.Name(rawValue: GLOBAL_START_LOCATION_MANAGER), object: nil)
         
         //TODO: Need refacted tags manager
-        tabBarController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Filter", style: UIBarButtonItem.Style.plain, target: self, action: #selector(filter))
+        tabBarController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Tags", style: UIBarButtonItem.Style.plain, target: self, action: #selector(filter))
     
         return true
     }
