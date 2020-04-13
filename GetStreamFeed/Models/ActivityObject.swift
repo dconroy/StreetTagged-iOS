@@ -7,6 +7,7 @@
 //
 
 import GetStream
+import CoreLocation
 
 /// An activity object protocol.
 public protocol ActivityObjectProtocol: Enrichable {
@@ -17,6 +18,7 @@ public protocol ActivityObjectProtocol: Enrichable {
 struct PostMeta: Codable {
     let image: String
     let text: String
+    let coordinates: [Float]?
 }
 
 /// An activity object with several subtypes: text, image, reposted activity, following user.
@@ -24,7 +26,7 @@ public enum ActivityObject: ActivityObjectProtocol {
     case unknown
     case text(_ value: String)
     case image(_ url: URL)
-    case imageText(_ url: URL, _ value: String)
+    case imageText(url: URL, value: String, location: CLLocation?)
     case repost(_ activity: Activity)
     case following(_ user: User)
     
@@ -36,7 +38,7 @@ public enum ActivityObject: ActivityObjectProtocol {
             return value
         case .image(let url):
             return url.absoluteString
-        case .imageText(let url, _):
+        case .imageText(let url, _, _):
             return url.absoluteString
         case .repost(let activity):
             return activity.referenceId
@@ -55,7 +57,7 @@ public enum ActivityObject: ActivityObjectProtocol {
             try container.encode(value)
         case .image(let url):
             try container.encode(url)
-        case .imageText(let url, let value):
+        case .imageText(let url, let value, let location):
             //try container.encode(url, value)
             break
         case .repost(let activity):
@@ -72,8 +74,17 @@ public enum ActivityObject: ActivityObjectProtocol {
             let data = text.data(using: .utf8)
             let decoder = JSONDecoder()
             if let parsedData = try? decoder.decode(PostMeta.self, from: data!) {
+                                
                 let imageURL = URL(string: parsedData.image)
-                self = .imageText(imageURL!, parsedData.text)
+                
+                if let coordinates = parsedData.coordinates {
+                    let latitude: CLLocationDegrees = CLLocationDegrees(coordinates[1])
+                    let longitude: CLLocationDegrees = CLLocationDegrees(coordinates[0])
+                    let location = CLLocation(latitude: latitude, longitude: longitude)
+                    self = .imageText(url: imageURL!, value: parsedData.text, location: location)
+                } else {
+                    self = .imageText(url: imageURL!, value: parsedData.text, location: nil)
+                }
             } else {
                 if text.hasPrefix("http"), let imageURL = URL(string: text) {
                     self = .image(imageURL)

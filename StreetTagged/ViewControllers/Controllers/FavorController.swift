@@ -85,10 +85,10 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
         let imageView = UIImageView(frame: CGRect(x:0, y:0, width:favCell.frame.size.width, height:favCell.frame.size.height))
         
         switch post.object {
-            case .imageText(let url, _):
-                imageView.kf.setImage(with: url)
+            case .imageText(let url, let value, let location):
+                    imageView.kf.setImage(with: url)
             default:
-                break
+                    break
         }
         
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
@@ -101,7 +101,7 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
         if (!isShowingImage) {
             let post: Activity = self.activities[indexPath.row]
             switch post.object {
-                case .imageText(let url, let value):
+                case .imageText(let url, let value, let location):
                     isShowingImage = true
                     let images = [
                      LightboxImage(

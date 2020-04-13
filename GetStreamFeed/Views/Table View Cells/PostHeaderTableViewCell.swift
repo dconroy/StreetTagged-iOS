@@ -9,6 +9,7 @@
 import UIKit
 import Nuke
 import GetStream
+import CoreLocation
 
 open class PostHeaderTableViewCell: GSBaseTableViewCell {
 
@@ -89,6 +90,8 @@ extension PostHeaderTableViewCell {
         if let textRepresentable = originalActivity as? TextRepresentable {
             messageLabel.text = textRepresentable.text
         }
+           
+        var loc: Any?
         
         if let object = originalActivity.object as? ActivityObject {
             switch object {
@@ -96,18 +99,22 @@ extension PostHeaderTableViewCell {
                 messageLabel.text = text
             case .image(let url):
                 updatePhoto(with: url)
-            case .imageText(let url, let value):
+            case .imageText(let url, let value, let location):
                 updatePhotoWithText(with: url, text: value)
+                loc = location
             case .following(let user):
                 messageLabel.text = "Follow to \(user.name)"
             default:
                 return
             }
         }
-        
-        dateLabel.text = activity.time?.relative
-        // TESTING: dateLabel.text = "Hey"
-        
+                
+        if let location = loc {
+            dateLabel.text = activity.time!.relative + getDistanceFromGlobalLocation(artLocation: location as! CLLocation)
+        } else {
+            dateLabel.text = activity.time?.relative
+        }
+                
         if activity.verb == .repost {
             repost = "reposted by \(activity.actor.name)"
         }
