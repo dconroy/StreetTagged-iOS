@@ -168,7 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(startLocationManager), name: NSNotification.Name(rawValue: GLOBAL_START_LOCATION_MANAGER), object: nil)
         
         //TODO: Need refacted tags manager
-        tabBarController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Tags", style: UIBarButtonItem.Style.plain, target: self, action: #selector(filter))
+        //tabBarController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Tags", style: UIBarButtonItem.Style.plain, target: self, action: #selector(filter))
     
         return true
     }

@@ -97,7 +97,7 @@ class GetStreamViewController: FlatFeedViewController<Activity> {
     public func updateSetup() {
         if let feedId = FeedId(feedSlug: "timeline") {
             self.timelineFlatFeed = Client.shared.flatFeed(feedId)
-            presenter = FlatFeedPresenter<Activity>(flatFeed: self.timelineFlatFeed!, reactionTypes: [.likes, .comments, .reposts])
+            presenter = FlatFeedPresenter<Activity>(flatFeed: self.timelineFlatFeed!, reactionTypes: [.likes])
             // Grabs the current feeds thats are being followed
             self.timelineFlatFeed!.following(completion: { result in
                 do {

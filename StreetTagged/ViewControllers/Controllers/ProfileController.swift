@@ -9,7 +9,62 @@ import UIKit
 import Foundation
 import Alamofire
 import AWSMobileClient
+import Eureka
 
+let SIGN_IN_LABEL = "Sign In"
+let SIGN_OUT_LABEL = "Sign Out"
+
+public class ProfileController: FormViewController {
+    
+    var awsAuthRow: ButtonRow?
+    
+    deinit {
+
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        switch userGlobalState {
+            case .userSignedIn:
+                awsAuthRow?.title = SIGN_OUT_LABEL
+                break
+            default:
+                awsAuthRow?.title = SIGN_IN_LABEL
+                break
+        }
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.awsAuthRow = ButtonRow(){ row in
+            switch userGlobalState {
+                case .userSignedIn:
+                    row.title = SIGN_OUT_LABEL
+                    break
+                default:
+                    row.title = SIGN_IN_LABEL
+            }
+            row.onCellSelection { cell, row in
+                switch userGlobalState {
+                    case .userSignedIn:
+                        userSignOut()
+                        row.title = SIGN_IN_LABEL
+                        break
+                    default:
+                        userSignIn(navController: self.navigationController!)
+                        break
+                }
+                row.reload()
+            }
+        }
+        
+        form
+        +++ Section(header: "Authentication", footer: "For our privacy policy please visit: https://streettagged.com/privacypolicy.html")
+            <<< self.awsAuthRow!
+    }
+}
+
+/*
 public class ProfileController: UIViewController {
     
     @IBOutlet var mainButton: UIButton!
@@ -38,8 +93,6 @@ public class ProfileController: UIViewController {
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        
-       
     }
     
     
@@ -116,3 +169,4 @@ extension ProfileController: UITableViewDataSource, UITableViewDelegate {
     }
     
 }
+*/
