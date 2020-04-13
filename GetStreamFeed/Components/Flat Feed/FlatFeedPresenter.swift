@@ -54,7 +54,6 @@ public final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
             
             do {
                 let response = try result.get()
-                //print(response.results)
                 
                 self.items.append(contentsOf: response.results
                     .map({ ActivityPresenter(activity: $0,

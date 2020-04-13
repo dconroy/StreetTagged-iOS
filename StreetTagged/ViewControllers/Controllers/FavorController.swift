@@ -42,25 +42,33 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        /*AWSMobileClient.default().initialize({ (state, error) in
+        AWSMobileClient.default().initialize({ (state, error) in
             switch (state) {
                 case .signedIn:
                     Client.shared.reactions(forUserId: AWSMobileClient.default().username!, completion: { result in
-                        /*let reactions = try! result.get()
+                        let reactions = try! result.get()
+                        
+                        print(reactions)
+                        
                         let ids = reactions.reactions.map { $0.activityId }
+
+                        
                         Client.shared.get(typeOf: Activity.self, activityIds: ids, completion: { rr in
                             let activities = try! rr.get()
-                            self.activities = activities.results
+                            
+                            self.activities = activities.results.sorted(by: {
+                                $0.time!.compare($1.time!) == .orderedDescending
+                            })
+                            
                             DispatchQueue.main.async {
                                 self.favoriteCollectionView!.reloadData()
                             }
-                        });*/
-                        print(result)
+                        });
                     })
                 default:
                     userGlobalState = .userStateUnknown
             }
-        })*/
+        })
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

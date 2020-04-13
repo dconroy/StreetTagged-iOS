@@ -25,7 +25,7 @@ open class ReactionButton: UIButton {
                                                           _ completion: @escaping Completion<T>)
         where T.ReactionType == GetStream.Reaction<ReactionExtraData, U> {
             isEnabled = false
-            
+                    
             guard isSelected else {
                 presenter.addReaction(for: activity,
                                       kindOf: kind,

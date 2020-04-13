@@ -30,7 +30,6 @@ public final class ImageCheckRow<T: Equatable>: Row<ImageCheckCell<T>>, Selectab
 }
 
 public class ImageCheckCell<T: Equatable> : Cell<T>, CellType {
-
     required public init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -55,9 +54,6 @@ public class ImageCheckCell<T: Equatable> : Cell<T>, CellType {
         checkImageView?.sizeToFit()
     }
     
-    /// Image view to render images. If `accessoryType` is set to `checkmark`
-    /// will create a new `UIImageView` and set it as `accessoryView`.
-    /// Otherwise returns `self.imageView`.
     open var checkImageView: UIImageView? {
         guard accessoryType == .checkmark else {
             return self.imageView
@@ -120,13 +116,11 @@ class TagsViewController: FormViewController, UIImagePickerControllerDelegate, U
             do {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
-                let tags = try decoder.decode(TagsRespsonse.self, from: response.data!)
+                let data = try decoder.decode(TagsResponse.self, from: response.data!)
                 
-                print(tags.tags)
-                
-                self.form +++ SelectableSection<ImageCheckRow<String>>("Please select the tags of art work you will like to see your feed.", selectionType: .multipleSelection)
-                for option in tags.tags {
-                    self.form.last! <<< ImageCheckRow<String>(option){ lrow in
+                self.form +++ SelectableSection<ListCheckRow<String>>("Please select the tags of art work you will like to see your feed.", selectionType: .multipleSelection)
+                for option in data.tags.filter({ $0.contains("#") }) {
+                    self.form.last! <<< ListCheckRow<String>(option){ lrow in
                         lrow.title = option
                         lrow.selectableValue = option
                         
@@ -137,10 +131,8 @@ class TagsViewController: FormViewController, UIImagePickerControllerDelegate, U
                         }
                         
                         }.cellSetup { cell, _ in
-                            cell.trueImage = UIImage(named: "selectedRectangle")!
-                            cell.falseImage = UIImage(named: "unselectedRectangle")!
                             cell.accessoryType = .checkmark
-                    }
+                        }
                 }
                 
             } catch let error {
@@ -150,8 +142,8 @@ class TagsViewController: FormViewController, UIImagePickerControllerDelegate, U
     }
     
     override func valueHasBeenChanged(for row: BaseRow, oldValue: Any?, newValue: Any?) {
-        currentTages = ((row.section as! SelectableSection<ImageCheckRow<String>>).selectedRows().map({$0.baseValue}))
-        print("Mutiple Selection:\((row.section as! SelectableSection<ImageCheckRow<String>>).selectedRows().map({$0.baseValue}))")
+        currentTages = ((row.section as! SelectableSection<ListCheckRow<String>>).selectedRows().map({$0.baseValue}))
+        print("Mutiple Selection:\((row.section as! SelectableSection<ListCheckRow<String>>).selectedRows().map({$0.baseValue}))")
     }
         
     public override func viewDidLayoutSubviews() {

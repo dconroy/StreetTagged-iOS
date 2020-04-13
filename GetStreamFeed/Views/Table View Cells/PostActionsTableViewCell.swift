@@ -74,7 +74,7 @@ extension PostActionsTableViewCell {
         repostButton.isHidden = false
     }
     
-    public func updateLike(isLiked: Bool, likesCount: Int, action: UIControl.Action? = nil) {
+    public func updateLike(isLiked: Bool, likesCount: Int, action: UIControl.Action? = nil) {        
         if let action = action {
             likeButton.addTap(action)
         }

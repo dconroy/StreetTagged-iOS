@@ -167,10 +167,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         
         NotificationCenter.default.addObserver(self, selector: #selector(startLocationManager), name: NSNotification.Name(rawValue: GLOBAL_START_LOCATION_MANAGER), object: nil)
         
-        //TODO: Need refacted tags manager
-        //tabBarController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Tags", style: UIBarButtonItem.Style.plain, target: self, action: #selector(filter))
-    
+        NotificationCenter.default.addObserver(self, selector: #selector(areYouLoggedIn), name: NSNotification.Name(rawValue: GLOBAL_ARE_YOU_LOGGED_IN), object: nil)
+          
         return true
+    }
+    
+    @objc func areYouLoggedIn() {
+        let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to submit and favorite street art.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in
+            userSignIn(navController: self.currentViewController!.navigationController!)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
+            
+        }))
+        self.currentViewController!.present(alert, animated: true, completion: nil)
     }
     
     @objc func startLocationManager() {
@@ -194,14 +204,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             self.currentViewController!.present(imagePickerController, animated: true, completion: nil)
         }
     }
-    
-    @objc func filter() {
-        let controller = TagsViewController()
-        let navigationController = UINavigationController.init(rootViewController: controller)
-        navigationController.modalPresentationStyle = .fullScreen
-        self.currentViewController!.present(navigationController, animated: true, completion: nil)
-    }
-    
+        
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         

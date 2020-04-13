@@ -53,7 +53,7 @@ struct FavoriteArtWorks: Decodable {
     let artWorks: [Art]
 }
 
-struct TagsRespsonse: Decodable {
+struct TagsResponse: Decodable {
     let tags: [String]
 }
 

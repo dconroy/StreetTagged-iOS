@@ -26,19 +26,24 @@ open class RepostButton: ReactionButton {
                                                            targetsFeedIds: [FeedId] = [],
                                                            _ completion: @escaping ErrorCompletion)
         where T.ReactionType == GetStream.Reaction<ReactionExtraData, U> {
-            react(with: presenter,
-                  activity: activity.original,
-                  reaction: activity.original.userRepostReaction,
-                  parentReaction: nil,
-                  kindOf: .repost,
-                  userTypeOf: U.self,
-                  targetsFeedIds: targetsFeedIds) {
-                    if let result = try? $0.get() {
-                        result.button.setTitle(String(result.activity.original.repostsCount), for: .normal)
-                        completion(nil)
-                    } else {
-                        // completion($0.error)
-                    }
+            if (userGlobalState == .userSignedIn) {
+                react(with: presenter,
+                      activity: activity.original,
+                      reaction: activity.original.userRepostReaction,
+                      parentReaction: nil,
+                      kindOf: .repost,
+                      userTypeOf: U.self,
+                      targetsFeedIds: targetsFeedIds) {
+                        if let result = try? $0.get() {
+                            result.button.setTitle(String(result.activity.original.repostsCount), for: .normal)
+                            completion(nil)
+                        } else {
+                            // completion($0.error)
+                        }
+                }
+            } else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_ARE_YOU_LOGGED_IN), object: nil)
             }
+            
     }
 }

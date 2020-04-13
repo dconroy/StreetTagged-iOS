@@ -30,28 +30,32 @@ open class LikeButton: ReactionButton {
                                                          userTypeOf userType: U.Type,
                                                          _ completion: @escaping ErrorCompletion)
         where T.ReactionType == GetStream.Reaction<ReactionExtraData, U> {
-            react(with: presenter,
-                  activity: activity.original,
-                  reaction: likedReaction ?? activity.original.userLikedReaction,
-                  parentReaction: parentReaction,
-                  kindOf: .like,
-                  userTypeOf: T.ReactionType.UserType.self) {
-                    if let result = try? $0.get() {
-                        let title: String
-                        
-                        if let parentReaction = parentReaction {
-                            let count = parentReaction.childrenCounts[.like] ?? 0
-                            title = count > 0 ? String(count) : ""
+            if (userGlobalState == .userSignedIn) {
+                react(with: presenter,
+                      activity: activity.original,
+                      reaction: likedReaction ?? activity.original.userLikedReaction,
+                      parentReaction: parentReaction,
+                      kindOf: .like,
+                      userTypeOf: T.ReactionType.UserType.self) {
+                        if let result = try? $0.get() {
+                            let title: String
+                            
+                            if let parentReaction = parentReaction {
+                                let count = parentReaction.childrenCounts[.like] ?? 0
+                                title = count > 0 ? String(count) : ""
+                            } else {
+                                let count = result.activity.original.likesCount
+                                title = count > 0 ? String(count) : ""
+                            }
+                            
+                            result.button.setTitle(title, for: .normal)
+                            completion(nil)
                         } else {
-                            let count = result.activity.original.likesCount
-                            title = count > 0 ? String(count) : ""
+                            //completion($0.error)
                         }
-                        
-                        result.button.setTitle(title, for: .normal)
-                        completion(nil)
-                    } else {
-                        //completion($0.error)
-                    }
+                }
+            } else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_ARE_YOU_LOGGED_IN), object: nil)
             }
     }
 }
