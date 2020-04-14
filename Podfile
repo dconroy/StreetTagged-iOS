@@ -40,4 +40,5 @@ target 'StreetTagged' do
   pod 'TransitionPatch'
   pod 'Nuke'
   pod 'Reusable'
+  pod 'NVActivityIndicatorView'
 end

@@ -73,7 +73,7 @@ class GetStreamViewController: FlatFeedViewController<Activity> {
         
         for tag in updates.removed {
             tagUpdatesGroup.enter()
-            self.timelineFlatFeed!.unfollow(fromTarget: FeedId(feedSlug: "tag", userId: tag), keepHistory: false, completion: { result in
+            self.timelineFlatFeed!.unfollow(fromTarget: FeedId(feedSlug: "tag", userId: tag), keepHistory: true, completion: { result in
                 tagUpdatesGroup.leave()
             })
         }
@@ -117,17 +117,14 @@ class GetStreamViewController: FlatFeedViewController<Activity> {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            // Create a detail view controller.
             let detailViewController = DetailViewController<Activity>()
-            // Set the activity presenter from the selected cell.
             detailViewController.activityPresenter = activityPresenter(in: indexPath.section)
-            // Set sections we want to show the activity itself and comments.
             detailViewController.sections = [.activity, .comments]
-            // Present the detail view controller with UINavigationController
-            // to use the navigation bar to return back.
-            present(UINavigationController(rootViewController: detailViewController), animated: true)
+
+            let navigationController = UINavigationController(rootViewController: detailViewController)
+            navigationController.modalPresentationStyle = .fullScreen
+            present(navigationController, animated: true)
         } else {
-            // Keep the default behaviour for over rows in the table view.
             super.tableView(tableView, didSelectRowAt: indexPath)
         }
     }

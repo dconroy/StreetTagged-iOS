@@ -51,6 +51,9 @@ PODS:
     - Alamofire (~> 4.1)
     - Result (~> 4.1)
   - Nuke (8.4.1)
+  - NVActivityIndicatorView (4.8.0):
+    - NVActivityIndicatorView/Presenter (= 4.8.0)
+  - NVActivityIndicatorView/Presenter (4.8.0)
   - Realm (4.4.0):
     - Realm/Headers (= 4.4.0)
   - Realm/Headers (4.4.0)
@@ -92,6 +95,7 @@ DEPENDENCIES:
   - lottie-ios
   - Mapbox-iOS-SDK
   - Nuke
+  - NVActivityIndicatorView
   - RealmSwift
   - Reusable
   - SPPermissions/Camera (~> 5.2.6)
@@ -125,6 +129,7 @@ SPEC REPOS:
     - MapboxMobileEvents
     - Moya
     - Nuke
+    - NVActivityIndicatorView
     - Realm
     - RealmSwift
     - Result
@@ -159,6 +164,7 @@ SPEC CHECKSUMS:
   MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   Nuke: d780e3507a86b86c589ab3cc5cd302d5456f06fb
+  NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
   Realm: e125f464884cda953ebefe70c671b75b03b81b9b
   RealmSwift: 33656a42bd300959a081fc13347376bc478071af
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
@@ -169,6 +175,6 @@ SPEC CHECKSUMS:
   Swime: d7b2c277503b6cea317774aedc2dce05613f8b0b
   TransitionPatch: c02b48b1429255b14ef82b7e411034e0958b9681
 
-PODFILE CHECKSUM: ac8cbe24fceb0b26a00542c54e118a9d7af98900
+PODFILE CHECKSUM: e203e20773062746f7bddf14725c1d30265f5aff
 
 COCOAPODS: 1.8.3
