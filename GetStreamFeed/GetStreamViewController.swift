@@ -87,9 +87,7 @@ class GetStreamViewController: FlatFeedViewController<Activity> {
                         let appDelegate = UIApplication.shared.delegate as! AppDelegate
                         appDelegate.setGetStreamFollowers(follower: response.results)
                     }
-                } catch let responseError {
-                    print(responseError)
-                }
+                } catch _ { }
             })
         }
     }
@@ -97,7 +95,7 @@ class GetStreamViewController: FlatFeedViewController<Activity> {
     public func updateSetup() {
         if let feedId = FeedId(feedSlug: "timeline") {
             self.timelineFlatFeed = Client.shared.flatFeed(feedId)
-            presenter = FlatFeedPresenter<Activity>(flatFeed: self.timelineFlatFeed!, reactionTypes: [.likes])
+            presenter = FlatFeedPresenter<Activity>(flatFeed: self.timelineFlatFeed!, reactionTypes: [.likes, .comments])
             // Grabs the current feeds thats are being followed
             self.timelineFlatFeed!.following(completion: { result in
                 do {
@@ -106,9 +104,7 @@ class GetStreamViewController: FlatFeedViewController<Activity> {
                         let appDelegate = UIApplication.shared.delegate as! AppDelegate
                         appDelegate.setGetStreamFollowers(follower: response.results)
                     }
-                } catch let responseError {
-                    print(responseError)
-                }
+                } catch _ { }
             })
         }
         super.viewDidLoad()

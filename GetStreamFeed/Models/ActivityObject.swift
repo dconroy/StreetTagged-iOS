@@ -119,7 +119,6 @@ extension ActivityObject {
     /// A text, if the object contains the text.
     public var text: String? {
         if case .text(let value) = self {
-            print(value)
             return value
         }
         
@@ -129,7 +128,6 @@ extension ActivityObject {
     /// An image URL, if the object contains the image URL.
     public var imageURL: URL? {
         if case .image(let url) = self {
-            print(url)
             return url
         }
         
