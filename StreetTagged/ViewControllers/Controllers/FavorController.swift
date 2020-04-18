@@ -46,24 +46,31 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
             switch (state) {
                 case .signedIn:
                     Client.shared.reactions(forUserId: AWSMobileClient.default().username!, completion: { result in
-                        let reactions = try! result.get()
-                        
-                        print(reactions)
-                        
-                        let ids = reactions.reactions.map { $0.activityId }
+                        do {
+                            let reactions = try result.get()
+                                                          
+                            let ids = reactions.reactions.map { $0.activityId }
 
-                        
-                        Client.shared.get(typeOf: Activity.self, activityIds: ids, completion: { rr in
-                            let activities = try! rr.get()
-                            
-                            self.activities = activities.results.sorted(by: {
-                                $0.time!.compare($1.time!) == .orderedDescending
-                            })
-                            
-                            DispatchQueue.main.async {
-                                self.favoriteCollectionView!.reloadData()
+                            if (ids.count != 0) {
+                                Client.shared.get(typeOf: Activity.self, activityIds: ids, completion: { rr in
+                                    do {
+                                        let activities = try rr.get()
+                                        
+                                        self.activities = activities.results.sorted(by: {
+                                            $0.time!.compare($1.time!) == .orderedDescending
+                                        })
+                                        
+                                        DispatchQueue.main.async {
+                                            self.favoriteCollectionView!.reloadData()
+                                        }
+                                    } catch {
+                                        
+                                    }
+                                });
                             }
-                        });
+                        } catch {
+                            
+                        }
                     })
                 default:
                     userGlobalState = .userStateUnknown
