@@ -35,7 +35,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     var getStreamFollers: [Follower] = []
     
     func setGetStreamFollowers(follower: [Follower]) {
-        getStreamFollers = follower
+        if (follower.count != 0) {
+            getStreamFollers = follower
+        } else {
+            switch (userGlobalState) {
+                case .userSignedIn:
+                    let controller = TagsViewController()
+                    let navigationController = UINavigationController.init(rootViewController: controller)
+                    navigationController.modalPresentationStyle = .fullScreen
+                    self.currentViewController!.present(navigationController, animated: true, completion: nil)
+                default:
+                    break
+            }
+        }
     }
     
     func getGetStreamFollowers() -> [Follower] {

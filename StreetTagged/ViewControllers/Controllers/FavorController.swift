@@ -47,14 +47,13 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
                 case .signedIn:
                     Client.shared.reactions(forUserId: AWSMobileClient.default().username!, completion: { result in
                         do {
-                            let reactions = try result.get()
-                                                          
-                            let ids = reactions.reactions.map { $0.activityId }
-
-                            if (ids.count != 0) {
-                                Client.shared.get(typeOf: Activity.self, activityIds: ids, completion: { rr in
+                            let rawData = try result.get()
+                            let activityIds = rawData.reactions.map { $0.activityId }
+                            
+                            if (activityIds.count != 0) {
+                                Client.shared.get(typeOf: Activity.self, activityIds: activityIds, completion: { activityObjects in
                                     do {
-                                        let activities = try rr.get()
+                                        let activities = try activityObjects.get()
                                         
                                         self.activities = activities.results.sorted(by: {
                                             $0.time!.compare($1.time!) == .orderedDescending
@@ -63,14 +62,15 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
                                         DispatchQueue.main.async {
                                             self.favoriteCollectionView!.reloadData()
                                         }
-                                    } catch {
-                                        
-                                    }
+                                    } catch { }
                                 });
+                            } else {
+                                self.activities.removeAll()
+                                DispatchQueue.main.async {
+                                    self.favoriteCollectionView!.reloadData()
+                                }
                             }
-                        } catch {
-                            
-                        }
+                        } catch { }
                     })
                 default:
                     userGlobalState = .userStateUnknown
@@ -92,7 +92,7 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
         let imageView = UIImageView(frame: CGRect(x:0, y:0, width:favCell.frame.size.width, height:favCell.frame.size.height))
         
         switch post.object {
-            case .imageText(let url, let value, let location):
+        case .imageText(let url, _, _):
                     imageView.kf.setImage(with: url)
             default:
                     break
@@ -108,7 +108,7 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
         if (!isShowingImage) {
             let post: Activity = self.activities[indexPath.row]
             switch post.object {
-                case .imageText(let url, let value, let location):
+            case .imageText(let url, let value, _):
                     isShowingImage = true
                     let images = [
                      LightboxImage(
