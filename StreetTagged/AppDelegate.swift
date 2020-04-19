@@ -14,8 +14,6 @@ import AWSS3
 import Photos
 import CoreLocation
 import GetStream
-import GetStreamActivityFeed
-
 
 var globalLatitude: CLLocationDegrees?
 var globalLongitude: CLLocationDegrees?
@@ -31,7 +29,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     var currentViewController: UIViewController?
     let storyboard: UIStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
     let locationManager = CLLocationManager()
-
+    
+    let getStreamVC = GetStreamViewController()
+    
+    var getStreamFollers: [Follower] = []
+    
+    func setGetStreamFollowers(follower: [Follower]) {
+        if (follower.count != 0) {
+            getStreamFollers = follower
+        } else {
+            switch (userGlobalState) {
+                case .userSignedIn:
+                    let controller = TagsViewController()
+                    let navigationController = UINavigationController.init(rootViewController: controller)
+                    navigationController.modalPresentationStyle = .fullScreen
+                    self.currentViewController!.present(navigationController, animated: true, completion: nil)
+                default:
+                    break
+            }
+        }
+    }
+    
+    func getGetStreamFollowers() -> [Follower] {
+        return getStreamFollers
+    }
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print("location manager authorization status changed")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
@@ -53,28 +75,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     @objc func timerGPSFunction() {
         
     }
+    
+    func updateGetStream(name: String, id: String, token: String) {
+        Client.shared.setupUser(User(name: name,  id: id), token: token) { (result) in
+            self.getStreamVC.updateSetup()
+            self.getStreamVC.reloadData()
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        userStateInitialize(enabledLogs: true, responder: self)
-        
         // TODO: Refactor the cube storage
         ColorCubeStorage.loadToDefault()
-                    
-        let profile = storyboard.instantiateViewController(withIdentifier: "Profile") as! ProfileController
- 
-        let flow = UICollectionViewFlowLayout()
-        let v1 = FeedController(collectionViewLayout: flow)
-        let v2 = NearByController()
-        let v3 = FavorController()
-        let v4 = FavorController()
-        let v5 = profile
+                
+        Client.config = .init(apiKey: UIApplication.getStreamApiKey!, appId: UIApplication.getStreamAppId!, logsEnabled: false)
         
-        currentViewController = v1
+        userStateInitialize(enabledLogs: true, responder: self)
+            
+        let nearByVC = NearByController()
+        let blankVC = UIViewController()
+        let favorVC = FavorController()
+        let profileVC = storyboard.instantiateViewController(withIdentifier: "Profile") as! ProfileController
+        
+        currentViewController = getStreamVC
                 
         let tabBarController = ESTabBarController()
         tabBarController.delegate = self
-        tabBarController.title = "Irregularity"
+        tabBarController.title = ""
         tabBarController.tabBar.shadowImage = UIImage(named: "transparent")
         tabBarController.tabBar.backgroundImage = UIImage(named: "background")
         tabBarController.shouldHijackHandler = {
@@ -85,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 self.currentViewController = viewController
 
                 if index == 0 {
-                    tabBarController.title = "Feed"
+                    tabBarController.title = "For You"
                 }
                 if index == 1 {
                     tabBarController.title = "Nearby"
@@ -105,16 +131,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         tabBarController.didHijackHandler = { tabbarController, viewController, index in
                 if index == 2 {
                     if (userGlobalState == .userSignedIn) {
-                        /*let alert = UIAlertController(title: "From?", message: "", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action: UIAlertAction) in
-                            self.getImage(fromSourceType: .camera)
-                        }))
-                        alert.addAction(UIAlertAction(title: "Photo Album", style: .default, handler: {(action: UIAlertAction) in
-                            self.getImage(fromSourceType: .photoLibrary)
-                        }))
-                        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
-                        self.currentViewController!.present(alert, animated: true, completion: nil)*/
-                        
                         let vc = UploadArtController()
                         let navigationController = UINavigationController(rootViewController: vc)
                         navigationController.modalPresentationStyle = .fullScreen
@@ -147,23 +163,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 }
         }
                
-        v1.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Feed", image: UIImage(named: "home"), selectedImage: UIImage(named: "home_1"))
-        v2.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Nearby", image: UIImage(named: "find"), selectedImage: UIImage(named: "find_1"))
-        v3.tabBarItem = ESTabBarItem.init(TabContentView(), title: nil, image: UIImage(named: "photo_verybig"), selectedImage: UIImage(named: "photo_verybig"))
-        v4.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Favorites", image: UIImage(named: "favor"), selectedImage: UIImage(named: "favor_1"))
-        v5.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Me", image: UIImage(named: "me"), selectedImage: UIImage(named: "me_1"))
+        getStreamVC.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "For You", image: UIImage(named: "home"), selectedImage: UIImage(named: "home_1"))
+        nearByVC.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Nearby", image: UIImage(named: "find"), selectedImage: UIImage(named: "find_1"))
+        blankVC.tabBarItem = ESTabBarItem.init(TabContentView(), title: nil, image: UIImage(named: "photo_verybig"), selectedImage: UIImage(named: "photo_verybig"))
+        favorVC.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Favorites", image: UIImage(named: "favor"), selectedImage: UIImage(named: "favor_1"))
+        profileVC.tabBarItem = ESTabBarItem.init(TabBasicContentView(), title: "Me", image: UIImage(named: "me"), selectedImage: UIImage(named: "me_1"))
                
-        tabBarController.viewControllers = [v1, v2, v3, v4, v5]
+        tabBarController.viewControllers = [getStreamVC, nearByVC, blankVC, favorVC, profileVC]
                
         let navigationController = BasicNavigationController.init(rootViewController: tabBarController)
-        tabBarController.title = "Feed"
+        tabBarController.title = "For You"
         
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
         
         NotificationCenter.default.addObserver(self, selector: #selector(startLocationManager), name: NSNotification.Name(rawValue: GLOBAL_START_LOCATION_MANAGER), object: nil)
-    
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(areYouLoggedIn), name: NSNotification.Name(rawValue: GLOBAL_ARE_YOU_LOGGED_IN), object: nil)
+          
         return true
+    }
+    
+    @objc func areYouLoggedIn() {
+        let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to submit and favorite street art.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in
+            userSignIn(navController: self.currentViewController!.navigationController!)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
+            
+        }))
+        self.currentViewController!.present(alert, animated: true, completion: nil)
     }
     
     @objc func startLocationManager() {
@@ -187,11 +216,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             self.currentViewController!.present(imagePickerController, animated: true, completion: nil)
         }
     }
-    
-    @objc func filter() {
         
-    }
-    
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         

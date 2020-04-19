@@ -20,6 +20,12 @@ extension UIApplication {
     static var appAPIURL: String? {
         return Bundle.main.object(forInfoDictionaryKey: "AppAPIBaseURL") as? String
     }
+    static var getStreamApiKey: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "GetStreamAPIKey") as? String
+    }
+    static var getStreamAppId: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "GetStreamAppID") as? String
+    }
 }
 
 extension UserDefaults {
@@ -56,6 +62,10 @@ let GLOBAL_ALL_REFRESHED = "GLOBAL_ALL_REFRESHED"
 let GLOBAL_TOKEN_GET_ERROR = "GLOBAL_TOKEN_GET_ERROR"
 let GLOBAL_NEED_SIGN_UP = "GLOBAL_NEED_SIGN_UP"
 let GLOBAL_START_LOCATION_MANAGER = "GLOBAL_START_LOCATION_MANAGER"
+let GLOBAL_ARE_YOU_LOGGED_IN = "GLOBAL_ARE_YOU_LOGGED_IN"
+
+let GLOBAL_GET_STREAM_UPDATE_TAGS = "GLOBAL_GET_STREAM_UPDATE_TAGS"
+
 let GLOBAL_CDN = "images.streettagged.com"
 
 let searchURL = UIApplication.appAPIURL! + "/items/search"
@@ -66,6 +76,11 @@ let tagsURL = UIApplication.appAPIURL! + "/tags"
 let urlFavorite = UIApplication.appAPIURL! + "/favorites"
 let getItemURL = UIApplication.appAPIURL! + "/items"
 let s3Bucket = "streetartprod"
+
+let GET_STREAM_GLOBAL_FEED_NAME = "global_user"
+
+let streamTokenURL = UIApplication.appAPIURL! + "/stream/token"
+let streamGetTags = UIApplication.appAPIURL! + "/stream/tags"
 
 func imageURLFromS3Key(key: String, filter: String) -> String {
     return "https://" + GLOBAL_CDN + "/" + filter + "/" + key

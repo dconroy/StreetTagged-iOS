@@ -35,6 +35,10 @@ struct ArtWorks: Decodable {
     let items: [Art]
 }
 
+struct GetStreamTokenResponse: Decodable {
+    let userToken: String
+}
+
 struct ModerationLabel: Decodable {
     let Confidence: Double
     let Name: String
@@ -47,6 +51,10 @@ struct ModerationLabels: Decodable {
 
 struct FavoriteArtWorks: Decodable {
     let artWorks: [Art]
+}
+
+struct TagsResponse: Decodable {
+    let tags: [String]
 }
 
 struct ArtWorkReview: Decodable {

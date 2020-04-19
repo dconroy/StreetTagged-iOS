@@ -29,3 +29,4 @@ class BaseTableViewCell: UITableViewCell {
         setup()
     }
 }
+

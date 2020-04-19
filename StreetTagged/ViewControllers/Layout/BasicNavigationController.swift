@@ -25,7 +25,7 @@ class BasicNavigationController: UINavigationController {
         self.navigationItem.title = ""
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Toggle", style: UIBarButtonItem.Style.plain, target: self, action: #selector(toggle))
-
+        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -37,8 +37,8 @@ class BasicNavigationController: UINavigationController {
       }
     
     @objc func toggle() {
-        globalSimpleMode = !globalSimpleMode
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
+        //globalSimpleMode = !globalSimpleMode
+        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: GLOBAL_POSTS_REFRESHED), object: nil)
     }
     
 }

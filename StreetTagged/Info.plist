@@ -2,10 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>To notify users when they are near popular street art.</string>
+	<key>GetStreamAPIKey</key>
+	<string>wkx7qrba3h3h</string>
+	<key>GetStreamAppID</key>
+	<string>71352</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+	<key>NSAllowsArbitraryLoads</key>
+	<true/>
 	<key>AppAPIBaseURL</key>
-	<string>https://api.streettagged.com</string>
+	<string>https://api-dev.streettagged.com</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
