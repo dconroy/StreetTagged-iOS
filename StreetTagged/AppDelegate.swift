@@ -35,8 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     var getStreamFollers: [Follower] = []
     
     func setGetStreamFollowers(follower: [Follower]) {
+        getStreamFollers = follower
         if (follower.count != 0) {
-            getStreamFollers = follower
+            //TODO: Suppose more tags to follow
         } else {
             switch (userGlobalState) {
                 case .userSignedIn:
