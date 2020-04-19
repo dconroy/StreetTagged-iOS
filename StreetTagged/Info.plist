@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>GetStreamAPIKey</key>
-	<string>wkx7qrba3h3h</string>
+	<string>kxaeuncjpqnw</string>
 	<key>GetStreamAppID</key>
-	<string>71352</string>
+	<string>71540</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>NSAllowsArbitraryLoads</key>
 	<true/>
 	<key>AppAPIBaseURL</key>
-	<string>https://api-dev.streettagged.com</string>
+	<string>https://api.streettagged.com</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
