@@ -118,7 +118,7 @@ class TagsViewController: FormViewController, UIImagePickerControllerDelegate, U
                 decoder.dateDecodingStrategy = .iso8601
                 let data = try decoder.decode(TagsResponse.self, from: response.data!)
                 
-                self.form +++ SelectableSection<ListCheckRow<String>>("Please select the tags of art work you will like to see your feed or follow.", selectionType: .multipleSelection)
+                self.form +++ SelectableSection<ListCheckRow<String>>("Please select atleast one tag of art work you will like to see your feed.", selectionType: .multipleSelection)
                 for option in data.tags.filter({ $0.contains("#") }) {
                     self.form.last! <<< ListCheckRow<String>(option){ lrow in
                         lrow.title = option
