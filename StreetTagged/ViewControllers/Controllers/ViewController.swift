@@ -37,6 +37,7 @@ struct ArtWorks: Decodable {
 
 struct GetStreamTokenResponse: Decodable {
     let userToken: String
+    let userId: String
 }
 
 struct ModerationLabel: Decodable {
