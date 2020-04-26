@@ -153,6 +153,7 @@ func grabGetStreamToken(userId: String) {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             let response = try decoder.decode(GetStreamTokenResponse.self, from: response.data!)
+            print(response)
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
                         

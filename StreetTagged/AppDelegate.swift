@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     
     var getStreamFollers: [Follower] = []
     
+    let isDebugBackFilling = false
+    
     func setGetStreamFollowers(follower: [Follower]) {
         getStreamFollers = follower
         if (follower.count != 0) {
@@ -78,9 +80,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     func updateGetStream(name: String, id: String, token: String) {
-        Client.shared.setupUser(User(name: name,  id: id), token: token) { (result) in
-            self.getStreamVC.updateSetup()
-            self.getStreamVC.reloadData()
+        if (!self.isDebugBackFilling) {
+            Client.shared.setupUser(User(name: name,  id: id), token: token) { (result) in
+                self.getStreamVC.updateSetup()
+                self.getStreamVC.reloadData()
+            }
         }
     }
 
@@ -182,6 +186,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         
         NotificationCenter.default.addObserver(self, selector: #selector(areYouLoggedIn), name: NSNotification.Name(rawValue: GLOBAL_ARE_YOU_LOGGED_IN), object: nil)
           
+        //Debug
+        if (self.isDebugBackFilling) {
+            Client.shared.setupUser(User(name: "",  id: ""), token: "") { (result) in
+                print(result)
+            }
+        }
+        
         return true
     }
     
