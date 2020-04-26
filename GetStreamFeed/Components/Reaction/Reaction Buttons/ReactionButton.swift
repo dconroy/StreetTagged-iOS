@@ -25,7 +25,7 @@ open class ReactionButton: UIButton {
                                                           _ completion: @escaping Completion<T>)
         where T.ReactionType == GetStream.Reaction<ReactionExtraData, U> {
             isEnabled = false
-                    
+                                
             guard isSelected else {
                 presenter.addReaction(for: activity,
                                       kindOf: kind,
@@ -52,14 +52,14 @@ open class ReactionButton: UIButton {
                 return
             }
             
-            /*presenter.remove(reaction: reaction, parentReaction: parentReaction) { [weak self] in
+            presenter.remove(reaction: reaction, parentReaction: parentReaction) { [weak self] in
                 guard let self = self else {
                     return
                 }
                 
                 self.isEnabled = true
                 
-                /* if let error = $0.error {
+                if let error = $0.error {
                     if let clientError = error as? ClientError {
                         completion(.failure(clientError))
                     } else {
@@ -68,8 +68,8 @@ open class ReactionButton: UIButton {
                 } else {
                     self.isSelected = false
                     completion(.success((activity, self)))
-                } */
-            }*/
+                }
+            }
     }
     
     private func parse<T: ActivityProtocol>(_ result: Result<T, ClientError>,
