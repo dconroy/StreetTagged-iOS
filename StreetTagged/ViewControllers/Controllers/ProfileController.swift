@@ -39,6 +39,12 @@ public class ProfileController: FormViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
+        
         self.tagsRow = ButtonRow(){ row in
             row.title = TAGS_LABEL
             row.onCellSelection { cell, row in

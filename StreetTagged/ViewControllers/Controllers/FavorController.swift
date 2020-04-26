@@ -25,6 +25,12 @@ class FavorController: UIViewController, UICollectionViewDataSource, UICollectio
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
+        
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: 90, height: 90)

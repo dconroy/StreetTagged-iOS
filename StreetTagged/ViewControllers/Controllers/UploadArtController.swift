@@ -195,6 +195,13 @@ public class UploadArtController: FormViewController, UIImagePickerControllerDel
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
+        
         self.title = "Upload Street Art"
         
         let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
