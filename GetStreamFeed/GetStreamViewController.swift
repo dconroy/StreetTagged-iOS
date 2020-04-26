@@ -30,6 +30,11 @@ class GetStreamViewController: FlatFeedViewController<Activity> {
     
     override func viewDidLoad() {
         view.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTagsFollowers), name: NSNotification.Name(rawValue: GLOBAL_GET_STREAM_UPDATE_TAGS), object: nil)
     }

@@ -81,6 +81,12 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         super.viewDidLoad()
         updateSectionsIndex()
         
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
+        
         if sections.contains(.comments) {
             reactionPaginator?.load(.limit(100), completion: commentsLoaded)
             

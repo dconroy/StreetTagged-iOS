@@ -96,6 +96,13 @@ class TagsViewController: FormViewController, UIImagePickerControllerDelegate, U
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
+        
         self.title = "Select Tags"
         
         let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
