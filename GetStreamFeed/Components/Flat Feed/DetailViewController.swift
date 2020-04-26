@@ -369,21 +369,21 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
             let comment = comment(at: indexPath),
             let parentComment = self.comment(at: IndexPath(row: 0, section: indexPath.section)) {
             if comment == parentComment {
-               /* activityPresenter.reactionPresenter.remove(reaction: comment, activity: activityPresenter.activity) { [weak self] in
-                    /*if let error = $0.error {
+                activityPresenter.reactionPresenter.remove(reaction: comment, activity: activityPresenter.activity) { [weak self] in
+                    if let error = $0.error {
                         self?.showErrorAlert(error)
                     } else if let self = self{
                         self.reactionPaginator?.load(.limit(100), completion: self.commentsLoaded)
-                    }*/
-                } */
+                    }
+                }
             } else {
-                /* activityPresenter.reactionPresenter.remove(reaction: comment, parentReaction: parentComment) { [weak self] in
-                   /* if let error = $0.error {
+                activityPresenter.reactionPresenter.remove(reaction: comment, parentReaction: parentComment) { [weak self] in
+                    if let error = $0.error {
                         self?.showErrorAlert(error)
                     } else {
                         self?.tableView.reloadData()
-                    }*/
-                } */ 
+                    }
+                }
             }
         }
     }
