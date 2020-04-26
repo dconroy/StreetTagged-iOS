@@ -468,6 +468,8 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     }
     
     @objc func send(_ button: UIButton) {
+        
+        
         let parentReaction = textToolBar.replyText == nil ? nil : replyToComment
         view.endEditing(true)
         
@@ -475,22 +477,33 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
             return
         }
         
-        textToolBar.textView.isEditable = false
-        
-        activityPresenter.reactionPresenter.addComment(for: activityPresenter.activity,
-                                                       parentReaction: parentReaction,
-                                                       extraData: ReactionExtraData.comment(textToolBar.text),
-                                                       userTypeOf: T.ActorType.self) { [weak self] in
-                                                        if let self = self {
-                                                            self.textToolBar.text = ""
-                                                            self.textToolBar.textView.isEditable = true
-                                                            
-                                                            if let error = $0.error {
-                                                                self.showErrorAlert(error)
-                                                            } else {
-                                                                self.reactionPaginator?.load(.limit(100), completion: self.commentsLoaded)
+        if (userGlobalState == .userSignedIn) {
+            textToolBar.textView.isEditable = false
+            
+            activityPresenter.reactionPresenter.addComment(for: activityPresenter.activity,
+                                                           parentReaction: parentReaction,
+                                                           extraData: ReactionExtraData.comment(textToolBar.text),
+                                                           userTypeOf: T.ActorType.self) { [weak self] in
+                                                            if let self = self {
+                                                                self.textToolBar.text = ""
+                                                                self.textToolBar.textView.isEditable = true
+                                                                
+                                                                if let error = $0.error {
+                                                                    self.showErrorAlert(error)
+                                                                } else {
+                                                                    self.reactionPaginator?.load(.limit(100), completion: self.commentsLoaded)
+                                                                }
                                                             }
-                                                        }
+            }
+        } else {
+            let alert = UIAlertController(title: "Are you logged in?", message: "Please sign in or create an account to submit and favorite street art.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Sign In/Sign Up", style: UIAlertAction.Style.default, handler: { (alert: UIAlertAction!) in
+                userSignIn(navController: self.navigationController!)
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (alert: UIAlertAction!) in
+                
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
     }
 }
