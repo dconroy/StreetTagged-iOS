@@ -32,7 +32,7 @@ open class RepostButton: ReactionButton {
                       reaction: activity.original.userRepostReaction,
                       parentReaction: nil,
                       kindOf: .repost,
-                      userTypeOf: U.self,
+                      userTypeOf: U.self, 
                       targetsFeedIds: targetsFeedIds) {
                         if let result = try? $0.get() {
                             result.button.setTitle(String(result.activity.original.repostsCount), for: .normal)
